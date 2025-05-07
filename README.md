@@ -1,2 +1,2 @@
-# LuisErnestoCantin.github.io
-Hoja de Vida de  Luis Ernesto Cantin 2025
+# Luis Ernesto Cantin
+Hoja de Vida de Luis Ernesto Cantin
