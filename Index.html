@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Luis Ernesto Cantin - Curriculum Vitae</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #64ffda;
+            --light: #ccd6f6;
+            --dark: #020c1b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--light);
+            position: relative;
+        }
+
+        #bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 4rem 2rem;
+        }
+
+        header, section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, var(--light), var(--secondary));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .btn {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<header id="home">
+    <div class="container">
+        <div class="hero">
+            <h1>Luis Ernesto Cantin</h1>
+            <p>Ingeniero de Sistemas | Desarrollador Full Stack</p>
+            <a href="#about" class="btn">Sobre Mí</a>
+        </div>
+    </div>
+</header>
+
+<section id="about">
+    <div class="container">
+        <h2>Sobre Mí</h2>
+        <p>Hola, soy Luis, Ingeniero de Sistemas con 6 años de experiencia en desarrollo de software.</p>
+    </div>
+</section>
+
+<section id="experience">
+    <div class="container">
+        <h2>Experiencia Laboral</h2>
+        <p>Desarrollador .Net - HITSS Colombia</p>
+    </div>
+</section>
+
+<section id="education">
+    <div class="container">
+        <h2>Educación</h2>
+        <p>Ingeniería de Sistemas - Universidad de Nariño</p>
+    </div>
+</section>
+
+<footer>
+    <div class="container text-center">
+        <p>© 2025 Luis Ernesto Cantin. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    // Three.js Background Animation
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+    );
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("bg") });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.position.z = 30;
+
+    // Create a rotating torus knot
+    const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+    const material = new THREE.MeshStandardMaterial({
+        color: 0x64ffda,
+        wireframe: true,
+    });
+    const torus = new THREE.Mesh(geometry, material);
+    scene.add(torus);
+
+    // Lighting
+    const pointLight = new THREE.PointLight(0xffffff, 1);
+    pointLight.position.set(5, 5, 5);
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(pointLight, ambientLight);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        torus.rotation.x += 0.01;
+        torus.rotation.y += 0.005;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // GSAP Scroll Animations
+    gsap.utils.toArray("section").forEach((section, i) => {
+        gsap.from(section, {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+                end: "bottom 20%",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+</script>
+</body>
+</html>
