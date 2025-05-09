@@ -39,15 +39,28 @@
             height: 100vh;
             z-index: -1;
         }
-         .card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px; /* Semi-circular corners */
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             backdrop-filter: blur(10px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            text-align: center; /* Center text inside the card */
         }
 
+        .card:hover {
+            backdrop-filter: blur(15px);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        p:hover {
+            color: var(--secondary);
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
         .container {
             max-width: 1000px;
             margin: auto;
@@ -126,27 +139,27 @@
 <section id="about">
     <div class="container">
         <h2>Sobre Mí</h2>
-    <p style="text-align: justify;">Desarrollador Full Stack con más de seis años de experiencia en el diseño, desarrollo e implementación de soluciones de software escalables y de alto rendimiento, en entornos corporativos y bajo metodologías ágiles.</p>
+    <p class="card" style="text-align: justify;">Desarrollador Full Stack con más de seis años de experiencia en el diseño, desarrollo e implementación de soluciones de software escalables y de alto rendimiento, en entornos corporativos y bajo metodologías ágiles.</p>
     <br>
-    <p style="text-align: justify;">Mi enfoque principal es el desarrollo de aplicaciones web y servicios backend, utilizando tecnologías como .NET, ASP.NET Core y bases de datos SQL. He trabajado en proyectos que abarcan desde la creación de aplicaciones empresariales hasta la integración de sistemas complejos.</p>
+    <p class="card" style="text-align: justify;">Mi enfoque principal es el desarrollo de aplicaciones web y servicios backend, utilizando tecnologías como .NET, ASP.NET Core y bases de datos SQL. He trabajado en proyectos que abarcan desde la creación de aplicaciones empresariales hasta la integración de sistemas complejos.</p>
     <br>
-    <p style="text-align: justify;">Me apasiona aprender nuevas tecnologías y mejorar mis habilidades constantemente. Estoy siempre en busca de nuevos desafíos que me permitan crecer profesionalmente y contribuir al éxito de los proyectos en los que participo.</p>
+    <p class="card" style="text-align: justify;">Me apasiona aprender nuevas tecnologías y mejorar mis habilidades constantemente. Estoy siempre en busca de nuevos desafíos que me permitan crecer profesionalmente y contribuir al éxito de los proyectos en los que participo.</p>
     <br>
-    <p style="text-align: justify;">Me considero una persona proactiva, con habilidades para resolver problemas y trabajar en equipo. Me gusta colaborar con otros desarrolladores y compartir conocimientos para lograr un ambiente de trabajo productivo y enriquecedor.</p>
+    <p class="card" style="text-align: justify;">Me considero una persona proactiva, con habilidades para resolver problemas y trabajar en equipo. Me gusta colaborar con otros desarrolladores y compartir conocimientos para lograr un ambiente de trabajo productivo y enriquecedor.</p>
     <br>
-    <p style="text-align: justify;">Poseo un sólido dominio de tecnologías .NET y ASP.NET Core, así como experiencia comprobada en frameworks modernos como Angular CLI, Boostrap, Tailwind CSS y Node.js, complementado con habilidades avanzadas en JavaScript, HTML5 y CSS3.</p>
+    <p class="card" style="text-align: justify;">Poseo un sólido dominio de tecnologías .NET y ASP.NET Core, así como experiencia comprobada en frameworks modernos como Angular CLI, Boostrap, Tailwind CSS y Node.js, complementado con habilidades avanzadas en JavaScript, HTML5 y CSS3.</p>
     <br>
-    <p style="text-align: justify;">He participado en todas las fases del ciclo de vida del desarrollo de software, con especial atención a la calidad del código, pruebas unitarias, principios SOLID y patrones de diseño.</p>
+    <p class="card" style="text-align: justify;">He participado en todas las fases del ciclo de vida del desarrollo de software, con especial atención a la calidad del código, pruebas unitarias, principios SOLID y patrones de diseño.</p>
     <br>
-    <p style="text-align: justify;">Especialista en el desarrollo y consumo de API RESTful y servicios web, así como en la gestión de proyectos y flujos de trabajo a través de herramientas como Azure DevOps (Boards y Pipelines). Competente en el manejo de sistemas de control de versiones como GitHub, TFS, TortoiseSVN y Subversion.</p>
+    <p class="card" style="text-align: justify;">Especialista en el desarrollo y consumo de API RESTful y servicios web, así como en la gestión de proyectos y flujos de trabajo a través de herramientas como Azure DevOps (Boards y Pipelines). Competente en el manejo de sistemas de control de versiones como GitHub, TFS, TortoiseSVN y Subversion.</p>
     <br>
-    <p style="text-align: justify;">Experiencia en la creación de aplicaciones web responsivas y accesibles, aplicando principios de diseño centrado en el usuario y mejores prácticas de usabilidad.</p>
+    <p class="card" style="text-align: justify;">Experiencia en la creación de aplicaciones web responsivas y accesibles, aplicando principios de diseño centrado en el usuario y mejores prácticas de usabilidad.</p>
     <br>
-    <p style="text-align: justify;">Experiencia en administración de bases de datos relacionales, incluyendo SQL Server, PostgreSQL, MySQL y Oracle, aplicando criterios de optimización y normalización de datos.</p>
+    <p class="card" style="text-align: justify;">Experiencia en administración de bases de datos relacionales, incluyendo SQL Server, PostgreSQL, MySQL y Oracle, aplicando criterios de optimización y normalización de datos.</p>
     <br>
-    <p style="text-align: justify;">Conocimientos en metodologías ágiles como Scrum, así como en la implementación de prácticas DevOps para la integración y entrega continua (CI/CD).</p>
+    <p class="card" style="text-align: justify;">Conocimientos en metodologías ágiles como Scrum, así como en la implementación de prácticas DevOps para la integración y entrega continua (CI/CD).</p>
     <br>
-    <p style="text-align: justify;">Habilidades interpersonales sólidas, con capacidad para trabajar en equipo y colaborar eficazmente con diferentes áreas de la organización. Proactivo y orientado a resultados, siempre buscando mejorar procesos y aportar valor al negocio.</p>
+    <p class="card" style="text-align: justify;">Habilidades interpersonales sólidas, con capacidad para trabajar en equipo y colaborar eficazmente con diferentes áreas de la organización. Proactivo y orientado a resultados, siempre buscando mejorar procesos y aportar valor al negocio.</p>
     <br>
 </section>
 
