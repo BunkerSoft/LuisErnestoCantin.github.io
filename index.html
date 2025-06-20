@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
+<meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Luis Ernesto Cantin - Curriculum Vitae</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -36,6 +36,15 @@
             line-height: 1.8;
             letter-spacing: 0.02em;
         }
+
+        video#videoPlayer {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
 
         #bg {
             position: fixed;
@@ -156,13 +165,48 @@
         tr:nth-child(even) {
             background: rgba(255, 255, 255, 0.02);
         }
+
+            video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+        #video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Clave para ajuste completo */
+      z-index: -1;
+    }
+
+      .welcome-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 100%;
+      backdrop-filter: blur(5px);
+      z-index: 10;
+    }
     </style>
 </head>
 <body>
-<canvas id="bg"></canvas>
-
+  <audio id="audioPlayer" src="sonido.weba" preload="auto" style="display:none;"></audio>
+  <button id="toggleAudioBtn" style="position:fixed;top:20px;right:20px;z-index:20;" class="btn">🔇 Sonido OFF</button>
+  <div class="video-wrapper" style="position:relative;width:100vw;height:100vh;overflow:hidden;">
+    <video id="videoPlayer" autoplay muted playsinline style="position:absolute;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:1;"></video>
+    
 <header id="home">
-    <div class="container">
+    <div class="welcome-container">
         <div class="hero">
             <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="mx-auto rounded-full w-16 h-16 mb-2 border-2 border-secondary shadow-lg"/>
             <h1>Luis Ernesto Cantin Oviedo</h1>
@@ -193,6 +237,12 @@
         </div>
     </div>
 </header>
+    </div>
+  </div>
+
+<canvas id="bg"></canvas>
+
+
 
 <section id="about">
     <div class="container">
@@ -440,8 +490,64 @@
     </div>
 </footer>
 
-<script>
-    // Three.js Background Animation
+
+  <script>
+    const videos = [
+      "01.mp4",
+      "02.mp4",
+      "03.mp4",
+      "04.mp4"
+    ];
+
+    let index = 0;
+    const videoPlayer = document.getElementById("videoPlayer");
+    const welcomeContainer = document.getElementById("welcomeContainer");
+    const startBtn = document.getElementById("startBtn");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const toggleAudioBtn = document.getElementById("toggleAudioBtn");
+    let audioEnabled = false;
+
+    function playNextVideo() {
+      videoPlayer.src = videos[index];
+      videoPlayer.load();
+      videoPlayer.play().catch(err => console.log("Error:", err));
+      index = (index + 1) % videos.length;
+    }
+
+    videoPlayer.addEventListener("ended", playNextVideo);
+
+    // Si el usuario da clic en Comenzar, oculta el welcome y sigue con los videos
+    if (startBtn) {
+      startBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        welcomeContainer.style.display = "none";
+        if (videoPlayer.paused) videoPlayer.play();
+        if (!audioEnabled) {
+          audioPlayer.play();
+          audioEnabled = true;
+          toggleAudioBtn.textContent = "🔊 Sonido ON";
+        }
+      });
+    }
+
+    toggleAudioBtn.addEventListener("click", function() {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+        toggleAudioBtn.textContent = "🔊 Sonido ON";
+        audioEnabled = true;
+      } else {
+        audioPlayer.pause();
+        toggleAudioBtn.textContent = "🔇 Sonido OFF";
+        audioEnabled = false;
+      }
+    });
+
+    // Reproducir primer video
+    playNextVideo();
+
+
+//*********************
+// Three.js Background Animation
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
         75,
@@ -497,6 +603,16 @@
             }
         });
     });
-</script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+  audioPlayer.play().then(() => {
+    audioEnabled = true;
+    toggleAudioBtn.textContent = "🔊 Sonido ON";
+  }).catch(() => {
+    // Si el navegador bloquea el autoplay, el usuario podrá activarlo manualmente
+    toggleAudioBtn.textContent = "🔇 Sonido OFF";
+  });
+});
+  </script>
 </body>
 </html>
