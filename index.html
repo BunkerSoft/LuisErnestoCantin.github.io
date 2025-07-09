@@ -9,610 +9,844 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
 
     <style>
-         /* Custom Styles */
-        :root {
-            --primary: #0a192f;
-            --secondary: #64ffda;
-            --accent: #a8b2d1;
-            --light: #ccd6f6;
-            --dark: #020c1b;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: var(--primary);
-            color: var(--light);
-            position: relative;
-            font-weight: 400;
-            line-height: 1.8;
-            letter-spacing: 0.02em;
-        }
-
-        video#videoPlayer {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      position: relative;
-      z-index: 1;
+      
+       .headline-gradient {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 700;
+      background: linear-gradient(90deg, #06b6d4, #0ea5e9, #22d3ee, #38bdf8, #06b6d4);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 12px rgba(6,182,212,0.10);
+      
     }
-
-        #bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 6rem 2rem;
-        }
-
-        header, section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        h1 {
-            font-family: 'Clash Display', sans-serif;
-            font-size: 4rem;
-            background: linear-gradient(to right, var(--light) 20%, var(--secondary) 80%);
-            -webkit-background-clip: text;
-            color: transparent;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-        }
-
-        h2 {
-            font-family: 'Clash Display', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 500;
-            margin-bottom: 2.5rem;
-            color: var(--secondary);
-        }
-
-        p, li, td {
-            font-weight: 300;
-            font-size: 1.15rem;
-        }
-
-      .btn {
-            margin-top: 1rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--secondary);
-            color: var(--secondary);
-            border-radius: 8px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: rgba(100, 255, 218, 0.2);
-            transform: translateY(-2px);
-        }
     
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .tool-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .tool-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(100, 255, 218, 0.2);
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
-        }
-
-        th {
-            font-family: 'Clash Display', sans-serif;
-            font-weight: 500;
-            color: var(--secondary);
-        }
-
-        tr:nth-child(even) {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-            video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    
+    /* Fondo global tipo macOS Sonoma/iOS 17 */
+    body {
+      background: linear-gradient(120deg, #e0e7ef 0%, #f5f7fa 50%, #d0e6f6 100%);
+      min-height: 100vh;
+      font-family: 'Inter', 'SF Pro Display', 'Segoe UI', 'Roboto', Arial, sans-serif;
+      color: #222;
     }
-        #video-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Clave para ajuste completo */
-      z-index: -1;
+    /* Liquid Glass macOS/iOS Sonoma */
+    .liquid-glass {
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(200,230,255,0.13) 100%);
+      backdrop-filter: blur(32px) saturate(1.3) brightness(1.08);
+      -webkit-backdrop-filter: blur(32px) saturate(1.3) brightness(1.08);
+      border: 1.5px solid rgba(255,255,255,0.32);
+      box-shadow: 0 8px 32px 0 rgba(60, 120, 180, 0.10), 0 1.5px 8px 0 rgba(255,255,255,0.18) inset;
+      border-radius: 28px;
+      transition: box-shadow 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1), background 0.5s cubic-bezier(.4,0,.2,1);
     }
-
-      .welcome-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .liquid-glass:hover {
+      box-shadow: 0 16px 48px 0 rgba(60, 120, 180, 0.16), 0 2px 16px 0 rgba(255,255,255,0.22) inset;
+      background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(200,230,255,0.18) 100%);
+      transform: scale(1.025) translateY(-2px);
+    }
+    /* Tool card estilo glassmorphism Sonoma */
+    .tool-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(200,230,255,0.10) 100%);
+      border: 1.2px solid rgba(255,255,255,0.22);
+      border-radius: 18px;
+      box-shadow: 0 4px 16px 0 rgba(60, 120, 180, 0.08), 0 1px 4px 0 rgba(255,255,255,0.10) inset;
+      padding: 1.1rem;
       text-align: center;
-      color: white;
-      background-color: rgba(0, 0, 0, 0.2);
-      padding: 40px;
-      border-radius: 15px;
-      max-width: 500px;
-      width: 100%;
-      backdrop-filter: blur(5px);
-      z-index: 10;
+      transition: box-shadow 0.4s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1), background 0.4s cubic-bezier(.4,0,.2,1);
     }
+    .tool-card:hover {
+      box-shadow: 0 8px 32px 0 rgba(60, 120, 180, 0.13), 0 2px 8px 0 rgba(255,255,255,0.16) inset;
+      background: linear-gradient(135deg, rgba(255,255,255,0.24) 0%, rgba(200,230,255,0.16) 100%);
+      transform: scale(1.03) translateY(-2px);
+    }
+    .tool-card img {
+      filter: drop-shadow(0 2px 6px rgba(60,120,180,0.10));
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .tool-card img:hover {
+      filter: drop-shadow(0 4px 12px rgba(60,120,180,0.16));
+      transform: scale(1.08);
+    }
+    /* Nav y footer glassmorphism suave */
+    .nav-shrink, footer.liquid-glass {
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(200,230,255,0.10) 100%);
+      backdrop-filter: blur(24px) saturate(1.2);
+      -webkit-backdrop-filter: blur(24px) saturate(1.2);
+      border-radius: 0 0 24px 24px;
+      border-top: 1.5px solid rgba(255,255,255,0.22);
+      box-shadow: 0 2px 12px 0 rgba(60,120,180,0.08);
+    }
+    .nav-shrink.scrolled {
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(200,230,255,0.13) 100%);
+      box-shadow: 0 4px 24px 0 rgba(60,120,180,0.10);
+    }
+    /* Scrollbar glassmorphism Sonoma */
+    ::-webkit-scrollbar {
+      width: 12px;
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(200,230,255,0.13));
+      border-radius: 8px;
+      border: 2px solid rgba(255,255,255,0.18);
+      box-shadow: 0 2px 8px rgba(60,120,180,0.08), inset 0 1px 4px rgba(255,255,255,0.12);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, rgba(200,230,255,0.22), rgba(255,255,255,0.22));
+    }
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(200,230,255,0.18) rgba(255,255,255,0.08);
+    }
+    /* Ajustes de tipografía y detalles */
+    h1, h2, h3, .font-poppins {
+      font-family: 'SF Pro Display', 'Poppins', 'Inter', Arial, sans-serif;
+      letter-spacing: -0.01em;
+    }
+    h1 {
+      font-weight: 700;
+      color: #222;
+      text-shadow: 0 2px 12px rgba(200,230,255,0.10);
+    }
+    h2, h3 {
+      font-weight: 600;
+      color: #2a2a2a;
+    }
+    .text-gray-600, .text-gray-700, .text-gray-800, .text-xs, .text-base {
+      color: #2a2a2a !important;
+    }
+    /* Separadores minimalistas */
+    hr {
+      border: none;
+      border-top: 1.2px solid rgba(200,230,255,0.18);
+      margin: 0.5rem 0;
+    }
+    /* Ajuste de padding y border-radius para look Sonoma */
+    .p-5, .p-6 {
+      border-radius: 24px !important;
+    }
+    /* Animación fade-in más suave */
+    .section {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      transition: opacity 1s cubic-bezier(.4,0,.2,1), transform 1s cubic-bezier(.4,0,.2,1);
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    /* Sticky sidebar */
+    .sidebar {
+      position: sticky;
+      top: 1rem;
+      transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    /* Navigation shrink on scroll */
+    .nav-shrink {
+      transition: all 0.5s ease;
+    }
+    .nav-shrink.scrolled {
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(0, 230, 203, 0.05));
+      backdrop-filter: blur(20px);
+    }
+    /* Mega menu */
+    .mega-menu {
+      transition: all 0.5s ease;
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nav-item:hover .mega-menu {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    /* Smooth scroll */
+    .smooth-scroll {
+      scroll-behavior: smooth;
+    }
+    /* Timeline styles */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 1rem;
+      height: 100%;
+      width: 2px;
+      background: rgba(0, 230, 203, 0.15);
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0.75rem;
+      top: 0.5rem;
+      width: 8px;
+      height: 8px;
+      background: #00e6cb;
+      border-radius: 50%;
+    }
+    /* Container for consistent padding */
+    .container {
+      max-width: 80rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    @media (min-width: 640px) {
+      .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
+    /* Fade-in animation for sections */
+    .section {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    /* Sidebar toggle for mobile */
+    #sidebar-toggle {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      #sidebar-toggle {
+        display: block;
+      }
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+    }
+    /* Scrollbar estilo glassmorphism como el footer */
+::-webkit-scrollbar {
+  width: 12px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(200,230,255,0.13));
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.18);
+  box-shadow: 0 2px 8px rgba(60,120,180,0.08), inset 0 1px 4px rgba(255,255,255,0.12);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, rgba(200,230,255,0.22), rgba(255,255,255,0.22));
+}
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200,230,255,0.18) rgba(255,255,255,0.08);
+}
+    
+    
+    
     </style>
 </head>
-<body>
-  <audio id="audioPlayer" src="sonido.weba" preload="auto" style="display:none;"></audio>
-  <button id="toggleAudioBtn" style="position:fixed;top:20px;right:20px;z-index:20;" class="btn">🔇 Sonido OFF</button>
-  <div class="video-wrapper" style="position:relative;width:100vw;height:100vh;overflow:hidden;">
-    <video id="videoPlayer" autoplay muted playsinline style="position:absolute;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:1;"></video>
-    
-<header id="home">
-    <div class="welcome-container">
-        <div class="hero">
-            <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="mx-auto rounded-full w-16 h-16 mb-2 border-2 border-secondary shadow-lg"/>
-            <h1>Luis Ernesto Cantin Oviedo</h1>
-            <p>Ingeniero de Sistemas | Desarrollador Full Stack</p>
-            <br>
-            <div class="flex justify-center space-x-4"></div>
-                <a href="https://wa.me/3006502320" target="_blank" class="text-secondary hover:text-light">
-                    <i class="fab fa-whatsapp text-2xl"></i>
-                </a>
-                <a href="tel:+3006502320" class="text-secondary hover:text-light">
-                    <i class="fas fa-phone-alt text-2xl"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/luis-ernesto-cantin-oviedo-83353163/" target="_blank" class="text-secondary hover:text-light">
-                    <i class="fab fa-linkedin text-2xl"></i>
-                </a>
-                <a href="https://bunkersoft.github.io/LuisErnestoCantin.github.io/" target="_blank" class="text-secondary hover:text-light">
-                    <i class="fab fa-github text-2xl"></i>
-                </a>
-                <a href="https://www.facebook.com/LuisErnestoCantinOviedo/" target="_blank" class="text-secondary hover:text-light">
-                    <i class="fab fa-facebook text-2xl"></i>
-                </a>
-                <a href="mailto:ingenieroluisernestocantin@hotmail.com" class="text-secondary hover:text-light">
-                    <i class="fas fa-envelope text-2xl"></i>
-                </a>
-            </div>
-            <br>
-            <a href="#about" class="btn">Sobre Mí</a>
-        </div>
+<body class="font-inter bg-gradient-to-br from-white to-cyan-100 text-gray-800 smooth-scroll">
+  <!-- Video Background SOLO en la sección Hero -->
+<section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+  <div class="video-wrapper absolute inset-0 w-full h-full -z-10 pointer-events-none">
+    <video id="videoPlayer" autoplay muted playsinline class="w-full h-full object-cover opacity-100 bg-transparent"></video>
+    <audio id="audioPlayer" src="sonido.weba" preload="auto"></audio>
+    <button id="toggleAudioBtn" class="fixed top-12 right-4 z-50 bg-cyan-400 text-white px-3 py-1 rounded-full shadow hover:bg-cyan-500 transition text-xs">🔇 OFF</button>
+  </div>
+  <div class="text-center max-w-2xl mx-auto px-4 section relative z-10">
+    <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="mx-auto rounded-full w-16 h-16 mb-2 border-2 border-secondary shadow-lg">
+    <h1 id="chars" class="text text-4xl font-poppins font-medium mb-3 p-5 liquid-glass">Luis Ernesto Cantin Oviedo</h1>
+    <p class="text-base text-gray-600 mb-5">Ingeniero de Sistemas | Desarrollador Full Stack</p>
+    <div class="flex justify-center gap-3 mb-4">
+      <a href="https://wa.me/573006502320" target="_blank" class="text-[#25D366] hover:text-[#128C7E] text-2xl" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="tel:+573006502320" class="text-[#0099FF] hover:text-[#005fa3] text-2xl" title="Teléfono"><i class="fas fa-phone-alt"></i></a>
+      <a href="https://www.linkedin.com/in/luis-ernesto-cantin-oviedo-83353163/" target="_blank" class="text-[#0077B5] hover:text-[#005983] text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://bunkersoft.github.io/LuisErnestoCantin.github.io/" target="_blank" class="text-[#181717] hover:text-[#333] text-2xl" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.facebook.com/LuisErnestoCantinOviedo/" target="_blank" class="text-[#1877F3] hover:text-[#145db2] text-2xl" title="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="mailto:ingenieroluisernestocantin@hotmail.com" class="text-[#EA4335] hover:text-[#b31412] text-2xl" title="Email"><i class="fas fa-envelope"></i></a>
     </div>
-</header>
+    <div class="flex justify-center gap-3">
+      <a href="#contact" class="inline-block bg-cyan-400 text-white px-5 py-2 rounded-full hover:bg-cyan-500 transition liquid-glass text-sm">Hire Me</a>
+      <a href="HV%20Luis%20Ernesto%20Cantin%202025%20Con%20funciones_Comprimida.pdf" download class="inline-block bg-gray-600 text-white px-5 py-2 rounded-full hover:bg-gray-700 transition liquid-glass text-sm" target="_blank">Descargar HV</a>
     </div>
   </div>
-
-<canvas id="bg"></canvas>
-
-
-
-<section id="about">
-    <div class="container">
-        <h2>Sobre Mí</h2>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Desarrollador Full Stack con más de seis años de experiencia en el diseño, desarrollo e implementación de soluciones de software escalables y de alto rendimiento, en entornos corporativos y bajo metodologías ágiles.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Mi enfoque principal es el desarrollo de aplicaciones web y servicios backend, utilizando tecnologías como .NET, ASP.NET Core y bases de datos SQL. He trabajado en proyectos que abarcan desde la creación de aplicaciones empresariales hasta la integración de sistemas complejos.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Me apasiona aprender nuevas tecnologías y mejorar mis habilidades constantemente. Estoy siempre en busca de nuevos desafíos que me permitan crecer profesionalmente y contribuir al éxito de los proyectos en los que participo.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Me considero una persona proactiva, con habilidades para resolver problemas y trabajar en equipo. Me gusta colaborar con otros desarrolladores y compartir conocimientos para lograr un ambiente de trabajo productivo y enriquecedor.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Poseo un sólido dominio de tecnologías .NET y ASP.NET Core, así como experiencia comprobada en frameworks modernos como Angular CLI, Boostrap, Tailwind CSS y Node.js, complementado con habilidades avanzadas en JavaScript, HTML5 y CSS3.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> He participado en todas las fases del ciclo de vida del desarrollo de software, con especial atención a la calidad del código, pruebas unitarias, principios SOLID y patrones de diseño.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Especialista en el desarrollo y consumo de API RESTful y servicios web, así como en la gestión de proyectos y flujos de trabajo a través de herramientas como Azure DevOps (Boards y Pipelines). Competente en el manejo de sistemas de control de versiones como GitHub, TFS, TortoiseSVN y Subversion.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Experiencia en la creación de aplicaciones web responsivas y accesibles, aplicando principios de diseño centrado en el usuario y mejores prácticas de usabilidad.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Experiencia en administración de bases de datos relacionales, incluyendo SQL Server, PostgreSQL, MySQL y Oracle, aplicando criterios de optimización y normalización de datos.</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Conocimientos en metodologías ágiles como Scrum, así como en la implementación de prácticas DevOps para la integración y entrega continua (CI/CD).</p>
-    <br>
-    <p class="flex card" style="text-align: justify;">
-                <svg class="h-[1lh] w-5.5 shrink-0" viewBox="0 0 22 22" fill="none" stroke-linecap="square">
-            <circle cx="11" cy="11" r="11" class="fill-sky-400/25" />
-            <circle cx="11" cy="11" r="10.5" class="stroke-sky-400/25" />
-            <path d="M8 11.5L10.5 14L14 8" class="stroke-sky-800 dark:stroke-sky-300" />
-          </svg> Habilidades interpersonales sólidas, con capacidad para trabajar en equipo y colaborar eficazmente con diferentes áreas de la organización. Proactivo y orientado a resultados, siempre buscando mejorar procesos y aportar valor al negocio.</p>
-    <br>
 </section>
 
-
-
-
-<section id="experience">
-    <div class="container">
-        <h2 class="text-2xl font-bold mb-4">Experiencia Laboral</h2>
-        <p class="text-lg font-semibold mb-4">Desarrollador .Net - HITSS Colombia</p>
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAMFBMVEVHcExKSkpKSkpJSUlKSkpLS0tKSkpJSUlGRkZISEhLS0tKSkpKSkpLS0tKSkpKSkqzBWFXAAAAEHRSTlMAVqohwfZqLwwW/39B4Yqa56HfbAAAAT1JREFUeAFFxzOAXQEURdE9NsrYTcwmtm2jim0nVaw21nDHaGJWr4ltjlH/Zox1eagQRqsu1BsavbpFxdlbnU5cih30eNvqeB9XxcaVx6wVEVmxQAJAotlt4s71eQz5qbHNHxNqEfW5NOwYcXZJ8SIQ1xAg/Arxpq2/BKsB4iccaurlUaYevg0QXDbj3Uj9eT8sNWYJ+e/1JaPs8rwH0dGU7NIrRN4gLIfE5ZQyStf7eQFV3oZ1Mr2XXt54nTM/GRLSMXc1w0uU9mbgLP3YTmcrA5JZ/Vk7e6HlEdPo0ZpIpxroRdp9BYjywuNw9cy4vwAJ+pKxprXTAQB6qSjNDPXi5xkQmKm2+KzDPAfhtlQ7e+31aVcDo46ogeltMs4DpPRy0v1eqrsBCHRBmPqJaiEvd+3sK2o1/+CcRVQoB2yckJTgaGf9AAAAAElFTkSuQmCC" alt="Global Hitss Logo" class="mx-auto w-16 h-auto mb-2"/>
-
-    </td>
-        <div class="overflow-x-auto">
-            <table class="table-auto border-collapse w-full text-left">
-                <tbody>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Cargo</td>
-                        <td class="px-4 py-2">Desarrollador .Net Estándar</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Función</td>
-                        <td class="px-4 py-2 text-justify">Responsable de diseñar, desarrollar y mantener soluciones tecnológicas basadas en .NET, asegurando su calidad, eficiencia y alineación con los requisitos del negocio y los estándares técnicos establecidos en los ambientes dev, pruebas, producción.</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Dirección</td>
-                        <td class="px-4 py-2">Diagonal 24 c No. 68-99, Plaza Claro, Torre 2. Bogotá</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Teléfono</td>
-                        <td class="px-4 py-2">(601) 7500310</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Duración</td>
-                        <td class="px-4 py-2">14 de febrero 2024 hasta 15 de febrero 2025 (1 año)</td>
-                    </tr>
-                </tbody>
-            </table>
+  <!-- Navigation Bar -->
+  <nav class="fixed top-0 w-full z-50 liquid-glass nav-shrink">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-2">
+        <div class="text-xl font-poppins font-medium text-gray-900 flex items-center gap-2">
+          <span id="liveClock" class="ml-2 text-base font-mono text-cyan-600"></span>
         </div>
-        <img src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Visual Studio Code Logo" class="mx-auto w-16 h-16"/>
-        <div class="overflow-x-auto">
-            <table class="table-auto border-collapse w-full text-left">
-                <tbody>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Cargo</td>
-                        <td class="px-4 py-2">Desarrollador T3</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Función</td>
-                        <td class="px-4 py-2 text-justify">Dar soporte a las diferentes plataformas de los proyectos y de la empresa Opain y Smart Cash.</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Dirección</td>
-                        <td class="px-4 py-2">DIAGONAL 34 BIS N 18-44</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Teléfono</td>
-                        <td class="px-4 py-2">3193412774</td>
-                    </tr>
-                    <tr>
-                        <td class="px-4 py-2 font-bold">Duración</td>
-                        <td class="px-4 py-2">2 de agosto 2021</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="flex space-x-4">
+          <div class="nav-item relative">
+            <a href="#home" class="text-gray-700 hover:text-cyan-400 transition text-sm">Inicio</a>
+          </div>
+          <div class="nav-item relative group">
+            <a href="#experience" class="text-gray-700 hover:text-cyan-400 transition text-sm">Experiencia</a>
+            <div class="mega-menu absolute left-0 mt-2 w-40 bg-white liquid-glass rounded-lg shadow-lg p-3 hidden group-hover:block">
+              <a href="#work" class="block py-1 hover:text-cyan-400 text-sm">Historial Laboral</a>
+            </div>
+          </div>
+          <div class="nav-item relative">
+            <a href="#education" class="text-gray-700 hover:text-cyan-400 transition text-sm">Educación</a>
+          </div>
+          <div class="nav-item relative">
+            <a href="#tools" class="text-gray-700 hover:text-cyan-400 transition text-sm">Herramientas</a>
+          </div>
+          <div class="nav-item relative">
+            <a href="#contact" class="text-gray-700 hover:text-cyan-400 transition text-sm">Contacto</a>
+          </div>
         </div>
+        <button id="sidebar-toggle" class="md:hidden text-gray-700 focus:outline-none">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
     </div>
-</section>
+  </nav>
 
-<section id="education">
-    <div class="container">
-        <h2>Educación</h2>
-        <p>Ingeniero de Sistemas</p>
-        <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/logo-ppal-blanco.fw_.png" alt="Logo Universidad de Nariño" class="mx-auto w-48 h-auto mb-12"/>
-    </div>
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col md:flex-row gap-10">
+    <!-- Sidebar -->
+    <aside class="sidebar md:w-1/4">
+      <div class="p-5 rounded-lg liquid-glass">
+        <section class="liquid-glass flex flex-col items-center justify-center p-4 my-4">
+  <h2 class="text-lg font-poppins font-semibold mb-2 text-cyan-700">Descarga mi hoja de vida</h2>
+  <p class="text-xs text-gray-700 mb-2">Escanea el código QR para obtener mi CV en PDF</p>
+  <img src="cv-qr-code.png" alt="QR CV" width="160" height="160" class="rounded-xl shadow mb-2 border border-cyan-100/40 bg-white/60">
 </section>
-
-<section id="tools">
-    <div class="container">
-        <h2>Herramientas de Manejo</h2>
-        <div class="tool-grid">
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="Visual Studio Code Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Visual Studio Code</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Git</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>GitHub</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Azure</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>.NET Core</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>SQL Server</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>PostgreSQL</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>MySQL</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Oracle</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>JavaScript</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>HTML5</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>CSS3</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Firebase</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Angular</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Node.js</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Bootstrap</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind CSS Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Tailwind CSS</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Visual Studio</p>
-            </div>
-            <div class="tool-card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twilio/twilio-original.svg" alt="Twilio Logo" class="mx-auto w-12 h-12 mb-2"/>
-                <p>Twilio</p>
-            </div>
+        <p class="text-gray-600 text-center mb-3 text-xs">Full Stack Developer, Bogotá</p>
+        <div class="space-y-1 text-xs">
+          <p><strong>Email:</strong> <a href="mailto:ingenieroluisernestocantin@hotmail.com" class="text-cyan-400 hover:underline">ingenieroluisernestocantin@hotmail.com</a></p>
+          <p><strong>Teléfono:</strong> <a href="tel:+573006502320" class="text-cyan-400 hover:underline">+57 300 650 2320</a></p>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/luis-ernesto-cantin-oviedo-83353163/" class="text-cyan-400 hover:underline">linkedin.com/in/luis-ernesto-cantin-oviedo-83353163</a></p>
+          <p><strong>GitHub:</strong> <a href="https://bunkersoft.github.io/LuisErnestoCantin.github.io/" class="text-cyan-400 hover:underline">bunkersoft.github.io/LuisErnestoCantin.github.io</a></p>
         </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="md:w-3/4 space-y-12">
+      <!-- About Section -->
+      <section id="about" class="section">
+  <h2 class="text-2xl font-poppins font-medium mb-5 headline-gradient">Sobre mí</h2>
+  <div class="p-5 rounded-2xl liquid-glass border border-cyan-100/20 space-y-8">
+    <div class="text-center">
+      <h3 class="text-2xl font-poppins font-semibold mb-2 headline-gradient">Luis Ernesto Cantin Oviedo</h3>
+      <p class="text-base text-gray-700 font-semibold mb-1">Ingeniero de Sistemas | Full Stack Developer .NET | Azure | DevOps | SQL | Angular</p>
+      <p class="text-sm text-gray-600 mb-1">La Unión, Nariño | +57 3006502320 | <a href="mailto:ingenieroluisernestocantin@hotmail.com" class="text-cyan-500 hover:underline">ingenieroluisernestocantin@hotmail.com</a></p>
     </div>
+    <div>
+      <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Perfil Profesional</h3>
+      <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+        <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto profesional Luis Ernesto Cantin" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Luis Ernesto Cantin Oviedo">
+        <div class="flex-1">
+          <p class="text-gray-700 text-sm mb-2">Ingeniero de Sistemas con más de 6 años de experiencia profesional en desarrollo Full Stack, especializado en tecnologías .NET, ASP.NET Core, Angular, JavaScript, SQL Server y Azure. Amplio dominio en integración de APIs REST/SOAP, automatización de procesos DevOps con Azure, y despliegue continuo. Experiencia sólida en el sector salud, bancario y aeroportuario, implementando soluciones escalables con metodologías ágiles Scrum. Ético, orientado a resultados, con habilidades para el trabajo en equipo, liderazgo técnico y análisis de requerimientos.</p>
+          <div class="flex flex-wrap gap-4 text-xs text-gray-600 items-center">
+            <span class="flex items-center gap-1"><i class="fas fa-map-marker-alt text-cyan-400"></i>Colombia</span>
+            <span class="flex items-center gap-1"><i class="fas fa-envelope text-cyan-400"></i>ingenieroluisernestocantin@hotmail.com</span>
+            <span class="flex items-center gap-1"><i class="fas fa-phone-alt text-cyan-400"></i>+57 3006502320</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Experiencia Profesional</h3>
+      <div class="space-y-4">
+        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAMFBMVEVHcExKSkpKSkpJSUlKSkpLS0tKSkpJSUlGRkZISEhLS0tKSkpKSkpLS0tKSkpKSkqzBWFXAAAAEHRSTlMAVqohwfZqLwwW/39B4Yqa56HfbAAAAT1JREFUeAFFxzOAXQEURdE9NsrYTcwmtm2jim0nVaw21nDHaGJWr4ltjlH/Zox1eagQRqsu1BsavbpFxdlbnU5cih30eNvqeB9XxcaVx6wVEVmxQAJAotlt4s71eQz5qbHNHxNqEfW5NOwYcXZJ8SIQ1xAg/Arxpq2/BKsB4iccaurlUaYevg0QXDbj3Uj9eT8sNWYJ+e/1JaPs8rwH0dGU7NIrRN4gLIfE5ZQyStf7eQFV3oZ1Mr2XXt54nTM/GRLSMXc1w0uU9mbgLP3YTmcrA5JZ/Vk7e6HlEdPo0ZpIpxroRdp9BYjywuNw9cy4vwAJ+pKxprXTAQB6qSjNDPXi5xkQmKm2+KzDPAfhtlQ7e+31aVcDo46ogeltMs4DpPRy0v1eqrsBCHRBmPqJaiEvd+3sK2o1/+CcRVQoB2yckJTgaGf9AAAAAElFTkSuQmCC" alt="Logo HITSS" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="HITSS Colombia">
+          <div class="flex-1">
+            <h4 class="text-lg font-semibold text-cyan-700">HITSS COLOMBIA S.A.S.</h4>
+            <p class="text-gray-600 text-xs mb-1">Desarrollador .NET Estándar | febrero 2024 - febrero 2025</p>
+            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
+              <li>Desarrollo de funcionalidades en .NET Core 5, optimización de rendimiento, integración de facturación electrónica, módulos de notificación, consumo de APIs REST seguras, automatización de despliegues CI/CD con Azure DevOps y monitoreo con Application Insights.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+          <img src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Logo Digital Bank" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Digital Bank">
+          <div class="flex-1">
+            <h4 class="text-lg font-semibold text-cyan-700">Digital Bank</h4>
+            <p class="text-gray-600 text-xs mb-1">Desarrollador T3 | agosto 2021 - octubre 2023</p>
+            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
+              <li>Diseño e implementación de plataformas de gestión de tráfico aéreo para Opain. Desarrollo de reportes, estructuras jerárquicas estilo explorador, módulos de notificaciones (SendGrid), gestión CI/CD, mejoras de rendimiento y soporte en entornos productivos.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+          <img src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" alt="Logo Metronics" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Metronics">
+          <div class="flex-1">
+            <h4 class="text-lg font-semibold text-cyan-700">Metronics</h4>
+            <p class="text-gray-600 text-xs mb-1">Ingeniero de desarrollo con visión de negocio | enero 2021 - junio 2021</p>
+            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
+              <li>Desarrollo de informes SSRS y mantenimiento de aplicaciones en .NET Core para proyectos como SIE7E, SIEF y Operaciones 360.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+          <img src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" alt="Logo ESE Hospital Eduardo Santos" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="E.S.E Hospital Eduardo Santos">
+          <div class="flex-1">
+            <h4 class="text-lg font-semibold text-cyan-700">E.S.E Hospital Eduardo Santos</h4>
+            <p class="text-gray-600 text-xs mb-1">Ingeniero de sistemas | septiembre 2017 - agosto 2020</p>
+            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
+              <li>Soporte y desarrollo en sistemas médicos y facturación. Administración de bases PostgreSQL, cumplimiento normativo RIPS, soporte al software Compucontac.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+          <img src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" alt="Logo Galeras Studios" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Galeras Studios">
+          <div class="flex-1">
+            <h4 class="text-lg font-semibold text-cyan-700">Galeras Studios</h4>
+            <p class="text-gray-600 text-xs mb-1">Desarrollador .NET Full Stack | febrero 2016 - agosto 2017</p>
+            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
+              <li>Desarrollo en C#, SQL Server y tecnologías web modernas.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+          <img src="https://www.indracompany.com/sites/default/files/indra_logo.png" alt="Logo Indra Company" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Indra Company">
+          <div class="flex-1">
+            <h4 class="text-lg font-semibold text-cyan-700">Indra Company</h4>
+            <p class="text-gray-600 text-xs mb-1">Desarrollador de Software | agosto 2013 - agosto 2014</p>
+            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
+              <li>.NET Full Stack Developer enfocado en aplicaciones empresariales.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Educación</h3>
+      <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+        <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/logo-ppal-blanco.fw_.png" alt="Logo Universidad de Nariño" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Universidad de Nariño">
+        <div class="flex-1">
+          <h4 class="text-lg font-semibold text-cyan-700">Ingeniero de Sistemas</h4>
+          <p class="text-gray-600 text-xs mb-1">Universidad de Nariño | 2011</p>
+          <p class="text-gray-700 text-sm mb-2">Formación en desarrollo de software, tecnologías web y bases de datos.</p>
+        </div>
+      </div>
+      <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md mt-4">
+        <img src="https://www.unimar.edu.co/wp-content/uploads/2021/09/cropped-Logo-Universidad-Mariana-2021-1.png" alt="Logo Universidad Mariana" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Universidad Mariana">
+        <div class="flex-1">
+          <h4 class="text-lg font-semibold text-cyan-700">Especialización en Contabilidad Internacional y Auditoría</h4>
+          <p class="text-gray-600 text-xs mb-1">Universidad Mariana | Cursando</p>
+          <p class="text-gray-700 text-sm mb-2">Especialización orientada a la gestión y auditoría de procesos contables internacionales.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Certificaciones Técnicas</h3>
+      <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="Certificaciones Microsoft" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Microsoft">
+        <div class="flex-1">
+          <ul class="list-disc ml-6 text-[15px] text-gray-700">
+            <li>Seminario taller de tecnología .NET – Microsoft (2007)</li>
+            <li>SQL Server 2008 R2 – Microsoft Virtual Academy (2014)</li>
+            <li>HTML5 con JavaScript y CSS3 – Microsoft Virtual Academy (2014)</li>
+            <li>Aplicaciones Web con ASP.NET – Microsoft Virtual Academy (2014)</li>
+            <li>Cloud Computing y Azure – Microsoft Virtual Academy (2014)</li>
+            <li>Introducción a Xamarin – Microsoft Virtual Academy (2014)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Habilidades Técnicas</h3>
+      <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core Logo" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title=".NET Core">
+        <div class="flex-1">
+          <ul class="list-disc ml-6 text-[15px] text-gray-700">
+            <li><span class="font-semibold">Lenguajes:</span> C#, JavaScript, HTML5, CSS3, T-SQL</li>
+            <li><span class="font-semibold">Frameworks:</span> ASP.NET Core, Entity Framework, Angular</li>
+            <li><span class="font-semibold">Herramientas:</span> Azure DevOps, GitHub, GitLab, JMeter, Swagger, Postman, SSRS</li>
+            <li><span class="font-semibold">Bases de Datos:</span> SQL Server, PostgreSQL, MySQL</li>
+            <li><span class="font-semibold">CI/CD:</span> Azure DevOps, Application Insights</li>
+            <li><span class="font-semibold">Metodologías:</span> Scrum</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer>
-    <div class="container text-center">
-        <p>© 2025 Luis Ernesto Cantin. Todos los derechos reservados.</p>
+      
+
+      <!-- Tools Section -->
+      <section id="tools" class="section">
+        <h2 class="text-2xl font-poppins font-medium mb-5 headline-gradient">Herramientas de Manejo</h2>
+        <div class="p-5 rounded-lg liquid-glass">
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="Visual Studio Code Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Visual Studio Code</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Git</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">GitHub</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Azure</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">.NET Core</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">SQL Server</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">PostgreSQL</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">MySQL</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Oracle</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">JavaScript</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">HTML5</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">CSS3</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Firebase</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Angular</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Node.js</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Bootstrap</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind CSS Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Tailwind CSS</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Visual Studio</p>
+            </div>
+            <div class="tool-card">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twilio/twilio-original.svg" alt="Twilio Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <p class="text-xs">Twilio</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="section">
+        <h2 class="text-2xl font-poppins font-medium mb-5">Contacto</h2>
+        <div class="p-5 rounded-lg liquid-glass">
+          <form class="space-y-4" autocomplete="off">
+    <div>
+      <label for="nombre" class="block text-xs font-medium text-gray-700 mb-1">Nombre</label>
+      <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" placeholder="Tu nombre completo">
     </div>
-</footer>
+    <div>
+      <label for="email" class="block text-xs font-medium text-gray-700 mb-1">Correo electrónico</label>
+      <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" placeholder="tucorreo@email.com">
+    </div>
+    <div>
+      <label for="asunto" class="block text-xs font-medium text-gray-700 mb-1">Asunto</label>
+      <input type="text" id="asunto" name="asunto" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" placeholder="Motivo del mensaje">
+    </div>
+    <div>
+      <label for="mensaje" class="block text-xs font-medium text-gray-700 mb-1">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" rows="4" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" placeholder="Escribe tu mensaje..."></textarea>
+    </div>
+    <button type="submit" class="w-full bg-cyan-500 text-white font-semibold py-2 rounded-full hover:bg-cyan-600 transition liquid-glass">Enviar mensaje</button>
+  </form>
+        </div>
+      </section>
+    </main>
+  </div>
 
+  <!-- Footer -->
+  <footer class="py-5 liquid-glass text-gray-900 text-center shadow-lg border-t border-cyan-200/30 backdrop-blur-md">
+    <p class="text-xs font-medium tracking-wide">© 2025 Luis Ernesto Cantin. Todos los derechos reservados.</p>
+  </footer>
 
+  <!-- Chatbot Floating Button -->
+  <script 
+  src="https://cdn.builderbot.cloud/sdk.umd.js" 
+  data-builderbot-chat
+  data-company="Ingeniero Software Luis"
+  data-id="205c945c-00fc-4688-83c3-cf136db29633"
+  data-fab-position="bottom-right"
+  data-fab-color="#06b6d4"
+  data-fab-icon="🤖"
+  data-fab-size="56"
+  data-fab-shadow="true"
+  data-fab-style="background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(200,230,255,0.13) 100%); backdrop-filter: blur(32px) saturate(1.3) brightness(1.08); -webkit-backdrop-filter: blur(32px) saturate(1.3) brightness(1.08); border: 1.5px solid rgba(255,255,255,0.32); box-shadow: 0 8px 32px 0 rgba(60, 120, 180, 0.10), 0 1.5px 8px 0 rgba(255,255,255,0.18) inset; border-radius: 9999px; color: #fff; display: flex; align-items: center; justify-content: center;"
+></script>
+
+  <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
   <script>
-    const videos = [
-      "01.mp4",
-      "02.mp4",
-      "03.mp4",
-      "04.mp4"
-    ];
 
-    let index = 0;
-    const videoPlayer = document.getElementById("videoPlayer");
-    const welcomeContainer = document.getElementById("welcomeContainer");
-    const startBtn = document.getElementById("startBtn");
+
+
+
+
+    // Video background logic
+const videos = [
+  "01.mp4",
+  "02.mp4",
+  "03.mp4",
+  "04.mp4"
+];
+let index = 0;
+const videoPlayer = document.getElementById("videoPlayer");
+
+function playNextVideo() {
+  index = (index + 1) % videos.length;
+  videoPlayer.src = videos[index];
+  videoPlayer.load();
+}
+
+videoPlayer.addEventListener("ended", () => {
+  playNextVideo();
+  videoPlayer.play().catch(() => {});
+});
+
+// Iniciar con el primer video y reproducir
+videoPlayer.src = videos[0];
+videoPlayer.load();
+videoPlayer.oncanplay = () => {
+  videoPlayer.play().catch(() => {});
+  videoPlayer.oncanplay = null;
+};
+
+    // Audio logic
     const audioPlayer = document.getElementById("audioPlayer");
     const toggleAudioBtn = document.getElementById("toggleAudioBtn");
     let audioEnabled = false;
 
-    function playNextVideo() {
-      videoPlayer.src = videos[index];
-      videoPlayer.load();
-      videoPlayer.play().catch(err => console.log("Error:", err));
-      index = (index + 1) % videos.length;
-    }
-
-    videoPlayer.addEventListener("ended", playNextVideo);
-
-    // Si el usuario da clic en Comenzar, oculta el welcome y sigue con los videos
-    if (startBtn) {
-      startBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        welcomeContainer.style.display = "none";
-        if (videoPlayer.paused) videoPlayer.play();
-        if (!audioEnabled) {
-          audioPlayer.play();
+    // Permitir reproducción automática en interacción de usuario
+    function enableAudioPlayback() {
+      if (audioPlayer.paused) {
+        audioPlayer.play().then(() => {
           audioEnabled = true;
           toggleAudioBtn.textContent = "🔊 Sonido ON";
-        }
-      });
+        }).catch(() => {
+          toggleAudioBtn.textContent = "🔇 Sonido OFF";
+        });
+      }
+      document.removeEventListener('click', enableAudioPlayback);
     }
 
     toggleAudioBtn.addEventListener("click", function() {
-      if (audioPlayer.paused) {
-        audioPlayer.play();
-        toggleAudioBtn.textContent = "🔊 Sonido ON";
-        audioEnabled = true;
+      if (audioPlayer.paused || audioPlayer.ended) {
+        audioPlayer.play().then(() => {
+          toggleAudioBtn.textContent = "🔊 Sonido ON";
+          audioEnabled = true;
+        }).catch(() => {
+          toggleAudioBtn.textContent = "🔇 Sonido OFF";
+          audioEnabled = false;
+        });
       } else {
         audioPlayer.pause();
         toggleAudioBtn.textContent = "🔇 Sonido OFF";
         audioEnabled = false;
       }
     });
+    // Sincronizar el texto del botón si el usuario pausa el audio desde controles del navegador
+ audioPlayer.addEventListener('pause', function() {
+   toggleAudioBtn.textContent = "🔇 Sonido OFF";
+   audioEnabled = false;
+ });
+ audioPlayer.addEventListener('play', function() {
+   toggleAudioBtn.textContent = "🔊 Sonido ON";
+   audioEnabled = true;
+ });
 
-    // Reproducir primer video
-    playNextVideo();
-
-
-//*********************
-// Three.js Background Animation
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-        75,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-    );
-    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("bg") });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.position.z = 30;
-
-    // Create a rotating torus knot
-    const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-    const material = new THREE.MeshStandardMaterial({
-        color: 0x64ffda,
-        wireframe: true,
+    // Intentar reproducir al cargar, si falla esperar interacción
+    window.addEventListener("DOMContentLoaded", function() {
+      audioPlayer.play().then(() => {
+        audioEnabled = true;
+        toggleAudioBtn.textContent = "🔊 Sonido ON";
+      }).catch(() => {
+        toggleAudioBtn.textContent = "🔇 Sonido OFF";
+        document.addEventListener('click', enableAudioPlayback);
+      });
     });
-    const torus = new THREE.Mesh(geometry, material);
-    scene.add(torus);
 
-    // Lighting
-    const pointLight = new THREE.PointLight(0xffffff, 1);
-    pointLight.position.set(5, 5, 5);
-    const ambientLight = new THREE.AmbientLight(0x404040);
-    scene.add(pointLight, ambientLight);
+    // Navigation shrink on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
 
-    function animate() {
-        requestAnimationFrame(animate);
-        torus.rotation.x += 0.01;
-        torus.rotation.y += 0.005;
-        renderer.render(scene, camera);
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Sidebar toggle for mobile with bounce effect
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    // Fade-in animation for sections
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
+
+    // 3D tilt effect for cards
+    const cards = document.querySelectorAll('.liquid-glass, .tool-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = y / rect.height * 12;
+        const rotateY = -x / rect.width * 12;
+        card.style.transform = `perspective(1200px) translateY(-4px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1200px) translateY(0) rotateX(0deg) rotateY(0deg) scale(1)';
+      });
+    });
+
+    // GSAP SplitText efecto animación en h1
+    if (window.SplitText) {
+      gsap.registerPlugin(SplitText);
+      let split, animation;
+      const h1 = document.querySelector("#chars");
+      function setup() {
+        split && split.revert();
+        animation && animation.revert();
+        split = SplitText.create(h1, {type:"chars"});
+      }
+      setup();
+      window.addEventListener("resize", setup);
+      // Cambiar trigger de click/page load a mouseenter
+      h1.addEventListener("mouseenter", () => {
+        animation && animation.revert();
+        animation = gsap.from(split.chars, {
+          x: 150,
+          opacity: 0,
+          duration: 0.7,
+          ease: "power4",
+          stagger: 0.04
+        });
+      });
     }
 
-    animate();
+    // Reloj en vivo en la barra de navegación
+function updateClock() {
+  const clock = document.getElementById('liveClock');
+  if (!clock) return;
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2, '0');
+  const m = now.getMinutes().toString().padStart(2, '0');
+  const s = now.getSeconds().toString().padStart(2, '0');
+  const day = now.getDate().toString().padStart(2, '0');
+  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  const year = now.getFullYear();
+  const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+  const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  const dayName = days[now.getDay()];
+  const monthName = months[now.getMonth()];
+  clock.textContent = `${dayName} ${day} ${monthName} ${year} ${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+window.addEventListener('DOMContentLoaded', updateClock);
 
-    window.addEventListener("resize", () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+gsap.from(".headline-gradient", {
+      opacity: 0,
+      y: 40,
+      duration: 1.4,
+      ease: "power3.out",
+      delay: 0.2
+    });
+    gsap.from(".subheadline", {
+      opacity: 0,
+      y: 30,
+      duration: 1.3,
+      ease: "power2.out",
+      delay: 0.4
+    });
+    gsap.from(".cv-content", {
+      opacity: 0,
+      y: 20,
+      duration: 1.2,
+      ease: "power2.out",
+      delay: 0.6
     });
 
-    // GSAP Scroll Animations
-    gsap.utils.toArray("section").forEach((section, i) => {
-        gsap.from(section, {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-                end: "bottom 20%",
-                toggleActions: "play none none reverse"
-            }
-        });
-    });
 
-    document.addEventListener("DOMContentLoaded", function() {
-  audioPlayer.play().then(() => {
-    audioEnabled = true;
-    toggleAudioBtn.textContent = "🔊 Sonido ON";
-  }).catch(() => {
-    // Si el navegador bloquea el autoplay, el usuario podrá activarlo manualmente
-    toggleAudioBtn.textContent = "🔇 Sonido OFF";
-  });
-});
-
+    
+  </script>
+    <script 
+    src="https://cdn.builderbot.cloud/sdk.umd.js" 
+    data-builderbot-chat
+    data-company="BuilderBot"
+    data-id="205c945c-00fc-4688-83c3-cf136db29633"
+  ></script>
 </body>
 </html>
+
