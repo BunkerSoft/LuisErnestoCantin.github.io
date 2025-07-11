@@ -630,93 +630,68 @@ html {
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js"></script>
   <script>
+// Video background logic
+    const videos = [
+      "01.mp4",
+      "02.mp4",
+      "03.mp4",
+      "04.mp4"
+    ];
+    let index = 0;
+    const videoPlayer = document.getElementById("videoPlayer");
 
-
-
-
-
-    // Video background logic
-const videos = [
-  "01.mp4",
-  "02.mp4",
-  "03.mp4",
-  "04.mp4"
-];
-let index = 0;
-const videoPlayer = document.getElementById("videoPlayer");
-
-function playNextVideo() {
-  index = (index + 1) % videos.length;
-  videoPlayer.src = videos[index];
-  videoPlayer.load();
-}
-
-videoPlayer.addEventListener("ended", () => {
-  playNextVideo();
-  videoPlayer.play().catch(() => {});
-});
-
-// Iniciar con el primer video y reproducir
-videoPlayer.src = videos[0];
-videoPlayer.load();
-videoPlayer.oncanplay = () => {
-  videoPlayer.play().catch(() => {});
-  videoPlayer.oncanplay = null;
-};
-
-    // Audio logic
-    const audioPlayer = document.getElementById("audioPlayer");
-    const toggleAudioBtn = document.getElementById("toggleAudioBtn");
-    let audioEnabled = false;
-
-    // Permitir reproducción automática en interacción de usuario
-    function enableAudioPlayback() {
-      if (audioPlayer.paused) {
-        audioPlayer.play().then(() => {
-          audioEnabled = true;
-          toggleAudioBtn.textContent = "🔊 Sonido ON";
-        }).catch(() => {
-          toggleAudioBtn.textContent = "🔇 Sonido OFF";
-        });
-      }
-      document.removeEventListener('click', enableAudioPlayback);
+    function playNextVideo() {
+      index = (index + 1) % videos.length;
+      videoPlayer.src = videos[index];
+      videoPlayer.load();
     }
 
+    videoPlayer.addEventListener("ended", () => {
+      playNextVideo();
+      videoPlayer.play().catch(() => {});
+    });
+
+    // Iniciar con el primer video y reproducir
+    videoPlayer.src = videos[0];
+    videoPlayer.load();
+    videoPlayer.oncanplay = () => {
+      videoPlayer.play().catch(() => {});
+      videoPlayer.oncanplay = null;
+    };
+
+    // AUDIO LOGIC MEJORADO
+    const audioPlayer = document.getElementById("audioPlayer");
+    const toggleAudioBtn = document.getElementById("toggleAudioBtn");
+
+    function updateAudioButton() {
+      if (audioPlayer.paused) {
+        toggleAudioBtn.textContent = "🔇 Sonido OFF";
+      } else {
+        toggleAudioBtn.textContent = "🔊 Sonido ON";
+      }
+    }
+
+    // Botón ON/OFF
     toggleAudioBtn.addEventListener("click", function() {
       if (audioPlayer.paused || audioPlayer.ended) {
-        audioPlayer.play().then(() => {
-          toggleAudioBtn.textContent = "🔊 Sonido ON";
-          audioEnabled = true;
-        }).catch(() => {
-          toggleAudioBtn.textContent = "🔇 Sonido OFF";
-          audioEnabled = false;
-        });
+        audioPlayer.play().then(updateAudioButton);
       } else {
         audioPlayer.pause();
-        toggleAudioBtn.textContent = "🔇 Sonido OFF";
-        audioEnabled = false;
+        updateAudioButton();
       }
     });
-    // Sincronizar el texto del botón si el usuario pausa el audio desde controles del navegador
- audioPlayer.addEventListener('pause', function() {
-   toggleAudioBtn.textContent = "🔇 Sonido OFF";
-   audioEnabled = false;
- });
- audioPlayer.addEventListener('play', function() {
-   toggleAudioBtn.textContent = "🔊 Sonido ON";
-   audioEnabled = true;
- });
 
-    // Intentar reproducir al cargar, si falla esperar interacción
+    // Sincronizar el botón si el usuario pausa/reproduce desde controles nativos
+    audioPlayer.addEventListener('pause', updateAudioButton);
+    audioPlayer.addEventListener('play', updateAudioButton);
+
+    // Intentar reproducir el audio al cargar la página (si el navegador lo permite)
     window.addEventListener("DOMContentLoaded", function() {
-      audioPlayer.play().then(() => {
-        audioEnabled = true;
-        toggleAudioBtn.textContent = "🔊 Sonido ON";
-      }).catch(() => {
-        toggleAudioBtn.textContent = "🔇 Sonido OFF";
-        document.addEventListener('click', enableAudioPlayback);
-      });
+      audioPlayer.play().catch(() => {});
+      updateAudioButton();
     });
+
+
 
     // Navigation shrink on scroll
     window.addEventListener('scroll', () => {
