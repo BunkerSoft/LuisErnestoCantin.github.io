@@ -11,7 +11,6 @@ on:
     types: [created]
 
 jobs:
-  # Job 1: Claude responde a issues
   claude-issue-response:
     if: |
       github.event_name == 'issues' && (
@@ -49,26 +48,18 @@ jobs:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
-          node << 'JAVASCRIPT_CODE'
+          node << 'ENDJS'
           const { Octokit } = require('@octokit/rest');
           const https = require('https');
           
-          const octokit = new Octokit({
-            auth: process.env.GITHUB_TOKEN
-          });
+          const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
           
-          // Función para llamar a la API de Anthropic
           function callClaude(prompt) {
             return new Promise((resolve, reject) => {
               const data = JSON.stringify({
                 model: "claude-sonnet-4-5-20250929",
                 max_tokens: 4000,
-                messages: [
-                  {
-                    role: "user",
-                    content: prompt
-                  }
-                ]
+                messages: [{ role: "user", content: prompt }]
               });
               
               const options = {
@@ -86,11 +77,7 @@ jobs:
               
               const req = https.request(options, (res) => {
                 let body = '';
-                
-                res.on('data', (chunk) => {
-                  body += chunk;
-                });
-                
+                res.on('data', (chunk) => { body += chunk; });
                 res.on('end', () => {
                   try {
                     const response = JSON.parse(body);
@@ -99,18 +86,12 @@ jobs:
                     } else if (response.error) {
                       reject(new Error(response.error.message || 'API Error'));
                     } else {
-                      reject(new Error('Invalid response format'));
+                      reject(new Error('Invalid response'));
                     }
-                  } catch (err) {
-                    reject(err);
-                  }
+                  } catch (err) { reject(err); }
                 });
               });
-              
-              req.on('error', (err) => {
-                reject(err);
-              });
-              
+              req.on('error', reject);
               req.write(data);
               req.end();
             });
@@ -122,105 +103,26 @@ jobs:
             const issueBody = process.env.ISSUE_BODY || '';
             const issueAuthor = process.env.ISSUE_AUTHOR;
             
-            console.log(`🤖 Claude procesando Issue #${issueNumber}: ${issueTitle}`);
+            console.log('Claude procesando Issue #' + issueNumber);
             
             try {
-              // Construir prompt para Claude
-              const prompt = `Eres Claude, un asistente AI colaborador del repositorio BunkerSoft/LuisErnestoCantin.github.io.
-
-Este es un portfolio personal hosteado en GitHub Pages con HTML5, CSS3 y JavaScript vanilla.
-
-**Issue #${issueNumber}**
-**Autor:** @${issueAuthor}
-**Título:** ${issueTitle}
-
-**Descripción:**
-${issueBody}
-
-**Restricciones técnicas:**
-- GitHub Pages (hosting estático, sin backend)
-- Sin frameworks complejos ni build tools
-- HTML5, CSS3, JavaScript vanilla
-- Debe ser responsive y accesible (WCAG 2.1)
-
-**Tu tarea:**
-1. Analiza el issue y determina viabilidad
-2. Genera un plan de ejecución paso a paso
-3. Propón código específico cuando sea necesario
-4. Identifica archivos a modificar
-5. Sugiere commits siguiendo Conventional Commits
-6. Estima complejidad y tiempo
-
-**Formato de respuesta (Markdown):**
-
-## 🤖 Claude AI - Análisis
-
-Hola @${issueAuthor}, he analizado tu solicitud.
-
-### 📋 Resumen
-[Resumen breve en 2-3 líneas]
-
-### ✅ Viabilidad
-- **Estado:** Viable / Necesita aclaración / No viable
-- **Compatibilidad GitHub Pages:** ✅ / ⚠️ / ❌
-- **Razón:** [Explicación técnica]
-
-### 🎯 Objetivos
-1. [Objetivo medible 1]
-2. [Objetivo medible 2]
-3. [Objetivo medible 3]
-
-### 📝 Plan de Implementación
-
-#### Fase 1: [Nombre descriptivo]
-**Archivos:** \`index.html\`, \`style.css\`
-
-**Cambios:**
-- Cambio específico 1
-- Cambio específico 2
-
-**Código de ejemplo:**
-\`\`\`html
-<!-- Ejemplo si aplica -->
-\`\`\`
-
-**Commit:** \`feat(html): descripción específica\`
-
-#### Fase 2: [Nombre descriptivo]
-[Repetir estructura]
-
-### ✅ Criterios de Validación
-- [ ] HTML válido (W3C Validator)
-- [ ] CSS válido (W3C CSS Validator)
-- [ ] JavaScript sin errores en consola
-- [ ] Responsive: mobile (320px+), tablet (768px+), desktop (1024px+)
-- [ ] Accesibilidad: contraste mínimo 4.5:1
-- [ ] Performance: Lighthouse >85
-
-### ⏱️ Estimación
-- **Complejidad:** Baja / Media / Alta
-- **Tiempo estimado:** X horas
-- **Prioridad:** P0 (crítico) / P1 (alto) / P2 (medio) / P3 (bajo)
-
-### ❓ Preguntas / Aclaraciones
-[Solo si necesitas más información]
-
-### 🚀 Próximos Pasos
-Para que implemente esta solución automáticamente:
-1. Revisa el plan y asegúrate de que es lo que necesitas
-2. Comenta: \`/implement\`
-3. Crearé un Pull Request con los cambios
-
----
-*🤖 Claude Sonnet 4.5 | Powered by Anthropic*`;
-              
-              console.log('📡 Llamando a Claude API...');
+              const prompt = "Eres Claude, asistente AI del repo BunkerSoft/LuisErnestoCantin.github.io\n\n" +
+                "Portfolio en GitHub Pages (HTML5, CSS3, JS vanilla)\n\n" +
+                "Issue #" + issueNumber + "\n" +
+                "Autor: @" + issueAuthor + "\n" +
+                "Título: " + issueTitle + "\n\n" +
+                "Descripción:\n" + issueBody + "\n\n" +
+                "Restricciones: GitHub Pages, sin frameworks, responsive\n\n" +
+                "Tareas:\n" +
+                "1. Analiza viabilidad\n" +
+                "2. Plan paso a paso\n" +
+                "3. Código específico\n" +
+                "4. Archivos a modificar\n" +
+                "5. Estimación\n\n" +
+                "Responde en Markdown con: Resumen, Viabilidad, Objetivos, Plan, Validación, Estimación";
               
               const response = await callClaude(prompt);
               
-              console.log('✅ Respuesta recibida de Claude');
-              
-              // Publicar respuesta como comentario
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
@@ -228,35 +130,14 @@ Para que implemente esta solución automáticamente:
                 body: response
               });
               
-              console.log(`💬 Comentario publicado en Issue #${issueNumber}`);
-              
-              // Determinar labels basados en el contenido
               const labels = ['claude-analyzed'];
+              const combined = (issueTitle + ' ' + issueBody).toLowerCase();
               
-              const titleLower = issueTitle.toLowerCase();
-              const bodyLower = issueBody.toLowerCase();
-              const combined = titleLower + ' ' + bodyLower;
+              if (combined.includes('performance')) labels.push('performance');
+              if (combined.includes('seo')) labels.push('seo');
+              if (combined.includes('accessibility')) labels.push('accessibility');
+              if (combined.includes('bug')) labels.push('bug');
               
-              if (combined.includes('performance') || combined.includes('speed') || combined.includes('optimization')) {
-                labels.push('performance');
-              }
-              if (combined.includes('seo') || combined.includes('search') || combined.includes('google')) {
-                labels.push('seo');
-              }
-              if (combined.includes('accessibility') || combined.includes('a11y') || combined.includes('wcag')) {
-                labels.push('accessibility');
-              }
-              if (combined.includes('bug') || combined.includes('error') || combined.includes('broken')) {
-                labels.push('bug');
-              }
-              if (combined.includes('design') || combined.includes('ui') || combined.includes('ux')) {
-                labels.push('design');
-              }
-              if (combined.includes('feature') || combined.includes('new')) {
-                labels.push('enhancement');
-              }
-              
-              // Agregar labels
               await octokit.issues.addLabels({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
@@ -264,45 +145,23 @@ Para que implemente esta solución automáticamente:
                 labels: labels
               });
               
-              console.log(`🏷️  Labels agregados: ${labels.join(', ')}`);
-              console.log('✨ Proceso completado exitosamente');
+              console.log('Completado');
               
             } catch (error) {
-              console.error('❌ Error:', error.message);
-              console.error('Stack:', error.stack);
-              
-              // Comentar el error
+              console.error('Error:', error.message);
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
                 issue_number: issueNumber,
-                body: `## ❌ Claude AI - Error
-
-Lo siento @${issueAuthor}, encontré un error al procesar este issue:
-
-\`\`\`
-${error.message}
-\`\`\`
-
-**Posibles soluciones:**
-1. Verifica que el issue tenga suficiente contexto
-2. Intenta reformular la descripción con más detalles
-3. Si el problema persiste, contacta al administrador del repositorio
-
-**Información técnica:**
-- Workflow: claude-issue-response
-- Error type: ${error.name}
-- Timestamp: ${new Date().toISOString()}`
+                body: "Error: " + error.message
               });
-              
               process.exit(1);
             }
           }
           
           main();
-          JAVASCRIPT_CODE
-  
-  # Job 2: Claude implementa solución
+          ENDJS
+
   claude-implementation:
     if: |
       github.event_name == 'issue_comment' &&
@@ -325,7 +184,7 @@ ${error.message}
       - name: Configure Git
         run: |
           git config --global user.name "Claude AI Bot"
-          git config --global user.email "claude-ai-bot@users.noreply.github.com"
+          git config --global user.email "claude@bunkersoft.dev"
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -335,22 +194,15 @@ ${error.message}
       - name: Install dependencies
         run: npm install @octokit/rest
       
-      - name: Notify implementation started
+      - name: Notify start
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
         run: |
-          gh issue comment $ISSUE_NUMBER --body "## 🚀 Implementación Iniciada
-
-Hola @$COMMENT_AUTHOR, he comenzado la implementación automática.
-
-⏳ **Estado:** En progreso
-📝 **Branch:** \`claude/issue-$ISSUE_NUMBER\`
-
-Te notificaré cuando el Pull Request esté listo para revisión."
+          gh issue comment $ISSUE_NUMBER --body "Implementación iniciada @$COMMENT_AUTHOR"
       
-      - name: Claude generates implementation
+      - name: Generate implementation
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -360,19 +212,16 @@ Te notificaré cuando el Pull Request esté listo para revisión."
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
-          # Crear branch
           BRANCH_NAME="claude/issue-$ISSUE_NUMBER"
           git checkout -b "$BRANCH_NAME"
           
-          node << 'JAVASCRIPT_CODE'
+          node << 'ENDJS'
           const { Octokit } = require('@octokit/rest');
           const https = require('https');
           const fs = require('fs');
           const { execSync } = require('child_process');
           
-          const octokit = new Octokit({
-            auth: process.env.GITHUB_TOKEN
-          });
+          const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
           
           function callClaude(prompt) {
             return new Promise((resolve, reject) => {
@@ -404,14 +253,11 @@ Te notificaré cuando el Pull Request esté listo para revisión."
                     if (response.content && response.content[0]) {
                       resolve(response.content[0].text);
                     } else {
-                      reject(new Error(response.error?.message || 'Invalid response'));
+                      reject(new Error('Invalid response'));
                     }
-                  } catch (err) {
-                    reject(err);
-                  }
+                  } catch (err) { reject(err); }
                 });
               });
-              
               req.on('error', reject);
               req.write(data);
               req.end();
@@ -423,141 +269,84 @@ Te notificaré cuando el Pull Request esté listo para revisión."
             const issueTitle = process.env.ISSUE_TITLE;
             const issueBody = process.env.ISSUE_BODY || '';
             
-            console.log(`🔧 Generando implementación para Issue #${issueNumber}...`);
+            console.log('Generando código...');
             
             try {
-              // Leer archivos actuales
               const files = {};
-              const mainFiles = ['index.html', 'style.css', 'styles.css', 'script.js', 'main.js', 'README.md'];
+              const fileNames = ['index.html', 'style.css', 'script.js', 'README.md'];
               
-              for (const file of mainFiles) {
+              for (const file of fileNames) {
                 if (fs.existsSync(file)) {
                   files[file] = fs.readFileSync(file, 'utf8');
-                  console.log(`📄 Archivo leído: ${file}`);
                 }
               }
               
-              const prompt = `Implementa la solución para este issue de portfolio en GitHub Pages:
-
-**Issue #${issueNumber}: ${issueTitle}**
-${issueBody}
-
-**Archivos actuales:**
-${Object.entries(files).map(([name, content]) => 
-  \`### ${name}\n\\\`\\\`\\\`\n${content.slice(0, 3000)}\n\\\`\\\`\\\`\n\`
-).join('\n')}
-
-**Genera SOLO archivos que necesitan cambios. Output en JSON:**
-{
-  "files": {
-    "filename.ext": "contenido COMPLETO del archivo"
-  },
-  "new_files": {
-    "newfile.ext": "contenido COMPLETO"
-  },
-  "commit_message": "tipo(scope): descripción",
-  "pr_body": "Descripción del PR en Markdown"
-}
-
-IMPORTANTE: No uses placeholders, genera código completo y funcional.`;
+              const filesText = Object.entries(files).map(([name, content]) => 
+                name + ":\n" + content.substring(0, 2000)
+              ).join('\n\n');
+              
+              const prompt = "Implementa solución para Issue #" + issueNumber + ": " + issueTitle + "\n\n" +
+                issueBody + "\n\nArchivos actuales:\n" + filesText + "\n\n" +
+                "Output JSON: {files: {filename: content}, new_files: {}, commit_message: '', pr_body: ''}";
               
               const response = await callClaude(prompt);
-              
-              // Extraer JSON
               const jsonMatch = response.match(/\{[\s\S]*\}/);
-              if (!jsonMatch) {
-                throw new Error('No se pudo extraer JSON de la respuesta');
-              }
+              if (!jsonMatch) throw new Error('No JSON found');
               
               const result = JSON.parse(jsonMatch[0]);
               
-              // Escribir archivos
               for (const [filename, content] of Object.entries(result.files || {})) {
                 fs.writeFileSync(filename, content, 'utf8');
-                execSync(\`git add ${filename}\`);
-                console.log(\`✅ Modificado: ${filename}\`);
+                execSync('git add ' + filename);
+                console.log('Modified: ' + filename);
               }
               
               for (const [filename, content] of Object.entries(result.new_files || {})) {
                 fs.writeFileSync(filename, content, 'utf8');
-                execSync(\`git add ${filename}\`);
-                console.log(\`✅ Creado: ${filename}\`);
+                execSync('git add ' + filename);
+                console.log('Created: ' + filename);
               }
               
-              // Guardar metadata para siguiente step
               fs.writeFileSync('claude-metadata.json', JSON.stringify(result), 'utf8');
               
-              console.log('✨ Implementación generada exitosamente');
-              
             } catch (error) {
-              console.error('❌ Error:', error.message);
+              console.error('Error:', error.message);
               throw error;
             }
           }
           
           main();
-          JAVASCRIPT_CODE
+          ENDJS
       
       - name: Commit and push
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          METADATA=$(cat claude-metadata.json)
-          COMMIT_MSG=$(echo "$METADATA" | node -e "console.log(JSON.parse(require('fs').readFileSync(0, 'utf-8')).commit_message)")
+          if [ -f claude-metadata.json ]; then
+            COMMIT_MSG=$(node -e "console.log(JSON.parse(require('fs').readFileSync('claude-metadata.json', 'utf8')).commit_message || 'feat: implement issue')")
+          else
+            COMMIT_MSG="feat: implement issue #$ISSUE_NUMBER"
+          fi
           
-          git commit -m "$COMMIT_MSG
-
-Closes #$ISSUE_NUMBER
-
-Generated by Claude AI Bot" || echo "No changes to commit"
-          
+          git commit -m "$COMMIT_MSG" || echo "No changes"
           git push origin "claude/issue-$ISSUE_NUMBER"
       
-      - name: Create Pull Request
+      - name: Create PR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
         run: |
-          METADATA=$(cat claude-metadata.json)
-          PR_BODY=$(echo "$METADATA" | node -e "console.log(JSON.parse(require('fs').readFileSync(0, 'utf-8')).pr_body)")
-          
           gh pr create \
             --title "Fix #$ISSUE_NUMBER: $ISSUE_TITLE" \
-            --body "## 🤖 Claude AI - Implementación Automática
-
-Closes #$ISSUE_NUMBER
-
-$PR_BODY
-
-## ⚠️ Requiere Revisión Humana
-- [ ] Código revisado
-- [ ] Tests manuales completados
-- [ ] Preview verificado
-- [ ] Listo para merge
-
----
-*🤖 Generado automáticamente por Claude Sonnet 4.5*" \
+            --body "Closes #$ISSUE_NUMBER\n\nImplementación automática por Claude AI" \
             --base main \
             --head "claude/issue-$ISSUE_NUMBER" \
             --label "claude-generated,needs-review"
           
           PR_URL=$(gh pr view "claude/issue-$ISSUE_NUMBER" --json url -q .url)
-          
-          gh issue comment $ISSUE_NUMBER --body "## ✅ Implementación Completada
+          gh issue comment $ISSUE_NUMBER --body "PR creado: $PR_URL"
 
-He creado el Pull Request con la solución propuesta.
-
-🔗 **Pull Request:** $PR_URL
-
-**Próximos pasos:**
-1. Revisa los cambios en el PR
-2. Realiza tests manuales si es necesario
-3. Si todo está correcto, haz merge del PR
-
-Si necesitas ajustes, comenta en el PR y lo modificaré."
-
-  # Job 3: Claude revisa Pull Requests
   claude-pr-review:
     if: |
       github.event_name == 'pull_request' && (
@@ -593,15 +382,14 @@ Si necesitas ajustes, comenta en el PR y lo modificaré."
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
         run: |
-          node << 'JAVASCRIPT_CODE'
+          node << 'ENDJS'
           const { Octokit } = require('@octokit/rest');
           const https = require('https');
-          const fs = require('fs');
           
-          const octokit = new Octokit({
-            auth: process.env.GITHUB_TOKEN
-          });
+          const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
           
           function callClaude(prompt) {
             return new Promise((resolve, reject) => {
@@ -631,12 +419,9 @@ Si necesitas ajustes, comenta en el PR y lo modificaré."
                   try {
                     const response = JSON.parse(body);
                     resolve(response.content[0].text);
-                  } catch (err) {
-                    reject(err);
-                  }
+                  } catch (err) { reject(err); }
                 });
               });
-              
               req.on('error', reject);
               req.write(data);
               req.end();
@@ -649,73 +434,28 @@ Si necesitas ajustes, comenta en el PR y lo modificaré."
             const prBody = process.env.PR_BODY || '';
             const prAuthor = process.env.PR_AUTHOR;
             
-            console.log(\`🔍 Revisando PR #${prNumber}...\`);
+            console.log('Revisando PR #' + prNumber);
             
             try {
-              // Obtener archivos cambiados
               const files = await octokit.pulls.listFiles({
-                owner: process.env.REPO_OWNER || 'BunkerSoft',
-                repo: process.env.REPO_NAME || 'LuisErnestoCantin.github.io',
+                owner: process.env.REPO_OWNER,
+                repo: process.env.REPO_NAME,
                 pull_number: prNumber
               });
               
               const diffs = files.data.map(f => 
-                \`### ${f.filename} (+${f.additions} -${f.deletions})\n\\\`\\\`\\\`diff\n${(f.patch || '').slice(0, 1500)}\n\\\`\\\`\\\`\`
+                f.filename + ': +' + f.additions + ' -' + f.deletions
               ).join('\n');
               
-              const prompt = \`Revisa este Pull Request de portfolio en GitHub Pages:
-
-**PR #${prNumber}: ${prTitle}**
-**Autor:** @${prAuthor}
-**Descripción:** ${prBody}
-
-**Cambios:**
-${diffs}
-
-Analiza:
-1. Calidad de código (HTML, CSS, JS)
-2. Performance
-3. SEO
-4. Accesibilidad
-5. Seguridad
-6. Compatibilidad GitHub Pages
-
-**Output:**
-## 🤖 Claude AI - Code Review
-
-### ✅ Aprobado / ⚠️ Comentarios / ❌ Cambios Requeridos
-
-### Resumen
-[Breve evaluación general]
-
-### Por Categoría
-
-**Calidad de Código:** ⭐⭐⭐⭐⭐
-[Comentario]
-
-**Performance:** ⭐⭐⭐⭐⭐
-[Comentario]
-
-**SEO:** ⭐⭐⭐⭐⭐
-[Comentario]
-
-**Accesibilidad:** ⭐⭐⭐⭐⭐
-[Comentario]
-
-**Seguridad:** ⭐⭐⭐⭐⭐
-[Comentario]
-
-### Sugerencias de Mejora
-[Si aplica]
-
-### Recomendación Final
-**[APPROVE / COMMENT / REQUEST_CHANGES]**
-
-[Justificación]\`;
+              const prompt = "Revisa PR #" + prNumber + ": " + prTitle + "\n" +
+                "Autor: @" + prAuthor + "\n" +
+                "Descripción: " + prBody + "\n\n" +
+                "Cambios:\n" + diffs + "\n\n" +
+                "Analiza: código, performance, SEO, accesibilidad\n" +
+                "Responde: Resumen, Rating por categoría, Recomendación (APPROVE/COMMENT/REQUEST_CHANGES)";
               
               const review = await callClaude(prompt);
               
-              // Determinar evento
               let event = 'COMMENT';
               if (review.includes('APPROVE') && !review.includes('REQUEST_CHANGES')) {
                 event = 'APPROVE';
@@ -723,22 +463,21 @@ Analiza:
                 event = 'REQUEST_CHANGES';
               }
               
-              // Publicar review
               await octokit.pulls.createReview({
-                owner: process.env.REPO_OWNER || 'BunkerSoft',
-                repo: process.env.REPO_NAME || 'LuisErnestoCantin.github.io',
+                owner: process.env.REPO_OWNER,
+                repo: process.env.REPO_NAME,
                 pull_number: prNumber,
                 body: review,
                 event: event
               });
               
-              console.log(\`✅ Review publicado: ${event}\`);
+              console.log('Review publicado: ' + event);
               
             } catch (error) {
-              console.error('❌ Error:', error.message);
+              console.error('Error:', error.message);
               throw error;
             }
           }
           
           main();
-          JAVASCRIPT_CODE
+          ENDJS
