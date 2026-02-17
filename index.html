@@ -40,9 +40,16 @@
     :root {
       --accent: #06b6d4; /* primary cyan */
       --accent-strong: #0ea5e9;
+      --accent-weak: rgba(6,182,212,0.12);
       --muted: #6b7280;
+      --muted-strong: #374151;
       --glass-border: rgba(255,255,255,0.55);
-      --card-shadow: rgba(2,6,23,0.06);
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --card-elevation: 0 12px 30px rgba(2,6,23,0.08);
+      --glass-shadow: 0 6px 20px rgba(2,6,23,0.06);
+      --focus-ring: rgba(6,182,212,0.16);
+      --glass-bg: linear-gradient(180deg, rgba(255,255,255,0.36), rgba(245,250,255,0.10));
     }
     
     /* Fondo global tipo macOS Sonoma/iOS 17 */
@@ -263,7 +270,7 @@
     .tree-item.right .connector::after { left: -6px; right: auto; }
 
     /* card visual polish */
-    .tree-item .exp-card { display: inline-block; width: min(560px, calc(100% - 24px)); text-align: left; box-shadow: 0 14px 40px rgba(2,6,23,0.09); border-radius: 18px; position: relative; padding: 1.05rem; background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(248,252,255,0.62)); }
+    .tree-item .exp-card { display: flex; flex-direction: column; justify-content: space-between; width: min(560px, calc(100% - 24px)); text-align: left; box-shadow: 0 14px 40px rgba(2,6,23,0.09); border-radius: 18px; position: relative; padding: 1.05rem; background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(248,252,255,0.62)); min-height: 140px; }
     .tree-item.left .exp-card { text-align: right; }
 
     /* circular company logo inside header */
@@ -369,19 +376,16 @@ html {
 
     /* Liquid Glass Card component — modern glassmorphism with static distortion */
     .liquid-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      padding: 1.25rem;
-      background: linear-gradient(135deg, rgba(255,255,255,0.62), rgba(255,255,255,0.08));
-      border: 1px solid rgba(255,255,255,0.32);
-      backdrop-filter: blur(10px) saturate(120%);
-      -webkit-backdrop-filter: blur(10px) saturate(120%);
-      box-shadow: 0 12px 30px rgba(2,6,23,0.08);
-      color: #042f35;
-      transition: none;
+      position: relative; overflow: hidden; border-radius: var(--radius-md); padding: 1.25rem; background: var(--glass-bg);
+      border: 1px solid rgba(255,255,255,0.32); backdrop-filter: blur(10px) saturate(120%); -webkit-backdrop-filter: blur(10px) saturate(120%);
+      box-shadow: var(--card-elevation); color: #042f35; transition: none; display:flex; flex-direction:column; justify-content:space-between; min-height: 200px;
     }
     .liquid-card * { position: relative; z-index: 3; }
+    .liquid-card .card-actions { margin-top: 1rem; display:flex; gap:0.5rem; align-items:center; }
+    .liquid-card .card-cta { padding: 8px 12px; border-radius: 10px; }
+    .btn-primary::after { content: '→'; margin-left: 0.5rem; font-weight:700; }
+    .btn-primary:hover { background: linear-gradient(180deg, rgba(6,182,212,0.14), rgba(6,182,212,0.08)); }
+    .btn-primary:focus { box-shadow: 0 8px 30px rgba(6,182,212,0.12), 0 0 0 4px var(--focus-ring); }
 
     /* Sheen overlay */
     .liquid-card::before {
@@ -504,6 +508,7 @@ html {
       <img loading="eager" decoding="async" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="hero-photo mx-auto" width="180" height="180">
     </picture>
     <h1 id="chars" class="hero-title text-5xl sm:text-6xl font-poppins font-extrabold mb-3 liquid-glass">Luis Ernesto Cantin Oviedo</h1>
+    <div class="hero-badge" role="status" aria-hidden="false">Disponible · Remoto</div>
     <p class="text-base text-gray-600 mb-5 subheadline"><span id="typedRoles" aria-live="polite">Ingeniero de Sistemas</span></p>
     <div class="flex justify-center gap-3 mb-4 hero-socials">
       <a href="https://wa.me/573006502320" target="_blank" rel="noopener noreferrer" class="chip-social" style="--brand:#25D366" title="WhatsApp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
