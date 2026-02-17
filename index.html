@@ -26,7 +26,14 @@
       text-shadow: 0 2px 12px rgba(6,182,212,0.10);
       
     }
-    
+
+    :root {
+      --accent: #06b6d4; /* primary cyan */
+      --accent-strong: #0ea5e9;
+      --muted: #6b7280;
+      --glass-border: rgba(255,255,255,0.55);
+      --card-shadow: rgba(2,6,23,0.06);
+    }
     
     /* Fondo global tipo macOS Sonoma/iOS 17 */
     body {
@@ -189,44 +196,61 @@
     }
 
     .exp-tree { position: relative; z-index: 1; }
-    .tree { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 72px 1fr; gap: 0; }
+    .tree { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(220px,1fr) 92px minmax(220px,1fr); gap: 0; align-items: start; }
 
-    .tree-item { position: relative; margin: 1.5rem 0; min-height: 0; }
-    .tree-item.left { grid-column: 1 / 2; justify-self: end; padding-right: 1rem; text-align: right; }
-    .tree-item.right { grid-column: 3 / 4; justify-self: start; padding-left: 1rem; text-align: left; }
+    .tree-item { position: relative; margin: 2rem 0; min-height: 0; }
+    .tree-item.left { grid-column: 1 / 2; justify-self: end; padding-right: 1.25rem; text-align: right; }
+    .tree-item.right { grid-column: 3 / 4; justify-self: start; padding-left: 1.25rem; text-align: left; }
 
-    /* short horizontal connector (static) */
+    /* refined connector (static) */
     .tree-item .connector {
       position: absolute;
-      top: 1.6rem;
-      height: 4px;
-      width: 56px;
-      background: linear-gradient(90deg, rgba(6,182,212,0.95), rgba(34,211,238,0.6));
+      top: 1.7rem;
+      height: 6px;
+      width: 64px;
+      background: linear-gradient(90deg, var(--accent-strong), var(--accent));
       border-radius: 999px;
-      box-shadow: 0 6px 14px rgba(2,6,23,0.05);
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 8px 20px rgba(2,6,23,0.06);
       z-index: 1;
     }
-    .tree-item.left .connector { right: -56px; left: auto; }
-    .tree-item.right .connector { left: -56px; }
+    .tree-item.left .connector { right: -64px; left: auto; }
+    .tree-item.right .connector { left: -64px; }
 
-    .tree-item .exp-card { display: inline-block; width: min(560px, calc(100% - 24px)); text-align: left; box-shadow: 0 10px 28px rgba(2,6,23,0.06); border-radius: 18px; position: relative; }
-    .tree-item.left .exp-card { text-align: right; }
-
-    /* Marker on the trunk aligned to each tree item for clearer timeline */
-    .tree-item::before {
+    /* decorative end-cap where connector meets trunk */
+    .tree-item .connector::after {
       content: '';
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 1.55rem;
-      width: 12px;
-      height: 12px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0.65));
-      border: 2px solid rgba(6,182,212,0.95);
+      width: 10px;
+      height: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -6px;
       border-radius: 50%;
-      box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+      background: var(--accent);
+      box-shadow: 0 4px 10px rgba(6,182,212,0.14);
+      border: 2px solid #fff;
       z-index: 2;
     }
+    .tree-item.left .connector::after { right: -6px; }
+    .tree-item.right .connector::after { left: -6px; right: auto; }
+
+    /* card visual polish */
+    .tree-item .exp-card { display: inline-block; width: min(560px, calc(100% - 24px)); text-align: left; box-shadow: 0 14px 40px rgba(2,6,23,0.09); border-radius: 18px; position: relative; padding: 1.05rem; background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(248,252,255,0.62)); }
+    .tree-item.left .exp-card { text-align: right; }
+
+    /* circular company logo inside header */
+    .exp-card header img { width: 56px; height: 56px; border-radius: 9999px !important; padding: 6px; background: linear-gradient(180deg,#ffffff,#f3fbff); border: 1px solid rgba(6,182,212,0.08); box-shadow: 0 6px 20px rgba(2,6,23,0.06); object-fit: contain; }
+
+    .exp-card header h3 { font-size: 1.05rem; margin: 0 0 4px 0; color: var(--accent-strong); font-weight: 700; }
+    .exp-card header p { margin: 0; font-size: 12px; color: var(--muted); }
+    .exp-card p.text-sm { color: #374151; font-size: 0.95rem; line-height: 1.45; margin-top: 0.65rem; }
+
+    /* refined trunk marker */
+    .tree-item::before { width: 10px; height: 10px; top: 1.7rem; border: 2px solid var(--accent); background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.8)); box-shadow: 0 8px 20px rgba(2,6,23,0.08); }
+
+    /* keep everything static — no hover transforms */
+    .exp-card:focus, .exp-card:hover { transform: none; }
 
     /* Remove transform/hover animation — keep focus visible */
     .exp-card { transition: none; }
@@ -569,7 +593,7 @@ html {
                       <h3 class="text-lg font-semibold text-cyan-700">HITSS COLOMBIA S.A.S.</h3>
                       <p class="text-xs text-gray-600">Desarrollador .NET Estándar — Feb 2024 – Feb 2025</p>
                     </div>
-                    <img loading="lazy" decoding="async" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAMFBMVEVHcExKSkpKSkpJSUlKSkpLS0tKSkpJSUlGRkZISEhLS0tKSkpKSkpLS0tKSkpKSkqzBWFXAAAAEHRSTlMAVqohwfZqLwwW/39B4Yqa56HfbAAAAT1JREFUeAFFxzOAXQEURdE9NsrYTcwmtm2jim0nVaw21nDHaGJWr4ltjlH/Zox1eagQRqsu1BsavbpFxdlbnU5cih30eNvqeB9XxcaVx6wVEVmxQAJAotlt4s71eQz5qbHNHxNqEfW5NOwYcXZJ8SIQ1xAg/Arxpq2/BKsB4iccaurlUaYevg0QXDbj3Uj9eT8sNWYJ+e/1JaPs8rwH0dGU7NIrRN4gLIfE5ZQyStf7eQFV3oZ1Mr2XXt54nTM/GRLSMXc1w0uU9mbgLP3YTmcrA5JZ/Vk7e6HlEdPo0ZpIpxroRdp9BYjywuNw9cy4vwAJ+pKxprXTAQB6qSjNDPXi5xkQmKm2+KzDPAfhtlQ7e+31aVcDo46ogeltMs4DpPRy0v1eqrsBCHRBmPqJaiEvd+3sK2o1/+CcRVQoB2yckJTgaGf9AAAAAElFTkSuQmCC" alt="HITSS" class="rounded-lg bg-white p-2 shadow" />
+                    <img loading="lazy" decoding="async" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAMFBMVEVHcExKSkpKSkpJSUlKSkpLS0tKSkpJSUlGRkZISEhLS0tKSkpKSkpLS0tKSkpKSkqzBWFXAAAAEHRSTlMAVqohwfZqLwwW/39B4Yqa56HfbAAAAT1JREFUeAFFxzOAXQEURdE9NsrYTcwmtm2jim0nVaw21nDHaGJWr4ltjlH/Zox1eagQRqsu1BsavbpFxdlbnU5cih30eNvqeB9XxcaVx6wVEVmxQAJAotlt4s71eQz5qbHNHxNqEfW5NOwYcXZJ8SIQ1xAg/Arxpq2/BKsB4iccaurlUaYevg0QXDbj3Uj9eT8sNWYJ+e/1JaPs8rwH0dGU7NIrRN4gLIfE5ZQyStf7eQFV3oZ1Mr2XXt54nTM/GRLSMXc1w0uU9mbgLP3YTmcrA5JZ/Vk7e6HlEdPo0ZpIpxroRdp9BYjywuNw9cy4vwAJ+pKxprXTAQB6qSjNDPXi5xkQmKm2+KzDPAfhtlQ7e+31aVcDo46ogeltMs4DpPRy0v1eqrsBCHRBmPqJaiEvd+3sK2o1/+CcRVQoB2yckJTgaGf9AAAAAElFTkSuQmCC" alt="HITSS" class="bg-white p-2 shadow" />
                   </header>
                   <p class="text-sm text-gray-700">Desarrollo en .NET Core 5, optimización, integración de facturación electrónica, módulos de notificación, consumo de APIs REST seguras, CI/CD con Azure DevOps y monitoreo.</p>
                 </article>
@@ -579,7 +603,7 @@ html {
                 <span class="connector" aria-hidden="true"></span>
                 <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" id="exp-digitalbank">
                   <header class="flex items-center gap-4 mb-3">
-                    <img loading="lazy" decoding="async" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Digital Bank" class="rounded-lg bg-white p-2 shadow" />
+                    <img loading="lazy" decoding="async" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Digital Bank" class="bg-white p-2 shadow" />
                     <div>
                       <h3 class="text-lg font-semibold text-cyan-700">Digital Bank</h3>
                       <p class="text-xs text-gray-600">T3 Developer — Aug 2021 – Oct 2023</p>
@@ -597,7 +621,7 @@ html {
                       <h3 class="text-lg font-semibold text-cyan-700">Metronics</h3>
                       <p class="text-xs text-gray-600">Software Engineer — Jan 2021 – Jun 2021</p>
                     </div>
-                    <img loading="lazy" decoding="async" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" alt="Metronics" class="rounded-lg bg-white p-2 shadow" />
+                    <img loading="lazy" decoding="async" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" alt="Metronics" class="bg-white p-2 shadow" />
                   </header>
                   <p class="text-sm text-gray-700">Desarrollo de informes SSRS y mantenimiento de aplicaciones .NET Core enfocadas en fiabilidad.</p>
                 </article>
@@ -607,7 +631,7 @@ html {
                 <span class="connector" aria-hidden="true"></span>
                 <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" id="exp-hospital">
                   <header class="flex items-center gap-4 mb-3">
-                    <img loading="lazy" decoding="async" src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" alt="ESE Hospital Eduardo Santos" class="rounded-lg bg-white p-2 shadow" />
+                    <img loading="lazy" decoding="async" src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" alt="ESE Hospital Eduardo Santos" class="bg-white p-2 shadow" />
                     <div>
                       <h3 class="text-lg font-semibold text-cyan-700">E.S.E Hospital Eduardo Santos</h3>
                       <p class="text-xs text-gray-600">Systems Engineer — Sep 2017 – Aug 2020</p>
@@ -625,7 +649,7 @@ html {
                       <h3 class="text-lg font-semibold text-cyan-700">Galeras Studios</h3>
                       <p class="text-xs text-gray-600">Full Stack .NET Developer — Feb 2016 – Aug 2017</p>
                     </div>
-                    <img loading="lazy" decoding="async" src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" alt="Galeras Studios" class="rounded-lg bg-white p-2 shadow" />
+                    <img loading="lazy" decoding="async" src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" alt="Galeras Studios" class="bg-white p-2 shadow" />
                   </header>
                   <p class="text-sm text-gray-700">Desarrollo en C#, SQL Server y tecnologías web modernas.</p>
                 </article>
@@ -635,7 +659,7 @@ html {
                 <span class="connector" aria-hidden="true"></span>
                 <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" id="exp-indra">
                   <header class="flex items-center gap-4 mb-3">
-                    <img loading="lazy" decoding="async" src="https://www.indracompany.com/sites/default/files/indra_logo.png" alt="Indra Company" class="rounded-lg bg-white p-2 shadow" />
+                    <img loading="lazy" decoding="async" src="https://www.indracompany.com/sites/default/files/indra_logo.png" alt="Indra Company" class="bg-white p-2 shadow" />
                     <div>
                       <h3 class="text-lg font-semibold text-cyan-700">Indra Company</h3>
                       <p class="text-xs text-gray-600">Software Developer — Aug 2013 – Aug 2014</p>
