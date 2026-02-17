@@ -436,6 +436,47 @@ html {
       .liquid-card::before { opacity: 0.9; }
     }
 
+    /* --- Responsive & contrast fixes (QA pass) --- */
+    @media (max-width: 640px) {
+      .hero-title { font-size: 2rem; line-height: 1.05; }
+      .hero-photo { width: 120px; height: 120px; }
+      .container, .p-5 { padding-left: 1rem; padding-right: 1rem; }
+      .liquid-card { padding: 1rem; border-radius: 14px; }
+      .cards-grid { gap: 0.75rem; }
+      .exp-card { padding: 0.9rem; border-radius: 14px; }
+      .timeline-item { padding-left: 1rem; padding-right: 1rem; }
+      .btn-primary { padding: 0.5rem 0.85rem; font-size: 0.925rem; }
+      .subheadline { font-size: 0.95rem; color: #334155; }
+    }
+
+    /* Improve text contrast for body copy */
+    p, .text-gray-700, .text-gray-600 { color: #0f1724 !important; }
+
+    /* Focus/high-visibility tweaks for keyboard users */
+    :focus { outline-offset: 3px; }
+    button:focus, a:focus { box-shadow: 0 6px 20px rgba(6,182,212,0.12); }
+
+    /* --- Dark theme (variant) --- */
+    [data-theme="dark"] {
+      --accent: #22d3ee;
+      --accent-strong: #06b6d4;
+      --muted: #9aa6b2;
+    }
+    [data-theme="dark"] body {
+      background: radial-gradient(1200px at 5% 10%, #04202a 0%, #071421 60%);
+      color: #e6f6fa;
+    }
+    [data-theme="dark"] .liquid-glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 8px 40px rgba(2,6,23,0.6);
+    }
+    [data-theme="dark"] .headline-gradient { background-image: linear-gradient(90deg, #7ee6f5, #7cd8fb, #67c6f2); }
+    [data-theme="dark"] .btn-primary { background: linear-gradient(180deg, rgba(34,211,238,0.12), rgba(6,182,212,0.06)); color: #042f35; box-shadow: 0 8px 30px rgba(2,6,23,0.44); }
+    [data-theme="dark"] .btn-ghost { color: #bfeff6; border-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .liquid-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-color: rgba(255,255,255,0.04); color: #dff6fb; }
+    [data-theme="dark"] .card-sub { color: var(--muted); }
+
     </style>
 </head>
 <body class="font-inter bg-gradient-to-br from-white to-cyan-100 text-gray-800 smooth-scroll">
@@ -457,7 +498,11 @@ html {
   </div>
   <div class="hero-decor" aria-hidden="true"></div>
   <div class="text-center max-w-2xl mx-auto px-4 section relative z-10">
-    <img loading="eager" decoding="async" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="hero-photo mx-auto" width="180" height="180">
+    <picture class="mx-auto" aria-hidden="false">
+      <source type="image/webp" srcset="Foto.webp 1x, Foto@2x.webp 2x">
+      <source type="image/jpeg" srcset="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg 1x">
+      <img loading="eager" decoding="async" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="hero-photo mx-auto" width="180" height="180">
+    </picture>
     <h1 id="chars" class="hero-title text-5xl sm:text-6xl font-poppins font-extrabold mb-3 liquid-glass">Luis Ernesto Cantin Oviedo</h1>
     <p class="text-base text-gray-600 mb-5 subheadline"><span id="typedRoles" aria-live="polite">Ingeniero de Sistemas</span></p>
     <div class="flex justify-center gap-3 mb-4 hero-socials">
@@ -574,7 +619,7 @@ html {
           </div>
         </div>
         <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img loading="lazy" decoding="async" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Logo Digital Bank" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Digital Bank">
+          <img loading="lazy" decoding="async" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Logo Digital Bank" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Digital Bank" width="56" height="56">
           <div class="flex-1">
             <h4 class="text-lg font-semibold text-cyan-700">Digital Bank</h4>
             <p class="text-gray-600 text-xs mb-1">Desarrollador T3 | agosto 2021 - octubre 2023</p>
@@ -584,7 +629,7 @@ html {
           </div>
         </div>
         <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img loading="lazy" decoding="async" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" alt="Logo Metronics" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Metronics">
+          <img loading="lazy" decoding="async" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" alt="Logo Metronics" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Metronics" width="56" height="56">
           <div class="flex-1">
             <h4 class="text-lg font-semibold text-cyan-700">Metronics</h4>
             <p class="text-gray-600 text-xs mb-1">Ingeniero de desarrollo con visión de negocio | enero 2021 - junio 2021</p>
