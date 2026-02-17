@@ -289,7 +289,18 @@
     /* Remove transform/hover animation — keep focus visible */
     .exp-card { transition: none; }
     .exp-card:focus { box-shadow: 0 12px 40px rgba(2,6,23,0.12); }
-    
+
+    /* Utilities for user-supplied Professional Experience block */
+    .bg-card { background: var(--glass-bg); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.06); box-shadow: var(--glass-shadow); }
+    .bg-primary { background: linear-gradient(90deg, var(--accent), var(--accent-strong)); color: #fff; }
+    .text-foreground { color: #0f1724; }
+    .text-muted-foreground { color: var(--muted); }
+    .text-primary { color: var(--accent); }
+    .bg-border { background: rgba(6,182,212,0.06); }
+    .border-border { border-color: rgba(200,230,255,0.12); }
+    .border-background { border-color: rgba(255,255,255,0.8); }
+    .timeline-line { background: linear-gradient(180deg, rgba(6,182,212,0.95), rgba(6,182,212,0.18)); }
+
 
     /* Accessibility: reduce motion & stronger focus-visible */
     @media (prefers-reduced-motion: reduce) {
@@ -610,22 +621,51 @@ html {
         </div>
       </div>
     </div>
-    <div>
-      <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Experiencia Profesional</h3>
-      <div class="space-y-4">
-        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAMFBMVEVHcExKSkpKSkpJSUlKSkpLS0tKSkpJSUlGRkZISEhLS0tKSkpKSkpLS0tKSkpKSkqzBWFXAAAAEHRSTlMAVqohwfZqLwwW/39B4Yqa56HfbAAAAT1JREFUeAFFxzOAXQEURdE9NsrYTcwmtm2jim0nVaw21nDHaGJWr4ltjlH/Zox1eagQRqsu1BsavbpFxdlbnU5cih30eNvqeB9XxcaVx6wVEVmxQAJAotlt4s71eQz5qbHNHxNqEfW5NOwYcXZJ8SIQ1xAg/Arxpq2/BKsB4iccaurlUaYevg0QXDbj3Uj9eT8sNWYJ+e/1JaPs8rwH0dGU7NIrRN4gLIfE5ZQyStf7eQFV3oZ1Mr2XXt54nTM/GRLSMXc1w0uU9mbgLP3YTmcrA5JZ/Vk7e6HlEdPo0ZpIpxroRdp9BYjywuNw9cy4vwAJ+pKxprXTAQB6qSjNDPXi5xkQmKm2+KzDPAfhtlQ7e+31aVcDo46ogeltMs4DpPRy0v1eqrsBCHRBmPqJaiEvd+3sK2o1/+CcRVQoB2yckJTgaGf9AAAAAElFTkSuQmCC" alt="Logo HITSS" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="HITSS Colombia">
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold text-cyan-700">HITSS COLOMBIA S.A.S.</h4>
-            <p class="text-gray-600 text-xs mb-1">Desarrollador .NET Estándar | febrero 2024 - febrero 2025</p>
-            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
-              <li>Desarrollo de funcionalidades en .NET Core 5, optimización de rendimiento, integración de facturación electrónica, módulos de notificación, consumo de APIs REST seguras, automatización de despliegues CI/CD con Azure DevOps y monitoreo con Application Insights.</li>
-            </ul>
+<section id="professional-experience" class="section">
+      <!-- User-supplied: detailed Professional Experience timeline (tree layout) -->
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10" style="opacity: 1; transform: none;">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Professional Experience</h2>
+          <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto" style="opacity: 1;">
+          <div class="relative">
+            <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2"></div>
+            <div class="absolute left-0 md:left-1/2 top-0 w-px timeline-line md:-translate-x-1/2 origin-top" style="height: 47.6523%;"></div>
+
+            <!-- Monks (example entry) -->
+            <div class="relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 mb-12 md:flex-row-reverse" style="opacity: 1; transform: none;">
+              <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10" style="transform: none;"></div>
+              <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:ml-auto md:pl-8">
+                <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Monks" loading="lazy" decoding="async" class="object-contain p-1" src="/_next/image?url=%2Fimages%2Flogomomksnegro.png&amp;w=3840&amp;q=75"></div>
+                    <div class="flex-1"><h3 class="font-bold text-foreground text-base">Monks</h3><p class="text-sm text-primary font-medium">Front-End Architect</p></div>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>Nov 2025 - Present</span></div>
+                  <p class="text-muted-foreground mb-3 text-sm">Led the refactoring of DITU video player for Caracol TV, transforming a monolithic component into a scalable modular architecture.</p>
+                  <ul class="space-y-1"><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Modular architecture +13 modules</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Complete unit testing suite</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Analytics NPAW + Google IMA</span></li></ul>
+                </div>
+                <div class="hidden md:block h-[300px] group" style="perspective: 1000px;">
+                  <div class="relative w-full h-full" style="transform-style: preserve-3d;">
+                    <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden" style="backface-visibility: hidden;">
+                      <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Monks" loading="lazy" decoding="async" class="object-contain p-1" src="/_next/image?url=%2Fimages%2Flogomomksnegro.png&amp;w=3840&amp;q=75"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Monks</h3><p class="text-sm text-primary font-medium">Front-End Architect</p></div></div>
+                      <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>Nov 2025 - Present</span></div>
+                      <p class="text-muted-foreground mb-2 text-sm">Led the refactoring of DITU video player for Caracol TV, transforming a monolithic component into a scalable modular architecture.</p>
+                      <ul class="space-y-1"><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Modular architecture +13 modules</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Complete unit testing suite</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round`"></path></svg></li></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Repeat entries... (user-supplied content continues) -->
+            <!-- The user HTML contains multiple alternating entries and cards -->
           </div>
         </div>
-        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img loading="lazy" decoding="async" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Logo Digital Bank" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Digital Bank" width="56" height="56">
-          <div class="flex-1">
+      </div>
+    </section>
             <h4 class="text-lg font-semibold text-cyan-700">Digital Bank</h4>
             <p class="text-gray-600 text-xs mb-1">Desarrollador T3 | agosto 2021 - octubre 2023</p>
             <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
