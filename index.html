@@ -301,6 +301,17 @@
     .border-background { border-color: rgba(255,255,255,0.8); }
     .timeline-line { background: linear-gradient(180deg, rgba(6,182,212,0.95), rgba(6,182,212,0.18)); }
 
+    /* Make the user-supplied Professional Experience fully static (no transforms/animations) */
+    #professional-experience,
+    #professional-experience * {
+      transition: none !important;
+      animation: none !important;
+      transform: none !important;
+      backface-visibility: visible !important;
+      will-change: auto !important;
+      /*! prevents accidental 3D flip or GPU compositing */
+    }
+
 
     /* Accessibility: reduce motion & stronger focus-visible */
     @media (prefers-reduced-motion: reduce) {
@@ -640,7 +651,7 @@ html {
               <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:ml-auto md:pl-8">
                 <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
                   <div class="flex items-center gap-3 mb-2">
-                    <div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Monks" loading="lazy" decoding="async" class="object-contain p-1" src="/_next/image?url=%2Fimages%2Flogomomksnegro.png&amp;w=3840&amp;q=75"></div>
+                    <div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Monks" loading="lazy" decoding="async" class="object-contain p-1" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg"></div>
                     <div class="flex-1"><h3 class="font-bold text-foreground text-base">Monks</h3><p class="text-sm text-primary font-medium">Front-End Architect</p></div>
                   </div>
                   <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>Nov 2025 - Present</span></div>
@@ -648,12 +659,12 @@ html {
                   <ul class="space-y-1"><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Modular architecture +13 modules</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Complete unit testing suite</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Analytics NPAW + Google IMA</span></li></ul>
                 </div>
                 <div class="hidden md:block h-[300px] group" style="perspective: 1000px;">
-                  <div class="relative w-full h-full" style="transform-style: preserve-3d;">
-                    <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden" style="backface-visibility: hidden;">
-                      <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Monks" loading="lazy" decoding="async" class="object-contain p-1" src="/_next/image?url=%2Fimages%2Flogomomksnegro.png&amp;w=3840&amp;q=75"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Monks</h3><p class="text-sm text-primary font-medium">Front-End Architect</p></div></div>
+                  <div class="relative w-full h-full">
+                    <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+                      <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Monks" loading="lazy" decoding="async" class="object-contain p-1" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Monks</h3><p class="text-sm text-primary font-medium">Front-End Architect</p></div></div>
                       <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>Nov 2025 - Present</span></div>
                       <p class="text-muted-foreground mb-2 text-sm">Led the refactoring of DITU video player for Caracol TV, transforming a monolithic component into a scalable modular architecture.</p>
-                      <ul class="space-y-1"><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Modular architecture +13 modules</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Complete unit testing suite</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round`"></path></svg></li></ul>
+                      <ul class="space-y-1"><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Modular architecture +13 modules</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Complete unit testing suite</span></li></ul>
                     </div>
                   </div>
                 </div>
