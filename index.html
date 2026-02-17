@@ -196,6 +196,55 @@
       background: #00e6cb;
       border-radius: 50%;
     }
+
+    /* Professional Experience (interactive timeline) */
+    .exp-section { position: relative; }
+    .exp-section .exp-line {
+      position: absolute;
+      left: 2.25rem;
+      top: 1.25rem;
+      bottom: 1.25rem;
+      width: 6px;
+      background: linear-gradient(180deg, rgba(34,211,238,0.9), rgba(6,182,212,0.25));
+      border-radius: 999px;
+      transform-origin: top;
+      transform: scaleY(0);
+      box-shadow: 0 6px 20px rgba(6,182,212,0.08) inset;
+    }
+    .exp-list { position: relative; z-index: 1; }
+    .exp-card {
+      position: relative;
+      padding-left: 3.5rem;
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s;
+      will-change: transform;
+    }
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      left: 1.25rem;
+      top: 1.2rem;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 6px 14px rgba(34,211,238,0.12);
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+    .exp-card:focus, .exp-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 10px 36px rgba(2,6,23,0.12);
+    }
+    .exp-card header img { width: 48px; height: 48px; }
+
+    @media (min-width: 768px) {
+      .exp-section .exp-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2rem; }
+      .exp-card { padding-left: 4rem; }
+    }
+
+    /* audio volume control */
+    #audioVolume { accent-color: var(--accent); }
+    #toggleAudioBtn[aria-pressed="true"] { box-shadow: 0 6px 18px rgba(6,182,212,0.12); }
+
     /* Container for consistent padding */
     .container {
       max-width: 80rem;
@@ -272,8 +321,14 @@ html {
 <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
   <div class="video-wrapper absolute inset-0 w-full h-full -z-10 pointer-events-none">
     <video id="videoPlayer" autoplay muted playsinline class="w-full h-full object-cover opacity-100 bg-transparent"></video>
-    <audio id="audioPlayer" src="sonido.weba" preload="auto"></audio>
-    <button id="toggleAudioBtn" class="fixed top-12 right-4 z-50 bg-cyan-400 text-white px-3 py-1 rounded-full shadow hover:bg-cyan-500 transition text-xs">🔇 OFF</button>
+    <audio id="audioPlayer" preload="auto" loop aria-hidden="true">
+      <source src="sonido.weba" type="audio/webm">
+      Tu navegador no soporta audio embebido.
+    </audio>
+    <div class="fixed top-12 right-4 z-50 flex items-center gap-2" style="transform: translateZ(0);">
+      <button id="toggleAudioBtn" class="bg-cyan-400 text-white px-3 py-1 rounded-full shadow hover:bg-cyan-500 transition text-xs" aria-pressed="false" aria-label="Alternar sonido">🔇 Sonido OFF</button>
+      <input id="audioVolume" type="range" min="0" max="1" step="0.05" value="0.12" class="w-20 hidden md:inline-block" aria-label="Volumen" />
+    </div>
   </div>
   <div class="text-center max-w-2xl mx-auto px-4 section relative z-10">
     <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="mx-auto rounded-full w-16 h-16 mb-2 border-2 border-secondary shadow-lg">
@@ -499,6 +554,81 @@ html {
 
       
 
+      <!-- Professional Experience (interactive) -->
+      <section id="experience" class="section">
+        <h2 class="text-2xl font-poppins font-medium mb-5 headline-gradient">Professional Experience</h2>
+        <div class="p-5 rounded-2xl liquid-glass border border-cyan-100/20 relative overflow-hidden exp-section">
+          <div class="exp-line" aria-hidden="true"></div>
+          <div class="exp-list">
+            <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" tabindex="0" role="article" aria-labelledby="exp-hitss">
+              <header class="flex items-center gap-4 mb-3">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAMFBMVEVHcExKSkpKSkpJSUlKSkpLS0tKSkpJSUlGRkZISEhLS0tKSkpKSkpLS0tKSkpKSkqzBWFXAAAAEHRSTlMAVqohwfZqLwwW/39B4Yqa56HfbAAAAT1JREFUeAFFxzOAXQEURdE9NsrYTcwmtm2jim0nVaw21nDHaGJWr4ltjlH/Zox1eagQRqsu1BsavbpFxdlbnU5cih30eNvqeB9XxcaVx6wVEVmxQAJAotlt4s71eQz5qbHNHxNqEfW5NOwYcXZJ8SIQ1xAg/Arxpq2/BKsB4iccaurlUaYevg0QXDbj3Uj9eT8sNWYJ+e/1JaPs8rwH0dGU7NIrRN4gLIfE5ZQyStf7eQFV3oZ1Mr2XXt54nTM/GRLSMXc1w0uU9mbgLP3YTmcrA5JZ/Vk7e6HlEdPo0ZpIpxroRdp9BYjywuNw9cy4vwAJ+pKxprXTAQB6qSjNDPXi5xkQmKm2+KzDPAfhtlQ7e+31aVcDo46ogeltMs4DpPRy0v1eqrsBCHRBmPqJaiEvd+3sK2o1/+CcRVQoB2yckJTgaGf9AAAAAElFTkSuQmCC" alt="HITSS" class="rounded-lg bg-white p-2 shadow" />
+                <div>
+                  <h3 id="exp-hitss" class="text-lg font-semibold text-cyan-700">HITSS COLOMBIA S.A.S.</h3>
+                  <p class="text-xs text-gray-600">Desarrollador .NET Estándar — Feb 2024 – Feb 2025</p>
+                </div>
+              </header>
+              <p class="text-sm text-gray-700">Developed features in .NET Core 5, performance optimization, electronic invoicing integration, notification modules, secure REST API consumption, CI/CD with Azure DevOps and monitoring with Application Insights.</p>
+            </article>
+
+            <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" tabindex="0" role="article" aria-labelledby="exp-digitalbank">
+              <header class="flex items-center gap-4 mb-3">
+                <img src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Digital Bank" class="rounded-lg bg-white p-2 shadow" />
+                <div>
+                  <h3 id="exp-digitalbank" class="text-lg font-semibold text-cyan-700">Digital Bank</h3>
+                  <p class="text-xs text-gray-600">T3 Developer — Aug 2021 – Oct 2023</p>
+                </div>
+              </header>
+              <p class="text-sm text-gray-700">Designed and implemented air-traffic management reporting platforms for Opain; built hierarchical explorers, notification modules, CI/CD improvements and production support for high-availability environments.</p>
+            </article>
+
+            <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" tabindex="0" role="article" aria-labelledby="exp-metronics">
+              <header class="flex items-center gap-4 mb-3">
+                <img src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" alt="Metronics" class="rounded-lg bg-white p-2 shadow" />
+                <div>
+                  <h3 id="exp-metronics" class="text-lg font-semibold text-cyan-700">Metronics</h3>
+                  <p class="text-xs text-gray-600">Software Engineer — Jan 2021 – Jun 2021</p>
+                </div>
+              </header>
+              <p class="text-sm text-gray-700">Developed SSRS reports and maintained .NET Core applications for projects such as SIE7E and SIEF, focusing on reliability and reporting accuracy.</p>
+            </article>
+
+            <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" tabindex="0" role="article" aria-labelledby="exp-hospital">
+              <header class="flex items-center gap-4 mb-3">
+                <img src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" alt="ESE Hospital Eduardo Santos" class="rounded-lg bg-white p-2 shadow" />
+                <div>
+                  <h3 id="exp-hospital" class="text-lg font-semibold text-cyan-700">E.S.E Hospital Eduardo Santos</h3>
+                  <p class="text-xs text-gray-600">Systems Engineer — Sep 2017 – Aug 2020</p>
+                </div>
+              </header>
+              <p class="text-sm text-gray-700">Provided support and development for medical systems, administered PostgreSQL databases, and ensured compliance with RIPS standards.</p>
+            </article>
+
+            <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" tabindex="0" role="article" aria-labelledby="exp-galeras">
+              <header class="flex items-center gap-4 mb-3">
+                <img src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" alt="Galeras Studios" class="rounded-lg bg-white p-2 shadow" />
+                <div>
+                  <h3 id="exp-galeras" class="text-lg font-semibold text-cyan-700">Galeras Studios</h3>
+                  <p class="text-xs text-gray-600">Full Stack .NET Developer — Feb 2016 – Aug 2017</p>
+                </div>
+              </header>
+              <p class="text-sm text-gray-700">Worked on C#, SQL Server and modern web technologies to deliver client-facing applications.</p>
+            </article>
+
+            <article class="exp-card p-5 rounded-2xl liquid-glass shadow-md" tabindex="0" role="article" aria-labelledby="exp-indra">
+              <header class="flex items-center gap-4 mb-3">
+                <img src="https://www.indracompany.com/sites/default/files/indra_logo.png" alt="Indra Company" class="rounded-lg bg-white p-2 shadow" />
+                <div>
+                  <h3 id="exp-indra" class="text-lg font-semibold text-cyan-700">Indra Company</h3>
+                  <p class="text-xs text-gray-600">Software Developer — Aug 2013 – Aug 2014</p>
+                </div>
+              </header>
+              <p class="text-sm text-gray-700">Enterprise application development in .NET with focus on reliability and maintainability.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <!-- Tools Section -->
       <section id="tools" class="section">
         <h2 class="text-2xl font-poppins font-medium mb-5 headline-gradient">Herramientas de Manejo</h2>
@@ -662,36 +792,67 @@ html {
       videoPlayer.oncanplay = null;
     };
 
-    // AUDIO LOGIC MEJORADO
-    const audioPlayer = document.getElementById("audioPlayer");
-    const toggleAudioBtn = document.getElementById("toggleAudioBtn");
+    // AUDIO: control robusto, volumen persistente y loop
+    const audioPlayer = document.getElementById('audioPlayer');
+    const toggleAudioBtn = document.getElementById('toggleAudioBtn');
+    const audioVolume = document.getElementById('audioVolume');
 
-    function updateAudioButton() {
-      if (audioPlayer.paused) {
-        toggleAudioBtn.textContent = "🔇 Sonido OFF";
-      } else {
-        toggleAudioBtn.textContent = "🔊 Sonido ON";
+    if (audioPlayer) {
+      audioPlayer.volume = parseFloat(localStorage.getItem('audioVolume') || '0.12');
+      audioPlayer.loop = true;
+    }
+
+    function setAudioUI(enabled) {
+      if (!toggleAudioBtn) return;
+      toggleAudioBtn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+      toggleAudioBtn.textContent = enabled ? '🔊 Sonido ON' : '🔇 Sonido OFF';
+    }
+
+    async function tryPlayAudio() {
+      try {
+        await audioPlayer.play();
+        localStorage.setItem('audioEnabled','true');
+        setAudioUI(true);
+        return true;
+      } catch (err) {
+        console.debug('Audio playback blocked or unavailable', err);
+        localStorage.setItem('audioEnabled','false');
+        setAudioUI(false);
+        return false;
       }
     }
 
-    // Botón ON/OFF
-    toggleAudioBtn.addEventListener("click", function() {
-      if (audioPlayer.paused || audioPlayer.ended) {
-        audioPlayer.play().then(updateAudioButton);
-      } else {
-        audioPlayer.pause();
-        updateAudioButton();
-      }
-    });
+    if (toggleAudioBtn) {
+      toggleAudioBtn.addEventListener('click', async () => {
+        const enabled = localStorage.getItem('audioEnabled') === 'true';
+        if (!enabled) {
+          await tryPlayAudio();
+        } else {
+          audioPlayer.pause();
+          localStorage.setItem('audioEnabled','false');
+          setAudioUI(false);
+        }
+      });
+    }
 
-    // Sincronizar el botón si el usuario pausa/reproduce desde controles nativos
-    audioPlayer.addEventListener('pause', updateAudioButton);
-    audioPlayer.addEventListener('play', updateAudioButton);
+    if (audioPlayer) {
+      audioPlayer.addEventListener('play', () => setAudioUI(true));
+      audioPlayer.addEventListener('pause', () => setAudioUI(false));
+    }
 
-    // Intentar reproducir el audio al cargar la página (si el navegador lo permite)
-    window.addEventListener("DOMContentLoaded", function() {
-      audioPlayer.play().catch(() => {});
-      updateAudioButton();
+    if (audioVolume) {
+      audioVolume.value = audioPlayer.volume;
+      audioVolume.addEventListener('input', (e) => {
+        const v = parseFloat(e.target.value);
+        audioPlayer.volume = v;
+        localStorage.setItem('audioVolume', String(v));
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const shouldPlay = localStorage.getItem('audioEnabled') === 'true';
+      setAudioUI(shouldPlay);
+      if (shouldPlay) tryPlayAudio();
     });
 
 
@@ -852,6 +1013,44 @@ if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)')
       });
     })();
 
+    // GSAP ScrollTrigger: animate Professional Experience and timeline progress
+    (function() {
+      if (!window.gsap || !window.ScrollTrigger) return;
+      try { gsap.registerPlugin(ScrollTrigger); } catch(e) {}
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      // Reveal each experience card
+      gsap.utils.toArray('.exp-card').forEach((card, i) => {
+        gsap.from(card, {
+          y: 28,
+          autoAlpha: 0,
+          duration: 0.75,
+          ease: 'power3.out',
+          delay: i * 0.06,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+
+      // Animate the vertical progress line while scrolling the section
+      const expSection = document.querySelector('.exp-section');
+      if (expSection) {
+        gsap.to('.exp-line', {
+          scaleY: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: expSection,
+            start: 'top top+=120',
+            end: 'bottom top+=120',
+            scrub: 0.6
+          }
+        });
+      }
+
+    })();
 
     
   </script>
