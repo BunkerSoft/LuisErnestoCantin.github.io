@@ -7,7 +7,11 @@
     <meta name="description" content="Currículum y portafolio de Luis Ernesto Cantin — Full Stack .NET Developer, Azure, SQL, Angular. CV descargable y portafolio." />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- removed unused three.js (static site, no runtime 3D/animation) -->
+    <link rel="icon" href="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" sizes="180x180" type="image/jpeg">
+    <link rel="canonical" href="https://bunkersoft.github.io/LuisErnestoCantin.github.io/">
+    <meta name="theme-color" content="#06b6d4">
+    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
     <!-- Animations disabled per user request (GSAP/ScrollTrigger removed) -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -173,6 +177,18 @@
     }
     /* Sections — static (animations disabled) */
     .section { opacity: 1; transform: none; transition: none; }
+
+    /* Skip-link (visible for keyboard users) */
+    .skip-link { position: absolute; left: 1rem; top: -48px; background: #042f35; color: #fff; padding: 0.45rem 0.65rem; border-radius: 8px; z-index: 999; font-size:0.9rem; box-shadow: 0 6px 20px rgba(2,6,23,0.18); }
+    .skip-link:focus { top: 1rem; outline: 3px solid var(--focus-ring); outline-offset: 3px; }
+
+    /* Better keyboard focus visuals */
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; box-shadow: none; }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
 
     /* Sticky sidebar (no animation) */
     .sidebar { position: sticky; top: 1rem; transition: none; }
@@ -632,11 +648,11 @@ html {
         </div>
       </div>
     </div>
-<section id="professional-experience" class="section">
+<section id="professional-experience" class="section" aria-labelledby="professional-experience-title">
       <!-- User-supplied: detailed Professional Experience timeline (tree layout) -->
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-10" style="opacity: 1; transform: none;">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Professional Experience</h2>
+          <h2 id="professional-experience-title" class="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Professional Experience</h2>
           <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
         </div>
 
@@ -679,7 +695,7 @@ html {
               <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:mr-auto md:pr-8">
                 <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
                   <div class="flex items-center gap-3 mb-2">
-                    <div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Digital Bank" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png"></div>
+                    <div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Digital Bank" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" width="40" height="40"></div>
                     <div class="flex-1"><h3 class="font-bold text-foreground text-base">Digital Bank</h3><p class="text-sm text-primary font-medium">Desarrollador T3</p></div>
                   </div>
                   <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>agosto 2021 - octubre 2023</span></div>
@@ -687,7 +703,7 @@ html {
                 </div>
                 <div class="hidden md:block h-[300px] group">
                   <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
-                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Digital Bank" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Digital Bank</h3><p class="text-sm text-primary font-medium">Desarrollador T3</p></div></div>
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Digital Bank" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Digital Bank</h3><p class="text-sm text-primary font-medium">Desarrollador T3</p></div></div>
                     <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>agosto 2021 - octubre 2023</span></div>
                     <p class="text-muted-foreground mb-2 text-sm">Diseño e implementación de plataformas de gestión de tráfico aéreo para Opain. Desarrollo de reportes, estructuras jerárquicas estilo explorador, módulos de notificaciones (SendGrid), gestión CI/CD, mejoras de rendimiento y soporte en entornos productivos.</p>
                   </div>
@@ -700,13 +716,13 @@ html {
               <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
               <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:ml-auto md:pl-8">
                 <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
-                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Metronics" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Metronics</h3><p class="text-sm text-primary font-medium">Ingeniero de desarrollo</p></div></div>
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Metronics" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Metronics</h3><p class="text-sm text-primary font-medium">Ingeniero de desarrollo</p></div></div>
                   <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>enero 2021 - junio 2021</span></div>
                   <p class="text-muted-foreground mb-3 text-sm">Desarrollo de informes SSRS y mantenimiento de aplicaciones en .NET Core para proyectos como SIE7E, SIEF y Operaciones 360.</p>
                 </div>
                 <div class="hidden md:block h-[300px] group">
                   <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
-                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Metronics" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Metronics</h3><p class="text-sm text-primary font-medium">Ingeniero de desarrollo</p></div></div>
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Metronics" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Metronics</h3><p class="text-sm text-primary font-medium">Ingeniero de desarrollo</p></div></div>
                     <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>enero 2021 - junio 2021</span></div>
                     <p class="text-muted-foreground mb-2 text-sm">Desarrollo de informes SSRS y mantenimiento de aplicaciones en .NET Core para proyectos como SIE7E, SIEF y Operaciones 360.</p>
                   </div>
@@ -719,13 +735,13 @@ html {
               <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
               <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:mr-auto md:pr-8">
                 <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
-                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="ESE Hospital Eduardo Santos" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">E.S.E Hospital Eduardo Santos</h3><p class="text-sm text-primary font-medium">Ingeniero de sistemas</p></div></div>
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="ESE Hospital Eduardo Santos" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">E.S.E Hospital Eduardo Santos</h3><p class="text-sm text-primary font-medium">Ingeniero de sistemas</p></div></div>
                   <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>septiembre 2017 - agosto 2020</span></div>
                   <p class="text-muted-foreground mb-3 text-sm">Soporte y desarrollo en sistemas médicos y facturación. Administración de bases PostgreSQL, cumplimiento normativo RIPS, soporte al software Compucontac.</p>
                 </div>
                 <div class="hidden md:block h-[300px] group">
                   <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
-                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="ESE Hospital Eduardo Santos" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">E.S.E Hospital Eduardo Santos</h3><p class="text-sm text-primary font-medium">Ingeniero de sistemas</p></div></div>
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="ESE Hospital Eduardo Santos" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">E.S.E Hospital Eduardo Santos</h3><p class="text-sm text-primary font-medium">Ingeniero de sistemas</p></div></div>
                     <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>septiembre 2017 - agosto 2020</span></div>
                     <p class="text-muted-foreground mb-2 text-sm">Soporte y desarrollo en sistemas médicos y facturación. Administración de bases PostgreSQL, cumplimiento normativo RIPS, soporte al software Compucontac.</p>
                   </div>
@@ -738,13 +754,13 @@ html {
               <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
               <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:ml-auto md:pl-8">
                 <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
-                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Galeras Studios" loading="lazy" decoding="async" class="object-contain p-1" src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Galeras Studios</h3><p class="text-sm text-primary font-medium">Desarrollador .NET Full Stack</p></div></div>
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Galeras Studios" loading="lazy" decoding="async" class="object-contain p-1" src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Galeras Studios</h3><p class="text-sm text-primary font-medium">Desarrollador .NET Full Stack</p></div></div>
                   <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>febrero 2016 - agosto 2017</span></div>
                   <p class="text-muted-foreground mb-3 text-sm">Desarrollo en C#, SQL Server y tecnologías web modernas.</p>
                 </div>
                 <div class="hidden md:block h-[300px] group">
                   <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
-                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Galeras Studios" loading="lazy" decoding="async" class="object-contain p-1" src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Galeras Studios</h3><p class="text-sm text-primary font-medium">Desarrollador .NET Full Stack</p></div></div>
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Galeras Studios" loading="lazy" decoding="async" class="object-contain p-1" src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Galeras Studios</h3><p class="text-sm text-primary font-medium">Desarrollador .NET Full Stack</p></div></div>
                     <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>febrero 2016 - agosto 2017</span></div>
                     <p class="text-muted-foreground mb-2 text-sm">Desarrollo en C#, SQL Server y tecnologías web modernas.</p>
                   </div>
@@ -757,13 +773,13 @@ html {
               <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
               <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:mr-auto md:pr-8">
                 <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
-                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Indra Company" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.indracompany.com/sites/default/files/indra_logo.png"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Indra Company</h3><p class="text-sm text-primary font-medium">Desarrollador de Software</p></div></div>
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Indra Company" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.indracompany.com/sites/default/files/indra_logo.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Indra Company</h3><p class="text-sm text-primary font-medium">Desarrollador de Software</p></div></div>
                   <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>agosto 2013 - agosto 2014</span></div>
                   <p class="text-muted-foreground mb-3 text-sm">.NET Full Stack Developer enfocado en aplicaciones empresariales.</p>
                 </div>
                 <div class="hidden md:block h-[300px] group">
                   <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
-                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Indra Company" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.indracompany.com/sites/default/files/indra_logo.png"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Indra Company</h3><p class="text-sm text-primary font-medium">Desarrollador de Software</p></div></div>
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Indra Company" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.indracompany.com/sites/default/files/indra_logo.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Indra Company</h3><p class="text-sm text-primary font-medium">Desarrollador de Software</p></div></div>
                     <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>agosto 2013 - agosto 2014</span></div>
                     <p class="text-muted-foreground mb-2 text-sm">.NET Full Stack Developer enfocado en aplicaciones empresariales.</p>
                   </div>
@@ -844,8 +860,8 @@ html {
 
       <!-- Tools Section -->
 <!-- Tools Section -->
-      <section id="tools" class="section">
-        <h2 class="text-2xl font-poppins font-medium mb-5 headline-gradient">Herramientas de Manejo</h2>
+      <section id="tools" class="section" aria-labelledby="tools-title">
+        <h2 id="tools-title" class="text-2xl font-poppins font-medium mb-5 headline-gradient">Herramientas de Manejo</h2>
         <div class="p-5 rounded-lg liquid-glass">
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             <div class="tool-card">
@@ -929,8 +945,8 @@ html {
       </section>
 
       <!-- Liquid Glass Card — Component demo -->
-      <section id="components" class="section">
-        <h2 class="text-2xl font-poppins font-medium mb-5 headline-gradient">Liquid Glass Cards — Demo</h2>
+      <section id="components" class="section" aria-labelledby="components-title">
+        <h2 id="components-title" class="text-2xl font-poppins font-medium mb-5 headline-gradient">Liquid Glass Cards — Demo</h2>
         <div class="p-5 rounded-lg liquid-glass">
           <div class="cards-grid">
             <article class="liquid-card" role="article" aria-label="Tarjeta perfil — Luis Ernesto">
