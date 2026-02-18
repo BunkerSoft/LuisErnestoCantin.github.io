@@ -4,75 +4,116 @@
 <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Luis Ernesto Cantin - Curriculum Vitae</title>
+    <meta name="description" content="Currículum y portafolio de Luis Ernesto Cantin — Full Stack .NET Developer, Azure, SQL, Angular. CV descargable y portafolio." />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <!-- removed unused three.js (static site, no runtime 3D/animation) -->
+    <link rel="icon" href="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" sizes="180x180" type="image/jpeg">
+    <link rel="canonical" href="https://bunkersoft.github.io/LuisErnestoCantin.github.io/">
+    <meta name="theme-color" content="#06b6d4">
+    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+    <!-- Animations disabled per user request (GSAP/ScrollTrigger removed) -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preload" as="image" href="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg">
+    <meta property="og:title" content="Luis Ernesto Cantin — Full Stack .NET Developer">
+    <meta property="og:description" content="Perfil profesional, experiencia y portafolio — .NET, Azure, SQL, Angular.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Luis Ernesto Cantin","url":"https://bunkersoft.github.io/LuisErnestoCantin.github.io/","sameAs":["https://www.linkedin.com/in/luis-ernesto-cantin-oviedo-83353163/","https://github.com/BunkerSoft","https://www.facebook.com/LuisErnestoCantinOviedo/"],"jobTitle":"Full Stack .NET Developer","description":"Ingeniero de Sistemas especializado en .NET, Azure, SQL y Angular. Portafolio y CV descargable."}</script> 
 
     <style>
       
        .headline-gradient {
       font-size: clamp(2.5rem, 7vw, 4.5rem);
       font-weight: 700;
-      background: linear-gradient(90deg, #06b6d4, #0ea5e9, #22d3ee, #38bdf8, #06b6d4);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
+      color: #0b2230;
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: initial;
       margin: 0;
       letter-spacing: -0.01em;
-      text-shadow: 0 2px 12px rgba(6,182,212,0.10);
-      
+      text-shadow: none;
+    }
+
+    :root {
+      --accent: #06b6d4; /* primary cyan */
+      --accent-strong: #0ea5e9;
+      --accent-weak: rgba(6,182,212,0.12);
+      --muted: #6b7280;
+      --muted-strong: #374151;
+      --glass-border: rgba(255,255,255,0.55);
+      --radius-lg: 24px;
+      --radius-md: 14px;
+      --card-elevation: 0 12px 30px rgba(2,6,23,0.08);
+      --glass-shadow: 0 6px 20px rgba(2,6,23,0.06);
+      --focus-ring: rgba(6,182,212,0.16);
+      --glass-bg: linear-gradient(180deg, rgba(255,255,255,0.36), rgba(245,250,255,0.10));
     }
     
-    
-    /* Fondo global tipo macOS Sonoma/iOS 17 */
+    /* Minimalist global background */
     body {
-      background: linear-gradient(120deg, #e0e7ef 0%, #f5f7fa 50%, #d0e6f6 100%);
+      background: #ffffff;
       min-height: 100vh;
       font-family: 'Inter', 'SF Pro Display', 'Segoe UI', 'Roboto', Arial, sans-serif;
-      color: #222;
+      color: #0b2230;
+      -webkit-font-smoothing:antialiased;
     }
-    /* Liquid Glass macOS/iOS Sonoma */
+    /* Minimalist cards (flat, subtle borders) */
     .liquid-glass {
-      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(200,230,255,0.13) 100%);
-      backdrop-filter: blur(32px) saturate(1.3) brightness(1.08);
-      -webkit-backdrop-filter: blur(32px) saturate(1.3) brightness(1.08);
-      border: 1.5px solid rgba(255,255,255,0.32);
-      box-shadow: 0 8px 32px 0 rgba(60, 120, 180, 0.10), 0 1.5px 8px 0 rgba(255,255,255,0.18) inset;
-      border-radius: 28px;
-      transition: box-shadow 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1), background 0.5s cubic-bezier(.4,0,.2,1);
+      position: relative;
+      overflow: visible;
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid rgba(15,23,42,0.06);
+      box-shadow: none;
+      padding: 1rem;
+      /* keep static, minimal */
     }
-    .liquid-glass:hover {
-      box-shadow: 0 16px 48px 0 rgba(60, 120, 180, 0.16), 0 2px 16px 0 rgba(255,255,255,0.22) inset;
-      background: linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(200,230,255,0.18) 100%);
-      transform: scale(1.025) translateY(-2px);
-    }
-    /* Tool card estilo glassmorphism Sonoma */
+    .liquid-glass::before { display: none; }
+    /* Tool card — minimalist */
     .tool-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(200,230,255,0.10) 100%);
-      border: 1.2px solid rgba(255,255,255,0.22);
-      border-radius: 18px;
-      box-shadow: 0 4px 16px 0 rgba(60, 120, 180, 0.08), 0 1px 4px 0 rgba(255,255,255,0.10) inset;
-      padding: 1.1rem;
+      background: transparent;
+      border: 1px solid rgba(15,23,42,0.04);
+      border-radius: 8px;
+      box-shadow: none;
+      padding: 0.75rem;
       text-align: center;
-      transition: box-shadow 0.4s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1), background 0.4s cubic-bezier(.4,0,.2,1);
     }
-    .tool-card:hover {
-      box-shadow: 0 8px 32px 0 rgba(60, 120, 180, 0.13), 0 2px 8px 0 rgba(255,255,255,0.16) inset;
-      background: linear-gradient(135deg, rgba(255,255,255,0.24) 0%, rgba(200,230,255,0.16) 100%);
-      transform: scale(1.03) translateY(-2px);
+    .tool-card img { filter: none; }
+    .tool-card img:focus { transform: none; }
+    .tool-card:focus, .tool-card:hover { box-shadow: none; background: rgba(15,23,42,0.02); }
+
+    /* Buttons — minimalist */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      border: 1px solid rgba(6,182,212,0.12);
+      box-shadow: none;
+      text-decoration: none;
     }
-    .tool-card img {
-      filter: drop-shadow(0 2px 6px rgba(60,120,180,0.10));
-      transition: filter 0.3s, transform 0.3s;
-    }
-    .tool-card img:hover {
-      filter: drop-shadow(0 4px 12px rgba(60,120,180,0.16));
-      transform: scale(1.08);
-    }
+    .btn-primary:focus { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
+    .btn-ghost { background: transparent; border: 1px solid rgba(15,23,42,0.06); color: var(--accent-strong); padding: 0.45rem 0.8rem; border-radius: 8px; }
+    .btn-glass { background: transparent; border: 1px solid rgba(15,23,42,0.04); padding: 6px 10px; border-radius: 8px; box-shadow: none; color: #0b2230; }
+
+    /* Hero photo — minimal */
+    .hero-photo { width: 140px; height: 140px; object-fit: cover; border-radius: 9999px; border: 1px solid rgba(15,23,42,0.06); box-shadow: none; }
+
+    /* social chips — minimalist */
+    .chip-social { width:40px; height:40px; display:inline-grid; place-items:center; border-radius:9999px; background: transparent; border:1px solid rgba(15,23,42,0.04); color: var(--accent-strong); box-shadow: none; }
+    .chip-social:hover, .chip-social:focus { transform: none; background: rgba(6,182,212,0.06); }
+
+
+    
     /* Nav y footer glassmorphism suave */
     .nav-shrink, footer.liquid-glass {
       background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(200,230,255,0.10) 100%);
@@ -85,35 +126,19 @@
     .nav-shrink.scrolled {
       background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(200,230,255,0.13) 100%);
       box-shadow: 0 4px 24px 0 rgba(60,120,180,0.10);
+      padding: 0.5rem 1rem;
     }
-    /* Scrollbar glassmorphism Sonoma */
-    ::-webkit-scrollbar {
-      width: 12px;
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, rgba(255,255,255,0.22), rgba(200,230,255,0.13));
-      border-radius: 8px;
-      border: 2px solid rgba(255,255,255,0.18);
-      box-shadow: 0 2px 8px rgba(60,120,180,0.08), inset 0 1px 4px rgba(255,255,255,0.12);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, rgba(200,230,255,0.22), rgba(255,255,255,0.22));
-    }
-    html {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(200,230,255,0.18) rgba(255,255,255,0.08);
-    }
+    /* Minimal scrollbar */
+    ::-webkit-scrollbar { width: 8px; background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.18); }
+    html { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.12) transparent; }
     /* Ajustes de tipografía y detalles */
     h1, h2, h3, .font-poppins {
       font-family: 'SF Pro Display', 'Poppins', 'Inter', Arial, sans-serif;
       letter-spacing: -0.01em;
     }
-    h1 {
-      font-weight: 700;
-      color: #222;
-      text-shadow: 0 2px 12px rgba(200,230,255,0.10);
-    }
+    h1 { font-weight: 700; color: #0b2230; text-shadow: none; }
     h2, h3 {
       font-weight: 600;
       color: #2a2a2a;
@@ -127,47 +152,33 @@
       border-top: 1.2px solid rgba(200,230,255,0.18);
       margin: 0.5rem 0;
     }
-    /* Ajuste de padding y border-radius para look Sonoma */
-    .p-5, .p-6 {
-      border-radius: 24px !important;
+    /* Ajuste de padding y border-radius — minimal */
+    .p-5, .p-6 { border-radius: 8px !important; }
+    /* Sections — static (animations disabled) */
+    .section { opacity: 1; transform: none; transition: none; }
+
+    /* Skip-link (visible for keyboard users) */
+    .skip-link { position: absolute; left: 1rem; top: -48px; background: #042f35; color: #fff; padding: 0.45rem 0.65rem; border-radius: 8px; z-index: 999; font-size:0.9rem; box-shadow: 0 6px 20px rgba(2,6,23,0.18); }
+    .skip-link:focus { top: 1rem; outline: 3px solid var(--focus-ring); outline-offset: 3px; }
+
+    /* Better keyboard focus visuals */
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; box-shadow: none; }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     }
-    /* Animación fade-in más suave */
-    .section {
-      opacity: 0;
-      transform: translateY(24px) scale(0.98);
-      transition: opacity 1s cubic-bezier(.4,0,.2,1), transform 1s cubic-bezier(.4,0,.2,1);
-    }
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    /* Sticky sidebar */
-    .sidebar {
-      position: sticky;
-      top: 1rem;
-      transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
-    /* Navigation shrink on scroll */
-    .nav-shrink {
-      transition: all 0.5s ease;
-    }
-    .nav-shrink.scrolled {
-      padding: 0.5rem 1rem;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(0, 230, 203, 0.05));
-      backdrop-filter: blur(20px);
-    }
-    /* Mega menu */
-    .mega-menu {
-      transition: all 0.5s ease;
-      transform: translateY(-10px);
-      opacity: 0;
-      pointer-events: none;
-    }
-    .nav-item:hover .mega-menu {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
+
+    /* Sticky sidebar (no animation) */
+    .sidebar { position: sticky; top: 1rem; transition: none; }
+
+    /* Navigation shrink (instant) */
+    .nav-shrink { transition: none; }
+    .nav-shrink.scrolled { padding: 0.5rem 1rem; background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,230,203,0.03)); backdrop-filter: blur(20px); }
+
+    /* Mega menu: show instantly on hover (no transition) */
+    .mega-menu { transform: none; opacity: 1; pointer-events: auto; }
+    .nav-item:hover .mega-menu { transform: none; opacity: 1; pointer-events: auto; }
     /* Smooth scroll */
     .smooth-scroll {
       scroll-behavior: smooth;
@@ -196,6 +207,137 @@
       background: #00e6cb;
       border-radius: 50%;
     }
+
+    /* Professional Experience — tree layout (cards tipo árbol) */
+    .exp-section { position: relative; padding: 1rem 0; }
+    /* vertical trunk (static) */
+    .exp-line {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 1rem;
+      bottom: 1rem;
+      width: 6px;
+      background: linear-gradient(180deg, rgba(6,182,212,0.95), rgba(6,182,212,0.18));
+      border-radius: 999px;
+      box-shadow: 0 8px 18px rgba(6,182,212,0.06) inset;
+      z-index: 0;
+    }
+
+    .exp-tree { position: relative; z-index: 1; }
+    .tree { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(220px,1fr) 92px minmax(220px,1fr); gap: 0; align-items: start; }
+
+    .tree-item { position: relative; margin: 2rem 0; min-height: 0; }
+    .tree-item.left { grid-column: 1 / 2; justify-self: end; padding-right: 1.25rem; text-align: right; }
+    .tree-item.right { grid-column: 3 / 4; justify-self: start; padding-left: 1.25rem; text-align: left; }
+
+    /* refined connector (static) */
+    .tree-item .connector {
+      position: absolute;
+      top: 1.7rem;
+      height: 6px;
+      width: 64px;
+      background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.22);
+      box-shadow: 0 8px 20px rgba(2,6,23,0.06);
+      z-index: 1;
+    }
+    .tree-item.left .connector { right: -64px; left: auto; }
+    .tree-item.right .connector { left: -64px; }
+
+    /* decorative end-cap where connector meets trunk */
+    .tree-item .connector::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 4px 10px rgba(6,182,212,0.14);
+      border: 2px solid #fff;
+      z-index: 2;
+    }
+    .tree-item.left .connector::after { right: -6px; }
+    .tree-item.right .connector::after { left: -6px; right: auto; }
+
+    /* card visual polish */
+    .tree-item .exp-card { display: flex; flex-direction: column; justify-content: space-between; width: min(560px, calc(100% - 24px)); text-align: left; box-shadow: 0 14px 40px rgba(2,6,23,0.09); border-radius: 18px; position: relative; padding: 1.05rem; background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(248,252,255,0.62)); min-height: 140px; }
+    .tree-item.left .exp-card { text-align: right; }
+
+    /* circular company logo inside header */
+    .exp-card header img { width: 56px; height: 56px; border-radius: 9999px !important; padding: 6px; background: linear-gradient(180deg,#ffffff,#f3fbff); border: 1px solid rgba(6,182,212,0.08); box-shadow: 0 6px 20px rgba(2,6,23,0.06); object-fit: contain; }
+
+    .exp-card header h3 { font-size: 1.05rem; margin: 0 0 4px 0; color: var(--accent-strong); font-weight: 700; }
+    .exp-card header p { margin: 0; font-size: 12px; color: var(--muted); }
+    .exp-card p.text-sm { color: #374151; font-size: 0.95rem; line-height: 1.45; margin-top: 0.65rem; }
+
+    /* refined trunk marker */
+    .tree-item::before { width: 10px; height: 10px; top: 1.7rem; border: 2px solid var(--accent); background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.8)); box-shadow: 0 8px 20px rgba(2,6,23,0.08); }
+
+    /* keep everything static — no hover transforms */
+    .exp-card:focus, .exp-card:hover { transform: none; }
+
+    /* Remove transform/hover animation — keep focus visible */
+    .exp-card { transition: none; }
+    .exp-card:focus { box-shadow: 0 12px 40px rgba(2,6,23,0.12); }
+
+    /* Utilities for user-supplied Professional Experience block */
+    .bg-card { background: var(--glass-bg); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.06); box-shadow: var(--glass-shadow); }
+    .bg-primary { background: linear-gradient(90deg, var(--accent), var(--accent-strong)); color: #fff; }
+    .text-foreground { color: #0f1724; }
+    .text-muted-foreground { color: var(--muted); }
+    .text-primary { color: var(--accent); }
+    .bg-border { background: rgba(6,182,212,0.06); }
+    .border-border { border-color: rgba(200,230,255,0.12); }
+    .border-background { border-color: rgba(255,255,255,0.8); }
+    .timeline-line { background: linear-gradient(180deg, rgba(6,182,212,0.95), rgba(6,182,212,0.18)); }
+
+    /* Make the user-supplied Professional Experience fully static (no transforms/animations) */
+    #professional-experience,
+    #professional-experience * {
+      transition: none !important;
+      animation: none !important;
+      transform: none !important;
+      backface-visibility: visible !important;
+      will-change: auto !important;
+      /*! prevents accidental 3D flip or GPU compositing */
+    }
+
+
+    /* Accessibility: reduce motion & stronger focus-visible */
+    @media (prefers-reduced-motion: reduce) {
+      .liquid-glass, .tool-card, .exp-card, .headline-gradient, .subheadline, .connector, .exp-line {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+      }
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(6,182,212,0.22);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    /* responsive: single column stack, trunk left */
+    @media (max-width: 767px) {
+      .tree { grid-template-columns: 1fr; }
+      .tree::before { display: none; }
+      .exp-line { left: 2.25rem; transform: translateX(0); width: 6px; }
+      .tree-item { grid-column: 1 / -1; padding-left: 3.5rem; text-align: left; }
+      .tree-item .connector { left: 2.25rem; width: 28px; transform-origin: left; }
+      .tree-item.left, .tree-item.right { justify-self: start; }
+      .tree-item.left .exp-card, .tree-item.right .exp-card { text-align: left; }
+    }
+
+    /* audio volume control */
+    #audioVolume { accent-color: var(--accent); }
+    #toggleAudioBtn[aria-pressed="true"] { box-shadow: 0 6px 18px rgba(6,182,212,0.12); }
+
     /* Container for consistent padding */
     .container {
       max-width: 80rem;
@@ -216,31 +358,15 @@
         padding-right: 2rem;
       }
     }
-    /* Fade-in animation for sections */
-    .section {
-      opacity: 0;
-      transform: translateY(20px) scale(0.98);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    /* Sidebar toggle for mobile */
-    #sidebar-toggle {
-      display: none;
-    }
+    /* Sections and sidebar — static (no animations) */
+    .section { opacity: 1; transform: none; transition: none; }
+
+    /* Sidebar toggle for mobile (instant show/hide, no transition) */
+    #sidebar-toggle { display: none; }
     @media (max-width: 768px) {
-      #sidebar-toggle {
-        display: block;
-      }
-      .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      }
-      .sidebar.open {
-        transform: translateX(0);
-      }
+      #sidebar-toggle { display: block; }
+      .sidebar { transform: none; transition: none; }
+      .sidebar.open { transform: none; }
     }
     /* Scrollbar estilo glassmorphism como el footer */
 ::-webkit-scrollbar {
@@ -264,63 +390,189 @@ html {
     
     
     
+
+    /* Liquid Glass Card component — modern glassmorphism with static distortion */
+    .liquid-card {
+      position: relative; overflow: hidden; border-radius: var(--radius-md); padding: 1.25rem; background: var(--glass-bg);
+      border: 1px solid rgba(255,255,255,0.32); backdrop-filter: blur(10px) saturate(120%); -webkit-backdrop-filter: blur(10px) saturate(120%);
+      box-shadow: var(--card-elevation); color: #042f35; transition: none; display:flex; flex-direction:column; justify-content:space-between; min-height: 200px;
+    }
+    .liquid-card * { position: relative; z-index: 3; }
+    .liquid-card .card-actions { margin-top: 1rem; display:flex; gap:0.5rem; align-items:center; }
+    .liquid-card .card-cta { padding: 8px 12px; border-radius: 10px; }
+    .btn-primary::after { content: '→'; margin-left: 0.5rem; font-weight:700; }
+    .btn-primary:hover { background: linear-gradient(180deg, rgba(6,182,212,0.14), rgba(6,182,212,0.08)); }
+    .btn-primary:focus { box-shadow: 0 8px 30px rgba(6,182,212,0.12), 0 0 0 4px var(--focus-ring); }
+
+    /* Sheen overlay */
+    .liquid-card::before {
+      content: "";
+      position: absolute;
+      inset: -25% -30%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.03) 60%);
+      transform: rotate(-12deg);
+      mix-blend-mode: overlay;
+      opacity: 0.95;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Distortion overlay using SVG filter #liquid-distort (static, non-animated) */
+    .liquid-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), transparent 20%),
+        radial-gradient(circle at 80% 80%, rgba(0,0,0,0.025), transparent 20%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      mix-blend-mode: overlay;
+      opacity: 0.65;
+      filter: url(#liquid-distort);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* media & content */
+    .liquid-card .card-media { width: 56px; height: 56px; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.5); background: linear-gradient(180deg,#fff,#f3fbff); box-shadow: 0 6px 20px rgba(2,6,23,0.06) inset; display: inline-grid; place-items: center; }
+    .liquid-card .card-title { font-weight:700; color:var(--accent-strong); margin:0; }
+    .liquid-card .card-sub { font-size: 12px; color: var(--muted); margin-top:4px; }
+    .liquid-card .card-desc { margin-top:0.75rem; color:#374151; font-size:0.95rem; line-height:1.4; }
+
+    /* action */
+    .liquid-card .card-actions { margin-top:1rem; display:flex; gap:0.5rem; }
+    .liquid-card .card-cta { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); padding: 8px 12px; border-radius: 10px; font-size: 0.875rem; color:var(--accent); cursor:pointer; }
+
+    /* variant */
+    .liquid-card--alt { background: linear-gradient(135deg, rgba(6,182,212,0.04), rgba(255,255,255,0.02)); border-color: rgba(6,182,212,0.10); color: #083344; }
+
+    /* layout */
+    .cards-grid { display: grid; gap: 1rem; grid-template-columns: repeat(1, minmax(0,1fr)); }
+    @media (min-width: 640px) { .cards-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (min-width: 1024px) { .cards-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+    /* Respect reduced motion — keep effect static */
+    @media (prefers-reduced-motion: reduce) {
+      .liquid-card::after { filter: none; opacity: 0.5; }
+      .liquid-card::before { opacity: 0.9; }
+    }
+
+    /* --- Responsive & contrast fixes (QA pass) --- */
+    @media (max-width: 640px) {
+      .hero-title { font-size: 2rem; line-height: 1.05; }
+      .hero-photo { width: 120px; height: 120px; }
+      .container, .p-5 { padding-left: 1rem; padding-right: 1rem; }
+      .liquid-card { padding: 1rem; border-radius: 14px; }
+      .cards-grid { gap: 0.75rem; }
+      .exp-card { padding: 0.9rem; border-radius: 14px; }
+      .timeline-item { padding-left: 1rem; padding-right: 1rem; }
+      .btn-primary { padding: 0.5rem 0.85rem; font-size: 0.925rem; }
+      .subheadline { font-size: 0.95rem; color: #334155; }
+    }
+
+    /* Improve text contrast for body copy */
+    p, .text-gray-700, .text-gray-600 { color: #0f1724 !important; }
+
+    /* Focus/high-visibility tweaks for keyboard users */
+    :focus { outline-offset: 3px; }
+    button:focus, a:focus { box-shadow: 0 6px 20px rgba(6,182,212,0.12); }
+
+    /* --- Dark theme (variant) --- */
+    [data-theme="dark"] {
+      --accent: #22d3ee;
+      --accent-strong: #06b6d4;
+      --muted: #9aa6b2;
+    }
+    [data-theme="dark"] body {
+      background: radial-gradient(1200px at 5% 10%, #04202a 0%, #071421 60%);
+      color: #e6f6fa;
+    }
+    [data-theme="dark"] .liquid-glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 8px 40px rgba(2,6,23,0.6);
+    }
+    [data-theme="dark"] .headline-gradient { background-image: linear-gradient(90deg, #7ee6f5, #7cd8fb, #67c6f2); }
+    [data-theme="dark"] .btn-primary { background: linear-gradient(180deg, rgba(34,211,238,0.12), rgba(6,182,212,0.06)); color: #042f35; box-shadow: 0 8px 30px rgba(2,6,23,0.44); }
+    [data-theme="dark"] .btn-ghost { color: #bfeff6; border-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .liquid-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-color: rgba(255,255,255,0.04); color: #dff6fb; }
+    [data-theme="dark"] .card-sub { color: var(--muted); }
+
     </style>
 </head>
 <body class="font-inter bg-gradient-to-br from-white to-cyan-100 text-gray-800 smooth-scroll">
+  <a href="#main" class="skip-link">Saltar al contenido</a>
   <!-- Video Background SOLO en la sección Hero -->
 <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
   <div class="video-wrapper absolute inset-0 w-full h-full -z-10 pointer-events-none">
     <video id="videoPlayer" autoplay muted playsinline class="w-full h-full object-cover opacity-100 bg-transparent"></video>
-    <audio id="audioPlayer" src="sonido.weba" preload="auto"></audio>
-    <button id="toggleAudioBtn" class="fixed top-12 right-4 z-50 bg-cyan-400 text-white px-3 py-1 rounded-full shadow hover:bg-cyan-500 transition text-xs">🔇 OFF</button>
-  </div>
-  <div class="text-center max-w-2xl mx-auto px-4 section relative z-10">
-    <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="mx-auto rounded-full w-16 h-16 mb-2 border-2 border-secondary shadow-lg">
-    <h1 id="chars" class="text text-4xl font-poppins font-medium mb-3 p-5 liquid-glass">Luis Ernesto Cantin Oviedo</h1>
-    <p class="text-base text-gray-600 mb-5">Ingeniero de Sistemas | Desarrollador Full Stack</p>
-    <div class="flex justify-center gap-3 mb-4">
-      <a href="https://wa.me/573006502320" target="_blank" class="text-[#25D366] hover:text-[#128C7E] text-2xl" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      <a href="tel:+573006502320" class="text-[#0099FF] hover:text-[#005fa3] text-2xl" title="Teléfono"><i class="fas fa-phone-alt"></i></a>
-      <a href="https://www.linkedin.com/in/luis-ernesto-cantin-oviedo-83353163/" target="_blank" class="text-[#0077B5] hover:text-[#005983] text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="https://bunkersoft.github.io/LuisErnestoCantin.github.io/" target="_blank" class="text-[#181717] hover:text-[#333] text-2xl" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.facebook.com/LuisErnestoCantinOviedo/" target="_blank" class="text-[#1877F3] hover:text-[#145db2] text-2xl" title="Facebook"><i class="fab fa-facebook"></i></a>
-      <a href="mailto:ingenieroluisernestocantin@hotmail.com" class="text-[#EA4335] hover:text-[#b31412] text-2xl" title="Email"><i class="fas fa-envelope"></i></a>
+    <audio id="audioPlayer" preload="auto" loop aria-hidden="true">
+      <source src="sonido.mp3" type="audio/mpeg">
+      <source src="sonido.ogg" type="audio/ogg">
+      <source src="sonido.weba" type="audio/webm">
+      Tu navegador no soporta audio embebido.
+    </audio>
+    <div class="fixed top-12 right-4 z-50 flex items-center gap-2" style="transform: translateZ(0);">
+      <button id="toggleAudioBtn" class="btn-glass text-xs" aria-pressed="false" aria-label="Alternar sonido">🔇 Sonido OFF</button>
+      <input id="audioVolume" type="range" min="0" max="1" step="0.05" value="0.12" class="w-20 hidden md:inline-block" aria-label="Volumen" />
     </div>
-    <div class="flex justify-center gap-3">
-      <a href="#contact" class="inline-block bg-cyan-400 text-white px-5 py-2 rounded-full hover:bg-cyan-500 transition liquid-glass text-sm">Hire Me</a>
-      <a href="https://github.com/BunkerSoft/LuisErnestoCantin.github.io/raw/main/Portafolio_Profesional_Luis_Cantin_Harvard.pdf" download class="inline-block bg-gray-600 text-white px-5 py-2 rounded-full hover:bg-gray-700 transition liquid-glass text-sm" target="_blank">Descargar HV</a>
+  </div>
+  <div class="hero-decor" aria-hidden="true"></div>
+  <div class="text-center max-w-2xl mx-auto px-4 section relative z-10">
+    <picture class="mx-auto" aria-hidden="false">
+      <source type="image/webp" srcset="Foto.webp 1x, Foto@2x.webp 2x">
+      <source type="image/jpeg" srcset="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg 1x">
+      <img loading="eager" decoding="async" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto de Luis Ernesto Cantin" class="hero-photo mx-auto" width="180" height="180">
+    </picture>
+    <h1 id="chars" class="hero-title text-5xl sm:text-6xl font-poppins font-extrabold mb-3 liquid-glass">Luis Ernesto Cantin Oviedo</h1>
+    <div class="hero-badge" role="status" aria-hidden="false">Disponible · Remoto</div>
+    <p class="text-base text-gray-600 mb-5 subheadline"><span id="typedRoles" aria-live="polite">Ingeniero de Sistemas</span></p>
+    <div class="flex justify-center gap-3 mb-4 hero-socials">
+      <a href="https://wa.me/573006502320" target="_blank" rel="noopener noreferrer" class="chip-social" style="--brand:#25D366" title="WhatsApp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="tel:+573006502320" class="chip-social" style="--brand:#0099FF" title="Teléfono" aria-label="Teléfono"><i class="fas fa-phone-alt"></i></a>
+      <a href="https://www.linkedin.com/in/luis-ernesto-cantin-oviedo-83353163/" target="_blank" rel="noopener noreferrer" class="chip-social" style="--brand:#0077B5" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://bunkersoft.github.io/LuisErnestoCantin.github.io/" target="_blank" rel="noopener noreferrer" class="chip-social" style="--brand:#181717" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.facebook.com/LuisErnestoCantinOviedo/" target="_blank" rel="noopener noreferrer" class="chip-social" style="--brand:#1877F3" title="Facebook" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="mailto:ingenieroluisernestocantin@hotmail.com" class="chip-social" style="--brand:#EA4335" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <div class="flex justify-center gap-3 hero-ctas">
+      <a href="#contact" class="btn-primary liquid-glass">Hire Me</a>
+      <a href="https://github.com/BunkerSoft/LuisErnestoCantin.github.io/raw/main/Portafolio_Profesional_Luis_Cantin_Harvard.pdf" download class="btn-ghost liquid-glass" target="_blank" rel="noopener noreferrer">Descargar HV</a>
     </div>
   </div>
 </section>
 
   <!-- Navigation Bar -->
-  <nav class="fixed top-0 w-full z-50 liquid-glass nav-shrink">
+  <nav class="fixed top-0 w-full z-50 liquid-glass nav-shrink" role="navigation" aria-label="Menú principal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center py-2">
         <div class="text-xl font-poppins font-medium text-gray-900 flex items-center gap-2">
+          <span class="nav-brand" aria-hidden="true">LEC</span>
           <span id="liveClock" class="ml-2 text-base font-mono text-cyan-600"></span>
         </div>
         <div class="flex space-x-4">
           <div class="nav-item relative">
-            <a href="#home" class="text-gray-700 hover:text-cyan-400 transition text-sm">Inicio</a>
+            <a href="#home" class="text-gray-700 hover:text-cyan-400 text-sm">Inicio</a>
           </div>
           <div class="nav-item relative group">
-            <a href="#experience" class="text-gray-700 hover:text-cyan-400 transition text-sm">Experiencia</a>
+            <a href="#experience" class="text-gray-700 hover:text-cyan-400 text-sm">Experiencia</a>
             <div class="mega-menu absolute left-0 mt-2 w-40 bg-white liquid-glass rounded-lg shadow-lg p-3 hidden group-hover:block">
               <a href="#work" class="block py-1 hover:text-cyan-400 text-sm">Historial Laboral</a>
             </div>
           </div>
           <div class="nav-item relative">
-            <a href="#education" class="text-gray-700 hover:text-cyan-400 transition text-sm">Educación</a>
+            <a href="#education" class="text-gray-700 hover:text-cyan-400 text-sm">Educación</a>
           </div>
           <div class="nav-item relative">
-            <a href="#tools" class="text-gray-700 hover:text-cyan-400 transition text-sm">Herramientas</a>
+            <a href="#tools" class="text-gray-700 hover:text-cyan-400 text-sm">Herramientas</a>
           </div>
           <div class="nav-item relative">
-            <a href="#contact" class="text-gray-700 hover:text-cyan-400 transition text-sm">Contacto</a>
+            <a href="#contact" class="text-gray-700 hover:text-cyan-400 text-sm">Contacto</a>
           </div>
         </div>
-        <button id="sidebar-toggle" class="md:hidden text-gray-700 focus:outline-none">
+        <div class="flex items-center gap-2">
+          <button id="theme-toggle" class="text-gray-700 hover:text-cyan-500 focus:outline-none px-2 py-1 rounded" aria-pressed="false" aria-label="Cambiar tema claro/oscuro">🌗</button>
+          <button id="sidebar-toggle" class="md:hidden text-gray-700 focus:outline-none" aria-controls="sidebar" aria-expanded="false">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
           </svg>
@@ -338,7 +590,7 @@ html {
   <h2 class="text-lg font-poppins font-semibold mb-2 text-cyan-700">Descarga mi hoja de vida</h2>
   <p class="text-xs text-gray-700 mb-2">Escanea el código QR para obtener mi CV en PDF</p>
             <!-- url de qr  https://app.qr-code-generator.com/editbarcode/81736319-->
-  <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/cv-qr-code.png" alt="QR CV" width="160" height="160" class="rounded-xl shadow mb-2 border border-cyan-100/40 bg-white/60">
+  <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/cv-qr-code.png" alt="QR CV" width="160" height="160" class="rounded-xl shadow mb-2 border border-cyan-100/40 bg-white/60">
 </section>
         <p class="text-gray-600 text-center mb-3 text-xs">Full Stack Developer, Remoto, Freelan</p>
         <div class="space-y-1 text-xs">
@@ -351,7 +603,7 @@ html {
     </aside>
 
     <!-- Main Content -->
-    <main class="md:w-3/4 space-y-12">
+    <main id="main" class="md:w-3/4 space-y-12">
       <!-- About Section -->
       <section id="about" class="section">
   <h2 class="text-2xl font-poppins font-medium mb-5 headline-gradient">Sobre mí</h2>
@@ -364,7 +616,7 @@ html {
     <div>
       <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Perfil Profesional</h3>
       <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-        <img src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto profesional Luis Ernesto Cantin" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Luis Ernesto Cantin Oviedo">
+        <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto profesional Luis Ernesto Cantin" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Luis Ernesto Cantin Oviedo">
         <div class="flex-1">
           <p class="text-gray-700 text-sm mb-2">Ingeniero de Sistemas con más de 6 años de experiencia profesional en desarrollo Full Stack, especializado en tecnologías .NET, ASP.NET Core, Angular, JavaScript, SQL Server y Azure. Amplio dominio en integración de APIs REST/SOAP, automatización de procesos DevOps con Azure, y despliegue continuo. Experiencia sólida en el sector salud, bancario y aeroportuario, implementando soluciones escalables con metodologías ágiles Scrum. Ético, orientado a resultados, con habilidades para el trabajo en equipo, liderazgo técnico y análisis de requerimientos.</p>
           <div class="flex flex-wrap gap-4 text-xs text-gray-600 items-center">
@@ -375,65 +627,151 @@ html {
         </div>
       </div>
     </div>
-    <div>
-      <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Experiencia Profesional</h3>
-      <div class="space-y-4">
-        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAMFBMVEVHcExKSkpKSkpJSUlKSkpLS0tKSkpJSUlGRkZISEhLS0tKSkpKSkpLS0tKSkpKSkqzBWFXAAAAEHRSTlMAVqohwfZqLwwW/39B4Yqa56HfbAAAAT1JREFUeAFFxzOAXQEURdE9NsrYTcwmtm2jim0nVaw21nDHaGJWr4ltjlH/Zox1eagQRqsu1BsavbpFxdlbnU5cih30eNvqeB9XxcaVx6wVEVmxQAJAotlt4s71eQz5qbHNHxNqEfW5NOwYcXZJ8SIQ1xAg/Arxpq2/BKsB4iccaurlUaYevg0QXDbj3Uj9eT8sNWYJ+e/1JaPs8rwH0dGU7NIrRN4gLIfE5ZQyStf7eQFV3oZ1Mr2XXt54nTM/GRLSMXc1w0uU9mbgLP3YTmcrA5JZ/Vk7e6HlEdPo0ZpIpxroRdp9BYjywuNw9cy4vwAJ+pKxprXTAQB6qSjNDPXi5xkQmKm2+KzDPAfhtlQ7e+31aVcDo46ogeltMs4DpPRy0v1eqrsBCHRBmPqJaiEvd+3sK2o1/+CcRVQoB2yckJTgaGf9AAAAAElFTkSuQmCC" alt="Logo HITSS" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="HITSS Colombia">
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold text-cyan-700">HITSS COLOMBIA S.A.S.</h4>
-            <p class="text-gray-600 text-xs mb-1">Desarrollador .NET Estándar | febrero 2024 - febrero 2025</p>
-            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
-              <li>Desarrollo de funcionalidades en .NET Core 5, optimización de rendimiento, integración de facturación electrónica, módulos de notificación, consumo de APIs REST seguras, automatización de despliegues CI/CD con Azure DevOps y monitoreo con Application Insights.</li>
-            </ul>
+<section id="professional-experience" class="section" aria-labelledby="professional-experience-title">
+      <!-- User-supplied: detailed Professional Experience timeline (tree layout) -->
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10" style="opacity: 1; transform: none;">
+          <h2 id="professional-experience-title" class="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Professional Experience</h2>
+          <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto" style="opacity: 1;">
+          <div class="relative">
+            <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-1/2"></div>
+            <div class="absolute left-0 md:left-1/2 top-0 w-px timeline-line md:-translate-x-1/2 origin-top" style="height: 47.6523%;"></div>
+
+            <!-- Monks (example entry) -->
+            <div class="relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 mb-12 md:flex-row-reverse" style="opacity: 1; transform: none;">
+              <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10" style="transform: none;"></div>
+              <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:ml-auto md:pl-8">
+                <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
+                  <div class="flex items-center gap-3 mb-2">
+                    <div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Monks" loading="lazy" decoding="async" class="object-contain p-1" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg"></div>
+                    <div class="flex-1"><h3 class="font-bold text-foreground text-base">Monks</h3><p class="text-sm text-primary font-medium">Front-End Architect</p></div>
+                  </div>
+                  <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>Nov 2025 - Present</span></div>
+                  <p class="text-muted-foreground mb-3 text-sm">Led the refactoring of DITU video player for Caracol TV, transforming a monolithic component into a scalable modular architecture.</p>
+                  <ul class="space-y-1"><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Modular architecture +13 modules</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Complete unit testing suite</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Analytics NPAW + Google IMA</span></li></ul>
+                </div>
+                <div class="hidden md:block h-[300px] group" style="perspective: 1000px;">
+                  <div class="relative w-full h-full">
+                    <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+                      <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Monks" loading="lazy" decoding="async" class="object-contain p-1" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Monks</h3><p class="text-sm text-primary font-medium">Front-End Architect</p></div></div>
+                      <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>Nov 2025 - Present</span></div>
+                      <p class="text-muted-foreground mb-2 text-sm">Led the refactoring of DITU video player for Caracol TV, transforming a monolithic component into a scalable modular architecture.</p>
+                      <ul class="space-y-1"><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Modular architecture +13 modules</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Complete unit testing suite</span></li><li class="flex items-start gap-2 text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right w-4 h-4 text-primary flex-shrink-0 mt-0.5" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg><span class="text-muted-foreground">Analytics NPAW + Google IMA</span></li></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Repeat entries... (user-supplied content continues) -->
+
+            <!-- Added: Digital Bank -->
+            <div class="relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 mb-12 ">
+              <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
+              <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:mr-auto md:pr-8">
+                <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Digital Bank" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Digital Bank</h3><p class="text-sm text-primary font-medium">Desarrollador T3</p></div></div>
+                  <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>agosto 2021 - octubre 2023</span></div>
+                  <p class="text-muted-foreground mb-3 text-sm">Diseño e implementación de plataformas de gestión de tráfico aéreo para Opain. Desarrollo de reportes, estructuras jerárquicas estilo explorador, módulos de notificaciones (SendGrid), gestión CI/CD, mejoras de rendimiento y soporte en entornos productivos.</p>
+                </div>
+                <div class="hidden md:block h-[300px] group">
+                  <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Digital Bank" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Digital Bank</h3><p class="text-sm text-primary font-medium">Desarrollador T3</p></div></div>
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>agosto 2021 - octubre 2023</span></div>
+                    <p class="text-muted-foreground mb-2 text-sm">Diseño e implementación de plataformas de gestión de tráfico aéreo para Opain. Desarrollo de reportes, estructuras jerárquicas estilo explorador, módulos de notificaciones (SendGrid), gestión CI/CD, mejoras de rendimiento y soporte en entornos productivos.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Added: Metronics -->
+            <div class="relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 mb-12 md:flex-row-reverse">
+              <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
+              <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:ml-auto md:pl-8">
+                <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Metronics" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Metronics</h3><p class="text-sm text-primary font-medium">Ingeniero de desarrollo</p></div></div>
+                  <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>enero 2021 - junio 2021</span></div>
+                  <p class="text-muted-foreground mb-3 text-sm">Desarrollo de informes SSRS y mantenimiento de aplicaciones en .NET Core para proyectos como SIE7E, SIEF y Operaciones 360.</p>
+                </div>
+                <div class="hidden md:block h-[300px] group">
+                  <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Metronics" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Metronics</h3><p class="text-sm text-primary font-medium">Ingeniero de desarrollo</p></div></div>
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>enero 2021 - junio 2021</span></div>
+                    <p class="text-muted-foreground mb-2 text-sm">Desarrollo de informes SSRS y mantenimiento de aplicaciones en .NET Core para proyectos como SIE7E, SIEF y Operaciones 360.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Added: E.S.E Hospital Eduardo Santos -->
+            <div class="relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 mb-12 ">
+              <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
+              <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:mr-auto md:pr-8">
+                <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="ESE Hospital Eduardo Santos" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">E.S.E Hospital Eduardo Santos</h3><p class="text-sm text-primary font-medium">Ingeniero de sistemas</p></div></div>
+                  <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>septiembre 2017 - agosto 2020</span></div>
+                  <p class="text-muted-foreground mb-3 text-sm">Soporte y desarrollo en sistemas médicos y facturación. Administración de bases PostgreSQL, cumplimiento normativo RIPS, soporte al software Compucontac.</p>
+                </div>
+                <div class="hidden md:block h-[300px] group">
+                  <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="ESE Hospital Eduardo Santos" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">E.S.E Hospital Eduardo Santos</h3><p class="text-sm text-primary font-medium">Ingeniero de sistemas</p></div></div>
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>septiembre 2017 - agosto 2020</span></div>
+                    <p class="text-muted-foreground mb-2 text-sm">Soporte y desarrollo en sistemas médicos y facturación. Administración de bases PostgreSQL, cumplimiento normativo RIPS, soporte al software Compucontac.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Added: Galeras Studios -->
+            <div class="relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 mb-12 md:flex-row-reverse">
+              <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
+              <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:ml-auto md:pl-8">
+                <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Galeras Studios" loading="lazy" decoding="async" class="object-contain p-1" src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Galeras Studios</h3><p class="text-sm text-primary font-medium">Desarrollador .NET Full Stack</p></div></div>
+                  <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>febrero 2016 - agosto 2017</span></div>
+                  <p class="text-muted-foreground mb-3 text-sm">Desarrollo en C#, SQL Server y tecnologías web modernas.</p>
+                </div>
+                <div class="hidden md:block h-[300px] group">
+                  <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Galeras Studios" loading="lazy" decoding="async" class="object-contain p-1" src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Galeras Studios</h3><p class="text-sm text-primary font-medium">Desarrollador .NET Full Stack</p></div></div>
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>febrero 2016 - agosto 2017</span></div>
+                    <p class="text-muted-foreground mb-2 text-sm">Desarrollo en C#, SQL Server y tecnologías web modernas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Added: Indra Company (older role provided) -->
+            <div class="relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 mb-12 ">
+              <div class="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background md:-translate-x-1/2 z-10"></div>
+              <div class="pl-6 md:pl-0 md:w-[calc(50%-2rem)] md:mr-auto md:pr-8">
+                <div class="md:hidden ml-4 p-4 bg-card rounded-xl border border-border shadow-sm">
+                  <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Indra Company" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.indracompany.com/sites/default/files/indra_logo.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Indra Company</h3><p class="text-sm text-primary font-medium">Desarrollador de Software</p></div></div>
+                  <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>agosto 2013 - agosto 2014</span></div>
+                  <p class="text-muted-foreground mb-3 text-sm">.NET Full Stack Developer enfocado en aplicaciones empresariales.</p>
+                </div>
+                <div class="hidden md:block h-[300px] group">
+                  <div class="absolute inset-0 p-5 bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+                    <div class="flex items-center gap-3 mb-2"><div class="relative w-10 h-10 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0"><img alt="Indra Company" loading="lazy" decoding="async" class="object-contain p-1" src="https://www.indracompany.com/sites/default/files/indra_logo.png" width="40" height="40"></div><div class="flex-1"><h3 class="font-bold text-foreground text-base">Indra Company</h3><p class="text-sm text-primary font-medium">Desarrollador de Software</p></div></div>
+                    <div class="flex items-center gap-2 text-sm text-muted-foreground mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar w-4 h-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg><span>agosto 2013 - agosto 2014</span></div>
+                    <p class="text-muted-foreground mb-2 text-sm">.NET Full Stack Developer enfocado en aplicaciones empresariales.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- The user HTML contains multiple alternating entries and cards -->
           </div>
         </div>
-        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img src="https://www.digitalbankla.com/wp-content/themes/digitalbank/img/logo.png" alt="Logo Digital Bank" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Digital Bank">
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold text-cyan-700">Digital Bank</h4>
-            <p class="text-gray-600 text-xs mb-1">Desarrollador T3 | agosto 2021 - octubre 2023</p>
-            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
-              <li>Diseño e implementación de plataformas de gestión de tráfico aéreo para Opain. Desarrollo de reportes, estructuras jerárquicas estilo explorador, módulos de notificaciones (SendGrid), gestión CI/CD, mejoras de rendimiento y soporte en entornos productivos.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img src="https://www.metronics.com.co/wp-content/uploads/2021/09/logo-metronics.png" alt="Logo Metronics" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Metronics">
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold text-cyan-700">Metronics</h4>
-            <p class="text-gray-600 text-xs mb-1">Ingeniero de desarrollo con visión de negocio | enero 2021 - junio 2021</p>
-            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
-              <li>Desarrollo de informes SSRS y mantenimiento de aplicaciones en .NET Core para proyectos como SIE7E, SIEF y Operaciones 360.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img src="https://www.eseeduardosantos.gov.co/wp-content/uploads/2021/09/logo-eseeduardosantos.png" alt="Logo ESE Hospital Eduardo Santos" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="E.S.E Hospital Eduardo Santos">
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold text-cyan-700">E.S.E Hospital Eduardo Santos</h4>
-            <p class="text-gray-600 text-xs mb-1">Ingeniero de sistemas | septiembre 2017 - agosto 2020</p>
-            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
-              <li>Soporte y desarrollo en sistemas médicos y facturación. Administración de bases PostgreSQL, cumplimiento normativo RIPS, soporte al software Compucontac.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img src="https://avatars.githubusercontent.com/u/22296413?s=200&v=4" alt="Logo Galeras Studios" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Galeras Studios">
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold text-cyan-700">Galeras Studios</h4>
-            <p class="text-gray-600 text-xs mb-1">Desarrollador .NET Full Stack | febrero 2016 - agosto 2017</p>
-            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
-              <li>Desarrollo en C#, SQL Server y tecnologías web modernas.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-          <img src="https://www.indracompany.com/sites/default/files/indra_logo.png" alt="Logo Indra Company" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Indra Company">
-          <div class="flex-1">
-            <h4 class="text-lg font-semibold text-cyan-700">Indra Company</h4>
-            <p class="text-gray-600 text-xs mb-1">Desarrollador de Software | agosto 2013 - agosto 2014</p>
-            <ul class="list-disc ml-6 text-[15px] text-gray-700 mb-2">
+      </div>
+    </section>
+
+
+
+
+
               <li>.NET Full Stack Developer enfocado en aplicaciones empresariales.</li>
             </ul>
           </div>
@@ -443,7 +781,7 @@ html {
     <div>
       <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Educación</h3>
       <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-        <img src="https://www.udenar.edu.co/recursos/wp-content/uploads/2022/03/logo_ppal_udenar_cabecera_retina.fw_.png" alt="Logo Universidad de Nariño" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Universidad de Nariño">
+        <img loading="lazy" decoding="async" src="https://www.udenar.edu.co/recursos/wp-content/uploads/2022/03/logo_ppal_udenar_cabecera_retina.fw_.png" alt="Logo Universidad de Nariño" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Universidad de Nariño">
         <div class="flex-1">
           <h4 class="text-lg font-semibold text-cyan-700">Ingeniero de Sistemas</h4>
           <p class="text-gray-600 text-xs mb-1">Universidad de Nariño | 2011</p>
@@ -451,9 +789,9 @@ html {
         </div>
       </div>
       <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md mt-4">
-        <img src="https://www.unimar.edu.co/wp-content/uploads/2021/09/cropped-Logo-Universidad-Mariana-2021-1.png" alt="Logo Universidad Mariana" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Universidad Mariana">
+        <img loading="lazy" decoding="async" src="https://www.unimar.edu.co/wp-content/uploads/2021/09/cropped-Logo-Universidad-Mariana-2021-1.png" alt="Logo Universidad Mariana" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Universidad Mariana">
         <div class="flex-1">
-          <h4 class="text-lg font-semibold text-cyan-700">Especialización en Contabilidad Internacional y Auditoría</h4>
+          <h4 class="text-lg font-semibold text-cyan-700">Especialización en Contabilidad Internacional y Auditoría</h3>
           <p class="text-gray-600 text-xs mb-1">Universidad Mariana | Cursando</p>
           <p class="text-gray-700 text-sm mb-2">Especialización orientada a la gestión y auditoría de procesos contables internacionales.</p>
         </div>
@@ -462,7 +800,7 @@ html {
     <div>
       <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Certificaciones Técnicas</h3>
       <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="Certificaciones Microsoft" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Microsoft">
+        <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="Certificaciones Microsoft" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title="Microsoft">
         <div class="flex-1">
           <ul class="list-disc ml-6 text-[15px] text-gray-700">
             <li>Seminario taller de tecnología .NET – Microsoft (2007)</li>
@@ -478,7 +816,7 @@ html {
     <div>
       <h3 class="text-lg font-poppins font-semibold text-cyan-700 mb-2">Habilidades Técnicas</h3>
       <div class="timeline-item p-5 rounded-2xl liquid-glass flex flex-col sm:flex-row items-center gap-5 shadow-md">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core Logo" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title=".NET Core">
+        <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core Logo" class="w-14 h-14 object-contain rounded-xl bg-white p-2 shadow" title=".NET Core">
         <div class="flex-1">
           <ul class="list-disc ml-6 text-[15px] text-gray-700">
             <li><span class="font-semibold">Lenguajes:</span> C#, JavaScript, HTML5, CSS3, T-SQL</li>
@@ -497,86 +835,140 @@ html {
       
 
       <!-- Tools Section -->
-      <section id="tools" class="section">
-        <h2 class="text-2xl font-poppins font-medium mb-5 headline-gradient">Herramientas de Manejo</h2>
+      <section id="tools" class="section" aria-labelledby="tools-title">
+        <h2 id="tools-title" class="text-2xl font-poppins font-medium mb-5 headline-gradient">Herramientas de Manejo</h2>
         <div class="p-5 rounded-lg liquid-glass">
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="Visual Studio Code Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="Visual Studio Code Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Visual Studio Code</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Git</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">GitHub</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Azure</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">.NET Core</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">SQL Server</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">PostgreSQL</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">MySQL</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Oracle</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">JavaScript</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5 Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">HTML5</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3 Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">CSS3</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Firebase</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Angular</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Node.js</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Bootstrap</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind CSS Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind CSS Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Tailwind CSS</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="Visual Studio Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Visual Studio</p>
             </div>
             <div class="tool-card">
-              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twilio/twilio-original.svg" alt="Twilio Logo" class="mx-auto w-8 h-8 mb-2"/>
+              <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twilio/twilio-original.svg" alt="Twilio Logo" class="mx-auto w-8 h-8 mb-2"/>
               <p class="text-xs">Twilio</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Liquid Glass Card — Component demo -->
+      <section id="components" class="section" aria-labelledby="components-title">
+        <h2 id="components-title" class="text-2xl font-poppins font-medium mb-5 headline-gradient">Liquid Glass Cards — Demo</h2>
+        <div class="p-5 rounded-lg liquid-glass">
+          <div class="cards-grid">
+            <article class="liquid-card" role="article" aria-label="Tarjeta perfil — Luis Ernesto">
+              <div class="flex items-center gap-4">
+                <div class="card-media">
+                  <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/BunkerSoft/LuisErnestoCantin.github.io/refs/heads/main/Foto.jpg" alt="Foto" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                <div>
+                  <h3 class="card-title">Luis Ernesto Cantín</h3>
+                  <p class="card-sub">Ingeniero de Sistemas · Full Stack</p>
+                </div>
+              </div>
+              <p class="card-desc">Diseño moderno glassmorphism con efecto de distorsión estático; pensado para interfaces premium y secciones de presentación.</p>
+              <div class="card-actions">
+                <a class="card-cta btn-glass" href="#contact">Contactar</a>
+                <a class="card-cta" href="#">Descargar CV</a>
+              </div>
+            </article>
+
+            <article class="liquid-card liquid-card--alt" role="article" aria-label="Tarjeta features">
+              <div class="flex items-center gap-4">
+                <div class="card-media">
+                  <img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET" style="width:60%;height:60%;object-fit:contain;">
+                </div>
+                <div>
+                  <h3 class="card-title">Full Stack • .NET</h3>
+                  <p class="card-sub">Azure · SQL · DevOps</p>
+                </div>
+              </div>
+              <p class="card-desc">Tarjeta alternativa con tintes cian que enfatiza contenido técnico y llamados a la acción.</p>
+              <div class="card-actions">
+                <button class="card-cta">Ver Proyectos</button>
+              </div>
+            </article>
+
+            <article class="liquid-card" role="article" aria-label="Tarjeta proyecto">
+              <div class="flex items-start gap-4">
+                <div class="flex-1">
+                  <h3 class="card-title">Proyecto Destacado</h3>
+                  <p class="card-sub">Plataforma de Reporting</p>
+                  <p class="card-desc">Implementación de módulos de reporting con optimizaciones de rendimiento y despliegue continuo.</p>
+                </div>
+              </div>
+              <div class="card-actions">
+                <a class="card-cta" href="#">Leer caso</a>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -588,21 +980,21 @@ html {
           <form class="space-y-4" autocomplete="off">
     <div>
       <label for="nombre" class="block text-xs font-medium text-gray-700 mb-1">Nombre</label>
-      <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" placeholder="Tu nombre completo">
+      <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400" placeholder="Tu nombre completo">
     </div>
     <div>
       <label for="email" class="block text-xs font-medium text-gray-700 mb-1">Correo electrónico</label>
-      <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" placeholder="tucorreo@email.com">
+      <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400" placeholder="tucorreo@email.com">
     </div>
     <div>
       <label for="asunto" class="block text-xs font-medium text-gray-700 mb-1">Asunto</label>
-      <input type="text" id="asunto" name="asunto" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" placeholder="Motivo del mensaje">
+      <input type="text" id="asunto" name="asunto" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400" placeholder="Motivo del mensaje">
     </div>
     <div>
       <label for="mensaje" class="block text-xs font-medium text-gray-700 mb-1">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" rows="4" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition" placeholder="Escribe tu mensaje..."></textarea>
+      <textarea id="mensaje" name="mensaje" rows="4" required class="w-full px-4 py-2 rounded-lg border border-cyan-200 bg-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400" placeholder="Escribe tu mensaje..."></textarea>
     </div>
-    <button type="submit" class="w-full bg-cyan-500 text-white font-semibold py-2 rounded-full hover:bg-cyan-600 transition liquid-glass">Enviar mensaje</button>
+    <button type="submit" class="w-full btn-primary liquid-glass">Enviar mensaje</button>
   </form>
         </div>
       </section>
@@ -611,8 +1003,16 @@ html {
 
   <!-- Footer -->
   <footer class="py-5 liquid-glass text-gray-900 text-center shadow-lg border-t border-cyan-200/30 backdrop-blur-md">
-    <p class="text-xs font-medium tracking-wide">© 2025 Luis Ernesto Cantin. Todos los derechos reservados.</p>
+    <p class="text-xs font-medium tracking-wide">© 2026 Luis Ernesto Cantin. Todos los derechos reservados.</p>
   </footer>
+
+  <!-- SVG filters for Liquid Glass component (static distortion, accessible) -->
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position: absolute; left: -9999px; width: 0; height: 0; overflow: hidden;">
+    <filter id="liquid-distort" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="2" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
 
   <!-- Chatbot Floating Button -->
   <script 
@@ -628,7 +1028,7 @@ html {
   data-fab-style="background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(200,230,255,0.13) 100%); backdrop-filter: blur(32px) saturate(1.3) brightness(1.08); -webkit-backdrop-filter: blur(32px) saturate(1.3) brightness(1.08); border: 1.5px solid rgba(255,255,255,0.32); box-shadow: 0 8px 32px 0 rgba(60, 120, 180, 0.10), 0 1.5px 8px 0 rgba(255,255,255,0.18) inset; border-radius: 9999px; color: #fff; display: flex; align-items: center; justify-content: center;"
 ></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/SplitText.min.js"></script>
+  <!-- SplitText removed (animations disabled) -->
   <script>
 // Video background logic
     const videos = [
@@ -636,59 +1036,121 @@ html {
       "02.mp4",
       "03.mp4",
       "04.mp4"
-    ];
-    let index = 0;
-    const videoPlayer = document.getElementById("videoPlayer");
 
-    function playNextVideo() {
-      index = (index + 1) % videos.length;
-      videoPlayer.src = videos[index];
-      videoPlayer.load();
+<!-- Sección profesional: 3D Carousel Card -->
+<section class="section liquid-glass" style="margin: 48px auto; max-width: 900px; padding: 32px 24px;">
+  <div class="heading" style="text-align:center; margin-bottom:32px;">
+    <h2 style="font-size:2.2rem; font-weight:700; background:linear-gradient(135deg,#fff 0%,#a78bfa 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Herramientas de Manejo</h2>
+    <p style="margin-top:8px; font-size:13px; color:rgba(167,139,250,.5); letter-spacing:.18em; text-transform:uppercase;">Principales herramientas utilizadas</p>
+  </div>
+  <div class="carousel-card" style="display:flex; justify-content:center; align-items:center;">
+    <div class="card liquid-glass" style="width:360px; min-height:440px; border-radius:24px; overflow:visible; box-shadow:0 16px 48px 0 rgba(2,6,23,0.13), 0 2px 0 rgba(255,255,255,0.75);">
+      <div class="card-face" style="display:flex; flex-direction:column; height:100%;">
+        <div class="card-title" style="font-size:22px; font-weight:700; color:#6c63ff; text-align:center; margin-top:24px;">Herramientas de Manejo</div>
+        <div class="tools-list" style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px; justify-items:center; margin:32px 0;">
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="Visual Studio Code" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">VS Code</div>
+          </div>
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">Git</div>
+          </div>
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">GitHub</div>
+          </div>
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">Azure</div>
+          </div>
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">.NET Core</div>
+          </div>
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">SQL Server</div>
+          </div>
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">PostgreSQL</div>
+          </div>
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">MySQL</div>
+          </div>
+          <div style="text-align:center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle" style="width:44px; height:44px; margin-bottom:8px;"/>
+            <div style="font-size:15px; color:#222;">Oracle</div>
+          </div>
+        </div>
+        <div style="text-align:center; margin-bottom:24px;">
+          <span style="font-size:13px; color:rgba(108,99,255,0.7);">Glassmorphism UI · Profesional · 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    const toggleAudioBtn = document.getElementById('toggleAudioBtn');
+    const audioVolume = document.getElementById('audioVolume');
+
+    if (audioPlayer) {
+      audioPlayer.volume = parseFloat(localStorage.getItem('audioVolume') || '0.12');
+      audioPlayer.loop = true;
     }
 
-    videoPlayer.addEventListener("ended", () => {
-      playNextVideo();
-      videoPlayer.play().catch(() => {});
-    });
+    function setAudioUI(enabled) {
+      if (!toggleAudioBtn) return;
+      toggleAudioBtn.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+      toggleAudioBtn.textContent = enabled ? '🔊 Sonido ON' : '🔇 Sonido OFF';
+    }
 
-    // Iniciar con el primer video y reproducir
-    videoPlayer.src = videos[0];
-    videoPlayer.load();
-    videoPlayer.oncanplay = () => {
-      videoPlayer.play().catch(() => {});
-      videoPlayer.oncanplay = null;
-    };
-
-    // AUDIO LOGIC MEJORADO
-    const audioPlayer = document.getElementById("audioPlayer");
-    const toggleAudioBtn = document.getElementById("toggleAudioBtn");
-
-    function updateAudioButton() {
-      if (audioPlayer.paused) {
-        toggleAudioBtn.textContent = "🔇 Sonido OFF";
-      } else {
-        toggleAudioBtn.textContent = "🔊 Sonido ON";
+    async function tryPlayAudio() {
+      try {
+        await audioPlayer.play();
+        localStorage.setItem('audioEnabled','true');
+        setAudioUI(true);
+        return true;
+      } catch (err) {
+        console.debug('Audio playback blocked or unavailable', err);
+        localStorage.setItem('audioEnabled','false');
+        setAudioUI(false);
+        return false;
       }
     }
 
-    // Botón ON/OFF
-    toggleAudioBtn.addEventListener("click", function() {
-      if (audioPlayer.paused || audioPlayer.ended) {
-        audioPlayer.play().then(updateAudioButton);
-      } else {
-        audioPlayer.pause();
-        updateAudioButton();
-      }
-    });
+    if (toggleAudioBtn) {
+      toggleAudioBtn.addEventListener('click', async () => {
+        const enabled = localStorage.getItem('audioEnabled') === 'true';
+        if (!enabled) {
+          await tryPlayAudio();
+        } else {
+          audioPlayer.pause();
+          localStorage.setItem('audioEnabled','false');
+          setAudioUI(false);
+        }
+      });
+    }
 
-    // Sincronizar el botón si el usuario pausa/reproduce desde controles nativos
-    audioPlayer.addEventListener('pause', updateAudioButton);
-    audioPlayer.addEventListener('play', updateAudioButton);
+    if (audioPlayer) {
+      audioPlayer.addEventListener('play', () => setAudioUI(true));
+      audioPlayer.addEventListener('pause', () => setAudioUI(false));
+    }
 
-    // Intentar reproducir el audio al cargar la página (si el navegador lo permite)
-    window.addEventListener("DOMContentLoaded", function() {
-      audioPlayer.play().catch(() => {});
-      updateAudioButton();
+    if (audioVolume) {
+      audioVolume.value = audioPlayer.volume;
+      audioVolume.addEventListener('input', (e) => {
+        const v = parseFloat(e.target.value);
+        audioPlayer.volume = v;
+        localStorage.setItem('audioVolume', String(v));
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const shouldPlay = localStorage.getItem('audioEnabled') === 'true';
+      setAudioUI(shouldPlay);
+      if (shouldPlay) tryPlayAudio();
     });
 
 
@@ -720,57 +1182,16 @@ html {
       sidebar.classList.toggle('open');
     });
 
-    // Fade-in animation for sections
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-    sections.forEach(section => observer.observe(section));
+    // Section observer removed — animations disabled; all sections render statically visible by default
 
-    // 3D tilt effect for cards
-    const cards = document.querySelectorAll('.liquid-glass, .tool-card');
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        const rotateX = y / rect.height * 12;
-        const rotateY = -x / rect.width * 12;
-        card.style.transform = `perspective(1200px) translateY(-4px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1200px) translateY(0) rotateX(0deg) rotateY(0deg) scale(1)';
-      });
-    });
+    // (previously used to add '.visible' class for animated reveal) 
 
-    // GSAP SplitText efecto animación en h1
-    if (window.SplitText) {
-      gsap.registerPlugin(SplitText);
-      let split, animation;
-      const h1 = document.querySelector("#chars");
-      function setup() {
-        split && split.revert();
-        animation && animation.revert();
-        split = SplitText.create(h1, {type:"chars"});
-      }
-      setup();
-      window.addEventListener("resize", setup);
-      // Cambiar trigger de click/page load a mouseenter
-      h1.addEventListener("mouseenter", () => {
-        animation && animation.revert();
-        animation = gsap.from(split.chars, {
-          x: 150,
-          opacity: 0,
-          duration: 0.7,
-          ease: "power4",
-          stagger: 0.04
-        });
-      });
-    }
+    // 3D tilt effect removed — replaced by subtle CSS hover/focus for accessibility and performance
+    // (JS-based tilt caused motion for some users; CSS hover + prefers-reduced-motion now handles interaction)
+
+
+    // SplitText/gsap removed — headline remains static per user's request (no animations)
+    // Keep the 'chars' element static and accessible.
 
     // Reloj en vivo en la barra de navegación
 function updateClock() {
@@ -792,28 +1213,34 @@ function updateClock() {
 setInterval(updateClock, 1000);
 window.addEventListener('DOMContentLoaded', updateClock);
 
-gsap.from(".headline-gradient", {
-      opacity: 0,
-      y: 40,
-      duration: 1.4,
-      ease: "power3.out",
-      delay: 0.2
-    });
-    gsap.from(".subheadline", {
-      opacity: 0,
-      y: 30,
-      duration: 1.3,
-      ease: "power2.out",
-      delay: 0.4
-    });
-    gsap.from(".cv-content", {
-      opacity: 0,
-      y: 20,
-      duration: 1.2,
-      ease: "power2.out",
-      delay: 0.6
-    });
+// Animations removed per user request — hero and UI remain static.
+    // Set accessible, static hero roles instead of animated typing
+    const _typed = document.getElementById('typedRoles');
+    if (_typed) _typed.textContent = 'Ingeniero de Sistemas · Full Stack Developer · .NET · Azure · SQL';
 
+    // Theme toggle (persistente + accesibilidad)
+    (function() {
+      const root = document.documentElement;
+      const toggle = document.getElementById('theme-toggle');
+      if (!toggle) return;
+      const stored = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initial = stored || (systemPrefersDark ? 'dark' : 'light');
+      root.setAttribute('data-theme', initial);
+      function updateUI(theme) {
+        toggle.setAttribute('aria-pressed', theme === 'dark');
+        toggle.textContent = theme === 'dark' ? '🌙' : '🌗';
+      }
+      updateUI(initial);
+      toggle.addEventListener('click', () => {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateUI(next);
+      });
+    })();
+
+    // Scroll/GSAP animations removed — timeline is static (no JS-driven reveals).
 
     
   </script>
