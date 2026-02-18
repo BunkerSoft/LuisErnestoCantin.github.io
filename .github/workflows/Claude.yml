@@ -18,25 +18,37 @@ jobs:
         contains(github.event.issue.labels.*.name, 'ai') ||
         contains(github.event.issue.body, '@claude')
       )
-    
+
     runs-on: ubuntu-latest
-    
+
     permissions:
       issues: write
       contents: read
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Install dependencies
         run: npm install @octokit/rest
-      
+
+      # FIX #5: Pre-crear labels necesarios para evitar error 422
+      - name: Ensure required labels exist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "claude-analyzed"   --color "0075ca" --description "Analizado por Claude AI" --force
+          gh label create "claude-generated"  --color "1d76db" --description "Generado por Claude AI"  --force
+          gh label create "needs-review"      --color "e4e669" --description "Requiere revisión humana" --force
+          gh label create "performance"       --color "f9d0c4" --description "Relacionado con rendimiento" --force
+          gh label create "seo"               --color "bfd4f2" --description "Relacionado con SEO"        --force
+          gh label create "accessibility"     --color "d4c5f9" --description "Accesibilidad"              --force
+
       - name: Claude analyzes issue
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,17 +63,21 @@ jobs:
           node << 'ENDJS'
           const { Octokit } = require('@octokit/rest');
           const https = require('https');
-          
+
           const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-          
+
+          // FIX #2: Usar Buffer para calcular Content-Length en bytes (no chars),
+          // evitando desajuste con caracteres UTF-8 multi-byte (tildes, ñ, etc.)
           function callClaude(prompt) {
             return new Promise((resolve, reject) => {
-              const data = JSON.stringify({
+              const payload = {
+                // FIX #1: Model string correcto (claude-sonnet-4-5-20250929 es válido)
                 model: "claude-sonnet-4-5-20250929",
                 max_tokens: 4000,
                 messages: [{ role: "user", content: prompt }]
-              });
-              
+              };
+              const dataBuffer = Buffer.from(JSON.stringify(payload), 'utf8');
+
               const options = {
                 hostname: 'api.anthropic.com',
                 port: 443,
@@ -71,10 +87,10 @@ jobs:
                   'Content-Type': 'application/json',
                   'x-api-key': process.env.ANTHROPIC_API_KEY,
                   'anthropic-version': '2023-06-01',
-                  'Content-Length': data.length
+                  'Content-Length': dataBuffer.byteLength  // FIX #2: byteLength correcto
                 }
               };
-              
+
               const req = https.request(options, (res) => {
                 let body = '';
                 res.on('data', (chunk) => { body += chunk; });
@@ -86,27 +102,28 @@ jobs:
                     } else if (response.error) {
                       reject(new Error(response.error.message || 'API Error'));
                     } else {
-                      reject(new Error('Invalid response'));
+                      reject(new Error('Invalid response: ' + body));
                     }
                   } catch (err) { reject(err); }
                 });
               });
               req.on('error', reject);
-              req.write(data);
+              req.write(dataBuffer);  // FIX #2: escribir el Buffer, no el string
               req.end();
             });
           }
-          
+
           async function main() {
             const issueNumber = parseInt(process.env.ISSUE_NUMBER);
-            const issueTitle = process.env.ISSUE_TITLE;
-            const issueBody = process.env.ISSUE_BODY || '';
+            const issueTitle  = process.env.ISSUE_TITLE;
+            const issueBody   = process.env.ISSUE_BODY || '';
             const issueAuthor = process.env.ISSUE_AUTHOR;
-            
+
             console.log('Claude procesando Issue #' + issueNumber);
-            
+
             try {
-              const prompt = "Eres Claude, asistente AI del repo BunkerSoft/LuisErnestoCantin.github.io\n\n" +
+              const prompt =
+                "Eres Claude, asistente AI del repo BunkerSoft/LuisErnestoCantin.github.io\n\n" +
                 "Portfolio en GitHub Pages (HTML5, CSS3, JS vanilla)\n\n" +
                 "Issue #" + issueNumber + "\n" +
                 "Autor: @" + issueAuthor + "\n" +
@@ -120,88 +137,97 @@ jobs:
                 "4. Archivos a modificar\n" +
                 "5. Estimación\n\n" +
                 "Responde en Markdown con: Resumen, Viabilidad, Objetivos, Plan, Validación, Estimación";
-              
+
               const response = await callClaude(prompt);
-              
+
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
                 issue_number: issueNumber,
                 body: response
               });
-              
-              const labels = ['claude-analyzed'];
+
+              const labels   = ['claude-analyzed'];
               const combined = (issueTitle + ' ' + issueBody).toLowerCase();
-              
-              if (combined.includes('performance')) labels.push('performance');
-              if (combined.includes('seo')) labels.push('seo');
+
+              if (combined.includes('performance'))  labels.push('performance');
+              if (combined.includes('seo'))          labels.push('seo');
               if (combined.includes('accessibility')) labels.push('accessibility');
-              if (combined.includes('bug')) labels.push('bug');
-              
+              if (combined.includes('bug'))          labels.push('bug');
+
               await octokit.issues.addLabels({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
                 issue_number: issueNumber,
                 labels: labels
               });
-              
+
               console.log('Completado');
-              
+
             } catch (error) {
               console.error('Error:', error.message);
               await octokit.issues.createComment({
                 owner: process.env.REPO_OWNER,
                 repo: process.env.REPO_NAME,
                 issue_number: issueNumber,
-                body: "Error: " + error.message
+                body: "⚠️ Error al procesar con Claude: " + error.message
               });
               process.exit(1);
             }
           }
-          
+
           main();
           ENDJS
 
+  # ─────────────────────────────────────────────
   claude-implementation:
     if: |
       github.event_name == 'issue_comment' &&
       contains(github.event.comment.body, '/implement') &&
       contains(github.event.issue.labels.*.name, 'claude-analyzed')
-    
+
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: write
       pull-requests: write
       issues: write
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Configure Git
         run: |
           git config --global user.name "Claude AI Bot"
           git config --global user.email "claude@bunkersoft.dev"
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Install dependencies
         run: npm install @octokit/rest
-      
+
+      # FIX #5: Garantizar labels antes de crear el PR
+      - name: Ensure required labels exist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create "claude-generated" --color "1d76db" --description "Generado por Claude AI"  --force
+          gh label create "needs-review"     --color "e4e669" --description "Requiere revisión humana" --force
+
       - name: Notify start
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
         run: |
-          gh issue comment $ISSUE_NUMBER --body "Implementación iniciada @$COMMENT_AUTHOR"
-      
+          gh issue comment "$ISSUE_NUMBER" --body "🤖 Implementación iniciada por @$COMMENT_AUTHOR"
+
       - name: Generate implementation
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -211,26 +237,29 @@ jobs:
           ISSUE_BODY: ${{ github.event.issue.body }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
+          # FIX #3: BRANCH_NAME expuesta como env var para que el heredoc la vea
+          BRANCH_NAME: claude/issue-${{ github.event.issue.number }}
         run: |
-          BRANCH_NAME="claude/issue-$ISSUE_NUMBER"
           git checkout -b "$BRANCH_NAME"
-          
+
           node << 'ENDJS'
           const { Octokit } = require('@octokit/rest');
-          const https = require('https');
-          const fs = require('fs');
+          const https  = require('https');
+          const fs     = require('fs');
           const { execSync } = require('child_process');
-          
+
           const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-          
-          function callClaude(prompt) {
+
+          // FIX #2: Buffer para Content-Length correcto con UTF-8
+          function callClaude(prompt, maxTokens = 8000) {
             return new Promise((resolve, reject) => {
-              const data = JSON.stringify({
+              const payload = {
                 model: "claude-sonnet-4-5-20250929",
-                max_tokens: 8000,
+                max_tokens: maxTokens,
                 messages: [{ role: "user", content: prompt }]
-              });
-              
+              };
+              const dataBuffer = Buffer.from(JSON.stringify(payload), 'utf8');
+
               const options = {
                 hostname: 'api.anthropic.com',
                 port: 443,
@@ -240,10 +269,10 @@ jobs:
                   'Content-Type': 'application/json',
                   'x-api-key': process.env.ANTHROPIC_API_KEY,
                   'anthropic-version': '2023-06-01',
-                  'Content-Length': data.length
+                  'Content-Length': dataBuffer.byteLength
                 }
               };
-              
+
               const req = https.request(options, (res) => {
                 let body = '';
                 res.on('data', (chunk) => { body += chunk; });
@@ -252,128 +281,174 @@ jobs:
                     const response = JSON.parse(body);
                     if (response.content && response.content[0]) {
                       resolve(response.content[0].text);
+                    } else if (response.error) {
+                      reject(new Error(response.error.message || 'API Error'));
                     } else {
-                      reject(new Error('Invalid response'));
+                      reject(new Error('Invalid response: ' + body));
                     }
                   } catch (err) { reject(err); }
                 });
               });
               req.on('error', reject);
-              req.write(data);
+              req.write(dataBuffer);
               req.end();
             });
           }
-          
+
           async function main() {
             const issueNumber = parseInt(process.env.ISSUE_NUMBER);
-            const issueTitle = process.env.ISSUE_TITLE;
-            const issueBody = process.env.ISSUE_BODY || '';
-            
-            console.log('Generando código...');
-            
+            const issueTitle  = process.env.ISSUE_TITLE;
+            const issueBody   = process.env.ISSUE_BODY || '';
+
+            console.log('Generando código para Issue #' + issueNumber + '...');
+
             try {
-              const files = {};
+              const files     = {};
               const fileNames = ['index.html', 'style.css', 'script.js', 'README.md'];
-              
+
               for (const file of fileNames) {
                 if (fs.existsSync(file)) {
                   files[file] = fs.readFileSync(file, 'utf8');
                 }
               }
-              
-              const filesText = Object.entries(files).map(([name, content]) => 
-                name + ":\n" + content.substring(0, 2000)
-              ).join('\n\n');
-              
-              const prompt = "Implementa solución para Issue #" + issueNumber + ": " + issueTitle + "\n\n" +
-                issueBody + "\n\nArchivos actuales:\n" + filesText + "\n\n" +
-                "Output JSON: {files: {filename: content}, new_files: {}, commit_message: '', pr_body: ''}";
-              
+
+              const filesText = Object.entries(files)
+                .map(([name, content]) => name + ":\n" + content.substring(0, 2000))
+                .join('\n\n---\n\n');
+
+              // FIX #6: Pedir JSON delimitado con ```json``` para parsing robusto
+              const prompt =
+                "Implementa la solución para el Issue #" + issueNumber + ": " + issueTitle + "\n\n" +
+                issueBody + "\n\n" +
+                "Archivos actuales del proyecto:\n" + filesText + "\n\n" +
+                "IMPORTANTE: Responde ÚNICAMENTE con un bloque ```json``` que contenga exactamente:\n" +
+                "```json\n" +
+                "{\n" +
+                '  "files": { "filename": "contenido completo del archivo modificado" },\n' +
+                '  "new_files": { "filename": "contenido de archivos nuevos si se requieren" },\n' +
+                '  "commit_message": "feat: descripción concisa del cambio",\n' +
+                '  "pr_body": "Descripción detallada del PR en Markdown"\n' +
+                "}\n" +
+                "```\n" +
+                "No incluyas texto fuera del bloque JSON.";
+
               const response = await callClaude(prompt);
-              const jsonMatch = response.match(/\{[\s\S]*\}/);
-              if (!jsonMatch) throw new Error('No JSON found');
-              
-              const result = JSON.parse(jsonMatch[0]);
-              
+
+              // FIX #6: Parsing robusto usando delimitador ```json```
+              const jsonMatch = response.match(/```json\s*([\s\S]*?)\s*```/);
+              if (!jsonMatch) {
+                // Fallback: intentar extraer JSON raw si Claude no respetó el formato
+                const rawMatch = response.match(/\{[\s\S]*\}/);
+                if (!rawMatch) throw new Error('No se encontró JSON válido en la respuesta de Claude');
+                console.warn('ADVERTENCIA: Claude no usó delimitadores ```json```, usando fallback.');
+              }
+
+              const jsonStr = jsonMatch ? jsonMatch[1] : response.match(/\{[\s\S]*\}/)[0];
+              const result  = JSON.parse(jsonStr);
+
               for (const [filename, content] of Object.entries(result.files || {})) {
                 fs.writeFileSync(filename, content, 'utf8');
-                execSync('git add ' + filename);
-                console.log('Modified: ' + filename);
+                execSync('git add ' + JSON.stringify(filename));
+                console.log('Modificado: ' + filename);
               }
-              
+
               for (const [filename, content] of Object.entries(result.new_files || {})) {
+                // Crear directorios intermedios si hacen falta
+                const dir = require('path').dirname(filename);
+                if (dir !== '.') fs.mkdirSync(dir, { recursive: true });
                 fs.writeFileSync(filename, content, 'utf8');
-                execSync('git add ' + filename);
-                console.log('Created: ' + filename);
+                execSync('git add ' + JSON.stringify(filename));
+                console.log('Creado: ' + filename);
               }
-              
+
+              // Guardar metadata para el step de commit
               fs.writeFileSync('claude-metadata.json', JSON.stringify(result), 'utf8');
-              
+              console.log('Generación completada.');
+
             } catch (error) {
-              console.error('Error:', error.message);
+              console.error('Error en generación:', error.message);
               throw error;
             }
           }
-          
+
           main();
           ENDJS
-      
+
       - name: Commit and push
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+          BRANCH_NAME: claude/issue-${{ github.event.issue.number }}
         run: |
           if [ -f claude-metadata.json ]; then
-            COMMIT_MSG=$(node -e "console.log(JSON.parse(require('fs').readFileSync('claude-metadata.json', 'utf8')).commit_message || 'feat: implement issue')")
+            COMMIT_MSG=$(node -e "
+              const meta = JSON.parse(require('fs').readFileSync('claude-metadata.json','utf8'));
+              console.log(meta.commit_message || 'feat: implement issue #${{ github.event.issue.number }}');
+            ")
           else
             COMMIT_MSG="feat: implement issue #$ISSUE_NUMBER"
           fi
-          
-          git commit -m "$COMMIT_MSG" || echo "No changes"
-          git push origin "claude/issue-$ISSUE_NUMBER"
-      
+
+          git add -A
+          git commit -m "$COMMIT_MSG" || echo "Sin cambios para commitear"
+          git push origin "$BRANCH_NAME"
+
       - name: Create PR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
+          BRANCH_NAME: claude/issue-${{ github.event.issue.number }}
         run: |
+          # Leer pr_body de metadata si existe, sino usar mensaje por defecto
+          if [ -f claude-metadata.json ]; then
+            PR_BODY=$(node -e "
+              const meta = JSON.parse(require('fs').readFileSync('claude-metadata.json','utf8'));
+              console.log(meta.pr_body || 'Implementación automática por Claude AI');
+            ")
+          else
+            PR_BODY="Implementación automática por Claude AI"
+          fi
+
           gh pr create \
             --title "Fix #$ISSUE_NUMBER: $ISSUE_TITLE" \
-            --body "Closes #$ISSUE_NUMBER\n\nImplementación automática por Claude AI" \
-            --base main \
-            --head "claude/issue-$ISSUE_NUMBER" \
-            --label "claude-generated,needs-review"
-          
-          PR_URL=$(gh pr view "claude/issue-$ISSUE_NUMBER" --json url -q .url)
-          gh issue comment $ISSUE_NUMBER --body "PR creado: $PR_URL"
+            --body "Closes #$ISSUE_NUMBER
 
+$PR_BODY" \
+            --base main \
+            --head "$BRANCH_NAME" \
+            --label "claude-generated,needs-review"
+
+          PR_URL=$(gh pr view "$BRANCH_NAME" --json url -q .url)
+          gh issue comment "$ISSUE_NUMBER" --body "✅ PR creado automáticamente: $PR_URL"
+
+  # ─────────────────────────────────────────────
   claude-pr-review:
     if: |
       github.event_name == 'pull_request' && (
         contains(github.event.pull_request.body, '@claude') ||
         contains(github.event.pull_request.labels.*.name, 'claude-review')
       )
-    
+
     runs-on: ubuntu-latest
-    
+
     permissions:
       pull-requests: write
       contents: read
-    
+
     steps:
       - name: Checkout PR
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Install dependencies
         run: npm install @octokit/rest
-      
+
       - name: Claude reviews PR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -388,17 +463,19 @@ jobs:
           node << 'ENDJS'
           const { Octokit } = require('@octokit/rest');
           const https = require('https');
-          
+
           const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-          
+
+          // FIX #2: Buffer para Content-Length correcto
           function callClaude(prompt) {
             return new Promise((resolve, reject) => {
-              const data = JSON.stringify({
+              const payload = {
                 model: "claude-sonnet-4-5-20250929",
                 max_tokens: 4000,
                 messages: [{ role: "user", content: prompt }]
-              });
-              
+              };
+              const dataBuffer = Buffer.from(JSON.stringify(payload), 'utf8');
+
               const options = {
                 hostname: 'api.anthropic.com',
                 port: 443,
@@ -408,76 +485,86 @@ jobs:
                   'Content-Type': 'application/json',
                   'x-api-key': process.env.ANTHROPIC_API_KEY,
                   'anthropic-version': '2023-06-01',
-                  'Content-Length': data.length
+                  'Content-Length': dataBuffer.byteLength
                 }
               };
-              
+
               const req = https.request(options, (res) => {
                 let body = '';
                 res.on('data', (chunk) => { body += chunk; });
                 res.on('end', () => {
                   try {
                     const response = JSON.parse(body);
-                    resolve(response.content[0].text);
+                    if (response.content && response.content[0]) {
+                      resolve(response.content[0].text);
+                    } else if (response.error) {
+                      reject(new Error(response.error.message || 'API Error'));
+                    } else {
+                      reject(new Error('Invalid response: ' + body));
+                    }
                   } catch (err) { reject(err); }
                 });
               });
               req.on('error', reject);
-              req.write(data);
+              req.write(dataBuffer);
               req.end();
             });
           }
-          
+
           async function main() {
             const prNumber = parseInt(process.env.PR_NUMBER);
-            const prTitle = process.env.PR_TITLE;
-            const prBody = process.env.PR_BODY || '';
+            const prTitle  = process.env.PR_TITLE;
+            const prBody   = process.env.PR_BODY || '';
             const prAuthor = process.env.PR_AUTHOR;
-            
+
             console.log('Revisando PR #' + prNumber);
-            
+
             try {
-              const files = await octokit.pulls.listFiles({
+              const filesRes = await octokit.pulls.listFiles({
                 owner: process.env.REPO_OWNER,
-                repo: process.env.REPO_NAME,
+                repo:  process.env.REPO_NAME,
                 pull_number: prNumber
               });
-              
-              const diffs = files.data.map(f => 
-                f.filename + ': +' + f.additions + ' -' + f.deletions
-              ).join('\n');
-              
-              const prompt = "Revisa PR #" + prNumber + ": " + prTitle + "\n" +
+
+              const diffs = filesRes.data
+                .map(f => f.filename + ': +' + f.additions + ' -' + f.deletions)
+                .join('\n');
+
+              const prompt =
+                "Revisa el PR #" + prNumber + ": " + prTitle + "\n" +
                 "Autor: @" + prAuthor + "\n" +
                 "Descripción: " + prBody + "\n\n" +
-                "Cambios:\n" + diffs + "\n\n" +
-                "Analiza: código, performance, SEO, accesibilidad\n" +
-                "Responde: Resumen, Rating por categoría, Recomendación (APPROVE/COMMENT/REQUEST_CHANGES)";
-              
+                "Archivos modificados:\n" + diffs + "\n\n" +
+                "Analiza: calidad de código, performance, SEO, accesibilidad, seguridad.\n" +
+                "Responde en Markdown con: Resumen Ejecutivo, Rating por categoría (1-10), " +
+                "Problemas encontrados, Sugerencias de mejora, y Recomendación final: " +
+                "APPROVE / COMMENT / REQUEST_CHANGES";
+
               const review = await callClaude(prompt);
-              
+
+              // Determinar el evento del review
               let event = 'COMMENT';
               if (review.includes('APPROVE') && !review.includes('REQUEST_CHANGES')) {
                 event = 'APPROVE';
               } else if (review.includes('REQUEST_CHANGES')) {
                 event = 'REQUEST_CHANGES';
               }
-              
+
               await octokit.pulls.createReview({
                 owner: process.env.REPO_OWNER,
-                repo: process.env.REPO_NAME,
+                repo:  process.env.REPO_NAME,
                 pull_number: prNumber,
-                body: review,
+                body:  review,
                 event: event
               });
-              
+
               console.log('Review publicado: ' + event);
-              
+
             } catch (error) {
-              console.error('Error:', error.message);
+              console.error('Error en PR review:', error.message);
               throw error;
             }
           }
-          
+
           main();
           ENDJS
