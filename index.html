@@ -34,14 +34,15 @@
       --accent: #06b6d4;
       --accent-strong: #0ea5e9;
       --accent-glow: rgba(6,182,212,0.28);
-      --glass-bg: rgba(255,255,255,0.07);
-      --glass-bg-strong: rgba(255,255,255,0.12);
-      --glass-border: rgba(255,255,255,0.13);
-      --glass-border-strong: rgba(255,255,255,0.22);
-      --glass-shadow: 0 8px 32px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.09);
+      /* Glass más oscuro y opaco → contrasta bien con video claro */
+      --glass-bg: rgba(5,14,30,0.62);
+      --glass-bg-strong: rgba(5,14,30,0.78);
+      --glass-border: rgba(255,255,255,0.10);
+      --glass-border-strong: rgba(255,255,255,0.18);
+      --glass-shadow: 0 8px 40px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.07);
       --text-primary: #f0f9ff;
-      --text-secondary: rgba(224,242,254,0.80);
-      --text-muted: rgba(186,230,253,0.50);
+      --text-secondary: rgba(224,242,254,0.82);
+      --text-muted: rgba(186,230,253,0.52);
       --radius-lg: 20px;
       --radius-md: 14px;
       --radius-sm: 10px;
@@ -54,7 +55,7 @@
       color: var(--text-primary);
       letter-spacing: -0.02em;
       margin: 0;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+      text-shadow: 0 2px 24px rgba(0,0,0,0.70), 0 1px 6px rgba(0,0,0,0.45);
     }
     
     /* ============================================
@@ -98,12 +99,19 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: linear-gradient(
-        180deg,
-        rgba(5,15,28,0.64) 0%,
-        rgba(3,10,20,0.52) 50%,
-        rgba(5,15,28,0.70) 100%
-      );
+      /* Overlay muy sutil — el video domina, vignette suave en bordes */
+      background:
+        linear-gradient(
+          180deg,
+          rgba(3,10,22,0.38) 0%,    /* nav — legible */
+          rgba(3,10,22,0.10) 18%,   /* hero — video casi puro */
+          rgba(3,10,22,0.10) 82%,   /* contenido */
+          rgba(3,10,22,0.34) 100%   /* footer */
+        ),
+        radial-gradient(ellipse 120% 80% at 50% 50%,
+          transparent 40%,
+          rgba(0,0,0,0.22) 100%     /* vignette lateral */
+        );
     }
 
     /* ============================================
@@ -134,17 +142,17 @@
        NAVIGATION
     ============================================ */
     .nav-shrink {
-      background: rgba(5,15,28,0.55);
-      backdrop-filter: blur(28px) saturate(1.6);
-      -webkit-backdrop-filter: blur(28px) saturate(1.6);
-      border-bottom: 1px solid rgba(255,255,255,0.09);
+      background: rgba(4,12,26,0.58);
+      backdrop-filter: blur(28px) saturate(1.5);
+      -webkit-backdrop-filter: blur(28px) saturate(1.5);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       border-radius: 0;
-      box-shadow: 0 2px 24px rgba(0,0,0,0.30);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.35);
       transition: none;
     }
     .nav-shrink.scrolled {
-      background: rgba(5,15,28,0.75);
-      box-shadow: 0 4px 32px rgba(0,0,0,0.38);
+      background: rgba(4,12,26,0.80);
+      box-shadow: 0 4px 28px rgba(0,0,0,0.45);
       padding: 0.4rem 1rem;
     }
     .nav-brand {
@@ -356,11 +364,11 @@
       width: min(520px, calc(100% - 16px));
       text-align: left;
       border-radius: var(--radius-md);
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+      background: rgba(5,14,30,0.65);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.40);
       padding: 1rem;
       min-height: 130px;
       transition: none;
@@ -391,11 +399,11 @@
     .liquid-card {
       position: relative; overflow: hidden;
       border-radius: var(--radius-md); padding: 1.25rem;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      backdrop-filter: blur(18px) saturate(1.4);
-      -webkit-backdrop-filter: blur(18px) saturate(1.4);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.07);
+      background: rgba(5,14,30,0.65);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      box-shadow: 0 8px 36px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.06);
       color: var(--text-primary);
       display: flex; flex-direction: column; justify-content: space-between;
       min-height: 180px;
@@ -433,9 +441,10 @@
        PROFESSIONAL EXPERIENCE (user-supplied)
     ============================================ */
     .bg-card {
-      background: rgba(255,255,255,0.07) !important;
-      border: 1px solid rgba(255,255,255,0.11) !important;
-      backdrop-filter: blur(16px);
+      background: rgba(5,14,30,0.65) !important;
+      border: 1px solid rgba(255,255,255,0.09) !important;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
       border-radius: var(--radius-md) !important;
     }
     .bg-primary { background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #fff; }
@@ -467,10 +476,10 @@
        FOOTER
     ============================================ */
     footer.liquid-glass {
-      background: rgba(5,15,28,0.60) !important;
-      backdrop-filter: blur(24px) !important;
-      -webkit-backdrop-filter: blur(24px) !important;
-      border-top: 1px solid rgba(255,255,255,0.09) !important;
+      background: rgba(4,12,26,0.72) !important;
+      backdrop-filter: blur(28px) !important;
+      -webkit-backdrop-filter: blur(28px) !important;
+      border-top: 1px solid rgba(255,255,255,0.08) !important;
       border-radius: 0 !important;
       box-shadow: none !important;
     }
@@ -1204,34 +1213,6 @@
             </div>
           </div>
 
-          <!-- Contact Form -->
-          <div class="liquid-glass p-6 rounded-2xl">
-            <form id="contactForm" class="space-y-4" autocomplete="off" novalidate>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label for="nombre" class="contact-label">Nombre</label>
-                  <input type="text" id="nombre" name="nombre" required class="contact-input" placeholder="Tu nombre">
-                </div>
-                <div>
-                  <label for="email" class="contact-label">Email</label>
-                  <input type="email" id="email" name="email" required class="contact-input" placeholder="tu@email.com">
-                </div>
-              </div>
-              <div>
-                <label for="asunto" class="contact-label">Asunto</label>
-                <input type="text" id="asunto" name="asunto" required class="contact-input" placeholder="¿En qué puedo ayudarte?">
-              </div>
-              <div>
-                <label for="mensaje" class="contact-label">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" rows="4" required class="contact-input" placeholder="Cuéntame sobre tu proyecto..."></textarea>
-              </div>
-              <button type="submit" class="contact-submit">
-                <i class="fas fa-paper-plane"></i>
-                <span>Enviar mensaje</span>
-              </button>
-              <div id="formFeedback" class="text-xs text-center hidden" style="color:#4ade80!important;"></div>
-            </form>
-          </div>
         </div>
       </section>
     </main>
