@@ -3,25 +3,146 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-bg: #F8F8F3;
+  --color-aurora-cyan: #BFEFF3;
+  --color-aurora-yellow: #FFF1A8;
+  --color-aurora-green: #DCEFAF;
+  --color-aurora-blue: #C9E4F5;
+  --color-aurora-violet: #DDD8F5;
+  --color-glass: rgba(255, 255, 255, 0.38);
+  --color-text: #1A1A2E;
+  --color-text-muted: rgba(26, 26, 46, 0.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-inter), Inter, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), "Space Grotesk", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(26, 26, 46, 0.2);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(26, 26, 46, 0.4);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(26, 26, 46, 0.06);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #BFEFF3 0%, #DDD8F5 50%, #FFF1A8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.liquid-glass {
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 50%, rgba(191, 239, 243, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 30%, rgba(221, 216, 245, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(220, 239, 175, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 40% at 30% 0%, rgba(201, 228, 245, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #f0f4f8 0%, #e8eef5 30%, #f0edf5 60%, #eef2f5 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.liquid-glass > * {
+  position: relative;
+  z-index: 1;
+}
+
+.aurora-glow {
+  position: relative;
+}
+.aurora-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #BFEFF3, #DDD8F5, #FFF1A8, #DCEFAF);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  filter: blur(8px);
+}
+.aurora-glow:hover::before {
+  opacity: 0.6;
+}
+
+.canvas-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+@keyframes textReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) skewY(2deg);
+    filter: blur(4px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+    filter: blur(0px);
+  }
+}
+
+.text-reveal {
+  animation: textReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+::selection {
+  background: rgba(191, 239, 243, 0.4);
+  color: #1A1A2E;
 }
