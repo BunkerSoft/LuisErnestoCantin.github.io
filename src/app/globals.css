@@ -4,14 +4,7 @@
 
 :root {
   --color-bg: #F8F8F3;
-  --color-aurora-cyan: #BFEFF3;
-  --color-aurora-yellow: #FFF1A8;
-  --color-aurora-green: #DCEFAF;
-  --color-aurora-blue: #C9E4F5;
-  --color-aurora-violet: #DDD8F5;
-  --color-glass: rgba(255, 255, 255, 0.38);
   --color-text: #1A1A2E;
-  --color-text-muted: rgba(26, 26, 46, 0.5);
 }
 
 *,
@@ -123,23 +116,6 @@ h6 {
   width: 100%;
   height: 100dvh;
   overflow: hidden;
-}
-
-@keyframes textReveal {
-  from {
-    opacity: 0;
-    transform: translateY(20px) skewY(2deg);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) skewY(0deg);
-    filter: blur(0px);
-  }
-}
-
-.text-reveal {
-  animation: textReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 ::selection {
